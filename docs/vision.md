@@ -18,8 +18,35 @@
 |3.|Administrator|<ol><li>Handles complete business operations as per defined workflow and process.</li><li>Records and manage catalog of {{product}}.</li><li>Records and manage profiles of end customer.</li><li>Records and map quantified {{product}} to end customer as per request.</li><li>Records and manage profiles of delivery squad</li><li>Pay salary to delivery squad.</li><li>Records and assign {{product}} to delivery squad for deliveries to end customer.</li><li>Records and manage end customer subscriptions.</li><li>Generates invoices based on records and send it to end customer(through delivery squad) for payment.</li><li>Collects invoice payment from end customer and records it.</li><li>Generates sales statistics and financial reports from records.</li><ol>|
 |4.|Delivery Squad|<ol><li>Handles and ensures daily delivery of {{product}} at door step of end customer.</li><li>Records the delivery details - Customer number, {{product}} detail, Quantity and Date Time.</li><li>Handovers invoice received from administrator to end customer.</li><li>Can collect invoice payment from end customer and records it.</li><li>Take salary payment from administrator.</li><ol>|
 
-## Business Process 🛠️
+## Business Processes 🛠️
 
+To run the business successfully and effeciently, {{app_for}} carry out number of core business processes and operations.
 
+### 1. End Customer Enrollment Process
 
-### Customer Enrollment Process
+```mermaid
+flowchart TB
+    start([Start]) -->
+    customer-request[Customer requests for enrollment and subscription] --> 
+    customer-details[/Customer provide details. Fullname, Address, Phone Number,\nEmail Address, Profile Pic, {{product}},\nSubscription Period and Quantity/] --> 
+    check-customer{Administrator checks\nif customer details\nalready exists in records}
+    check-customer --> |no|create-customer[Administrator creates new customer record\nin jouranal with provided details]
+    check-customer --> |yes|update-customer[Administrator updates existing customer record\nin jouranal with provided details]
+    create-customer --> 
+    customer-enrolled[/Customer enrollment is recorded in journal and\nready to get map to delivery squad for {{product}} delivery/]
+    update-customer --> 
+    customer-enrolled -->
+    finish([Finish])
+```
+
+|Name Of Process|End Customer Enrollment Process|
+|:--|:--|
+|**Process Owner**|Administrator|
+|**Description**|Administrator enrolls new customer with subscription for delivery of {{product}}.|
+|**Actors**|<ol><li>End customer</li><li>Administrator</li><li>Customer Record Journal</li><ol>|
+|**Process Input**|End customer request for enrollment and activate subscription to get delivery of {{product}}. Customer details - Fullname, Address, Phone Number, Email Address, Profile Pic, Subscription Period and Quantity are the inputs for this process.|
+|**Process Flow**|End customer request for enrollment and activate subscription to get delivery of {{product}}. Customer details - Fullname, Address, Phone Number, Email Address, Profile Pic, Subscription Period and Quantity are the inputs for this process.|
+|**Process Output**|End customer request for enrollment and activate subscription to get delivery of {{product}}. Customer details - Fullname, Address, Phone Number, Email Address, Profile Pic, Subscription Period and Quantity are the inputs for this process.|
+|**Process Boundary**|End customer request for enrollment and activate subscription to get delivery of {{product}}. Customer details - Fullname, Address, Phone Number, Email Address, Profile Pic, Subscription Period and Quantity are the inputs for this process.|
+|**Exceptions To Normal Process Flow**|End customer request for enrollment and activate subscription to get delivery of {{product}}. Customer details - Fullname, Address, Phone Number, Email Address, Profile Pic, Subscription Period and Quantity are the inputs for this process.|
+|**Control Points and Measurements**|End customer request for enrollment and activate subscription to get delivery of {{product}}. Customer details - Fullname, Address, Phone Number, Email Address, Profile Pic, Subscription Period and Quantity are the inputs for this process.|
