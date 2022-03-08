@@ -46,15 +46,33 @@ flowchart TB
 |**Actors**|<ol><li>Customer</li><li>Administrator</li><li>Customer Journal</li><ol>|
 |**Process Input**|Customer details - Fullname, Address, Phone Number, Email Address, Profile Pic, Subscription Period and Quantity are the inputs for this process.|
 |**Process Output**|Customer details are recorded in customer journal and ready to get map to delivery squad for delivery of {{product}}.|
-|**Process Flow**|<ol><li>The process starts from customer requesting for enrollment and activate subscription to get delivery of {{product}}.</li><li>Administrator asks customer to provide necessary details. Fullname, Address, Phone Number,Email Address, Profile Pic, {{product}}, Subscription Period and Quantity. (Input)</li><li>Upon getting customer details, administrator records customer and subscription details in customer journal.</li><li>The process ends with customer getting enrolled and ready to get map to delivery squad for {{product}} delivery. (Output)</li><ol>|
-|**Process Boundary**|The starting boundary of process is defined by administrator asking customer to provide necessary details with subscription.<br>The ending boundary of process is defined by customer getting enrolled with details recorded in customer journal and ready to get map to delivery squad.|
+|**Process Flow**|<ol><li>The process starts from customer requesting for enrollment and activate subscription to get delivery of {{product}}.</li><li>Administrator asks customer to provide necessary details. Customer details - Fullname, Address, Phone Number,Email Address, Profile Pic, {{product}}, Subscription Period and Quantity. (Input)</li><li>Upon getting customer details, administrator records customer and subscription details in customer journal.</li><li>The process ends with customer getting enrolled and ready to get map to delivery squad for {{product}} delivery. (Output)</li><ol>|
+|**Process Boundary**|The starting boundary of process is defined by administrator asking customer to provide necessary details with subscription.</br></br>The ending boundary of process is defined by customer getting enrolled with details recorded in customer journal and ready to get map to delivery squad.|
 |**Exceptions To Normal Process Flow**|In step-2, if customer doesn't provide all necessary details then administrator re-requests for mandatory details and the Customer Enrollment Process will begin again.|
-|**Control Points and Measurements**|In step-3, administrator checks if customer details already exists in journal. If administrator finds customer details then administrator updates existing customer record OR else creates new customer record in customer journal.|
+|**Control Points and Measurements**|In step-3, administrator checks if customer details already exists in customer journal. If administrator finds customer details then administrator updates existing customer record OR else creates new customer record in customer journal.|
 
-### 2. {{product}} - Catalog Management Process
+### 2. Product Creation Process
 
 ```mermaid
 flowchart TB
-    start([Start]) -->
+    start([Start]) --> 
+    product-details[/Administrator get's {{product}} details from manufacturer.\nName, Brand, Available In Quantity And Price./] -->
+    check-product{Administrator checks\nif product already exists\nin product catalog.}
+    check-product --> |no|create-product[Administrator creates new product\nin catalog with provided details]
+    check-product --> |yes|update-product[Administrator updates existing product\nin catalog with provided details]
+    create-product --> 
+    product-created[/Product details are recorded in catalog and ready to\nget map to end customer for delivery/]
+    update-product --> product-created -->
     finish([Finish])
 ```
+|Name Of Process|Product Creation Process|
+|:--|:--|
+|**Process Owner**|Administrator|
+|**Description**|Administrator creates new {{product}} in product catalog.|
+|**Actors**|<ol><li>Administrator</li><li>Manufacturer</li><li>Product Catalog</li><ol>|
+|**Process Input**|{{product}} details - Name, Brand, Available In Quantity And Price are the inputs for this process.|
+|**Process Output**|{{product}} details are recorded in product catalog and ready to get map to end customer for delivery.|
+|**Process Flow**|<ol><li>The process starts when administrator requests {{product}} details from manufacturing company. {{product}} details - Name, Brand, Available In Quantity And Price. (Input)</li><li>Upon getting customer details, administrator records {{product}} details in product catalog.</li><li>The process ends with product details getting recorded in product catalog and ready to get map to end customer for delivery. (Output)</li><ol>|
+|**Process Boundary**|The starting boundary of process is defined by administrator asking manufacturer company to provide necessary product details.</br></br>The ending boundary of process is defined by {{product}} getting recorded with details in product catalog and ready to get map to end customer for delivery.|
+|**Exceptions To Normal Process Flow**|In step-2, if manufacturer doesn't provide all necessary product details then administrator re-requests for details and the Product Creation Process will begin again.|
+|**Control Points and Measurements**|In step-3, administrator checks if {{product}} details already exists in product catalog. If administrator finds product details then administrator updates existing product OR else creates new product in product catalog.|
