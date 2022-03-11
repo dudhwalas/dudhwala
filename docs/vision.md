@@ -48,7 +48,35 @@ flowchart TB
 |**Exceptions To Normal Process Flow**|In step-2, if manufacturer doesn't provide all necessary product details then administrator re-requests for details and the Product Creation Process will begin again.|
 |**Control Points and Measurements**|In step-3,<ul><li>Administrator checks if {{product}} details already exists in product catalog.</li><li>If administrator finds product details then administrator updates existing product OR else creates new product in product catalog.</li></ul>|
 
-### 2. Customer Enrollment Process
+### 2. Recruit Delivery Squad Process
+
+```mermaid
+flowchart TB
+    start([Start]) -->
+    admin-request[Administrator asks for details of delivery squad member] --> delivery-squad-details[/Delivery squad member provide details. \n Fullname, Address, Phone Number, Email Address, Profile Pic and Idenitity Proof. \n Salary per month is agreed by administrator./] --> 
+    check-delivery-squad{Administrator checks \n if delivery squad member details \n already exists in records}
+    check-delivery-squad --> |no|create-delivery-squad[Administrator creates new delivery squad member record \n in journal with provided details]
+    check-delivery-squad --> |yes|update-delivery-squad[Administrator updates existing delivery squad member record \n in journal with provided details]
+    create-delivery-squad --> 
+    delivery-squad-recruited[/Delivery squad member details are recorded in journal \n and ready to get map for delivery of {{product}}/]
+    update-delivery-squad --> 
+    delivery-squad-recruited -->
+    finish([Finish])
+```
+
+|Name Of Process|Recruit Delivery Squad Process|
+|:--|:--|
+|**Process Owner**|Administrator|
+|**Description**|Administrator recruits new delivery squad member for delivery of {{product}}.|
+|**Actors**|<ol><li>Delivery Squad Member</li><li>Administrator</li><li>Delivery Squad Journal</li><ol>|
+|**Process Input**|Delivery squad member details - Fullname, Address, Phone Number, Email Address, Profile Pic and Idenitity Proof. Salary per month is agreed by administrator.|
+|**Process Output**|Delivery squad member details are recorded in delivery squad journal and ready to get map for delivery of {{product}}.|
+|**Process Flow**|<ol><li>Administrator asks delivery squad member to provide necessary details. Details - Fullname, Address, Phone Number, Email Address, Profile Pic and Idenitity Proof. Salary per month is agreed by administrator. (Input)</li><li>Upon getting delivery squad member details, administrator records detail in delivery squad journal.</li><li>The process ends with customer getting recruited and ready to get map for delivery of {{product}}. (Output)</li><ol>|
+|**Process Boundary**|<ul><li>The starting boundary of process is defined by administrator asking delivery squad member to provide necessary details.</li><li>The ending boundary of process is defined by delivery squad member getting recruited with details recorded in delivery squad journal and ready to get map for delivery of {{product}}.</li></ul>|
+|**Exceptions To Normal Process Flow**|In step-1, if delivery squad member doesn't provide all necessary details then administrator re-requests for mandatory details and the Recruit Delivery Squad Process will begin again.|
+|**Control Points and Measurements**|In step-2,<ul><li>Administrator checks if delivery squad member details already exists in delivery squad journal.</li><li>If administrator finds delivery squad member details then administrator updates existing delivery squad member record OR else creates new delivery squad member record in delivery squad journal.</li></ul>|
+
+### 3. Customer Enrollment Process
 
 ```mermaid
 flowchart TB
@@ -77,7 +105,7 @@ flowchart TB
 |**Exceptions To Normal Process Flow**|In step-2, if customer doesn't provide all necessary details then administrator re-requests for mandatory details and the Customer Enrollment Process will begin again.|
 |**Control Points and Measurements**|In step-3,<ul><li>Administrator checks if customer details already exists in customer journal.</li><li>If administrator finds customer details then administrator updates existing customer record OR else creates new customer record in customer journal.</li></ul>|
 
-### 3. Delivery Process
+### 4. Delivery Process
 
 ```mermaid
 flowchart TB
