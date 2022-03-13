@@ -120,7 +120,7 @@ flowchart TB
     |no|enter-no-delivery
     check-customer-other-product-quantity --> 
     |yes|deliver-product[Delivery squad delivers \n {{product}} to customer] -->
-    enter-delivery-details[Delivery squad enters delivery details in delivery journal. \n Customer number, {{product}}, Quantity, Date Time] --> finish
+    enter-delivery-details[Delivery squad enters delivery details in delivery journal. \n Customer number, {{product}}, Quantity, Price and Date Time] --> finish
     enter-no-delivery[Delivery squad cancels delivery \n in delivery journal. \n Customer number, Date Time] --> finish
 
     finish([Finish])
@@ -133,7 +133,32 @@ flowchart TB
 |**Actors**|<ol><li>Customer</li><li>Delivery Squad</li><li>Customer Journal</li><li>Delivery Journal</li><ol>|
 |**Process Input**|Customer details - Fullname, Address, Phone Number, {{product}}, Subscription and Quantity.|
 |**Process Output**|Delivery details are recorded in delivery journal.|
-|**Process Flow**|<ol><li>The process initiates by delivery squad getting customer details from customer journal. Fullname, Address, Phone Number, Email Address, Profile Pic, {{product}}, Subscription and Quantity. (Input)</li><li>Delivery squad checks for customer subscription and availabilitiy of ordered {{product}}.</li><li>Delivery squad delivers {{product}} at door step of customer.</li><li>The process ends with delivery squad entering delivery details in delivery journal. Customer details - Customer Number, {{product}}, Quantity and Date Time. (Output)</li><ol>|
+|**Process Flow**|<ol><li>The process initiates by delivery squad getting customer details from customer journal. Fullname, Address, Phone Number, Email Address, Profile Pic, {{product}}, Subscription and Quantity. (Input)</li><li>Delivery squad checks for customer subscription and availabilitiy of ordered {{product}}.</li><li>Delivery squad delivers {{product}} at door step of customer.</li><li>The process ends with delivery squad entering delivery details in delivery journal. Delivery details - Customer Number, {{product}}, Quantity, Price and Date Time. (Output)</li><ol>|
 |**Process Boundary**|<ul><li>The starting boundary of process is defined by delivery squad getting customer details from journal.</li><li>The ending boundary of process is defined by delivery details getting recorded in delivery journal.</li></ul>|
 |**Exceptions To Normal Process Flow**|Delivery squad cancels the delivery if customer subscription is elapsed OR {{product}} is unavailable.|
 |**Control Points and Measurements**|In step-2, <ul><li>Delivery squad checks if customer subscription already exists.</li><li>If subscription is elapsed then delivery squad ends the process.</li><li>If active subscription exists then delivery squad checks for availablity of {{product}} for which customer has enrolled.</li><li>If opted {{product}} is available then delivery squads delivers it.</li><li>If opted {{product}} is unavailable then delivery squad checks with customer for delivery of some other {{product}}.</li><li>If customer agrees then delivery squad delivers it.</li><li>If customer denies then delivery squad cancels the delivery.</li></ul>|
+
+### 5. Invoice Process
+
+```mermaid
+flowchart TB
+    start([Start]) -->
+    admin-customer-detail[/Administrator gets customer subscription detail from customer journal. \n Customer details - Fullname, Address, Phone Number, {{product}}, Subscription and Quantity/] -->
+    admin-delivery-detail[/Once customer subscription is over, Administrator gets customer delivery details from delivery journal. \n Delivery details - Customer Number, {{product}}, Quantity, Price and Date Time./] --> 
+    admin-calculate-amount[Administrator calculates amount of invoice based on customer delivery details of {{product}}] -->
+    admin-prepare-invoice[Administrator prepares invoice receipt mentioning customer subscription, delivery details and invoice amount] --> 
+    delivery-squad-send-invoice[/Delivery squad or Administrator shares invoice receipt with customer/] -->
+    finish([Finish])
+```
+
+|Name Of Process|Invoice Process|
+|:--|:--|
+|**Process Owner**|Administrator|
+|**Description**|Administrator prepares invoice receipt to share with customer for payment|
+|**Actors**|<ol><li>Administrator</li><li>Customer</li><li>Delivery Squad</li><li>Customer Journal</li><li>Delivery Journal</li><li>Invoice receipt</li><ol>|
+|**Process Input**|<ul><li>Customer details - Fullname, Address, Phone Number, {{product}}, Subscription and Quantity.</li><li>Delivery details - Customer Number, {{product}}, Quantity, Price and Date Time.</li><ul>|
+|**Process Output**|Invoice receipt is shared with customer for payment.|
+|**Process Flow**|<ol><li>The process initiates by administrator getting customer subscription details from customer journal. Customer details - Fullname, Address, Phone Number, {{product}}, Subscription and Quantity. (Input)</li><li>Administrator gets customer delivery details from delivery journal. Delivery details - Customer Number, {{product}}, Quantity, Price and Date Time.</li><li>Administrator calculates invoice amount based on customer subscription and delivery details.</li><li>Administrator prepares invoice receipt mentioning customer subscription & delivery details with invoice amount.</li><li>The process ends with delivery squad or administrator sharing invoice receipt with customer for payment. (Output)</li><ol>|
+|**Process Boundary**|<ul><li>The starting boundary of process is defined by administrator getting customer subscription and delivery details from journal.</li><li>The ending boundary of process is defined by invoice receipt getting shared with customer for payment.</li></ul>|
+|**Exceptions To Normal Process Flow**|NA|
+|**Control Points and Measurements**|NA|
