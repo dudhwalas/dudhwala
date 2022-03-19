@@ -146,7 +146,7 @@ flowchart TB
     admin-customer-detail[/Administrator gets customer subscription detail from customer journal. \n Customer details - Fullname, Address, Phone Number, {{product}}, Subscription and Quantity/] -->
     admin-delivery-detail[/Once customer subscription is over, Administrator gets customer delivery details from delivery journal. \n Delivery details - Customer Number, {{product}}, Quantity, Price and Date Time./] --> 
     admin-calculate-amount[Administrator calculates amount of invoice based on customer delivery details of {{product}}] -->
-    admin-prepare-invoice[Administrator prepares invoice receipt mentioning customer subscription, delivery details and invoice amount] --> 
+    admin-prepare-invoice[Administrator prepares invoice receipt mentioning customer subscription & delivery details with invoice amount] --> 
     delivery-squad-send-invoice[/Delivery squad or Administrator shares invoice receipt with customer/] -->
     finish([Finish])
 ```
@@ -159,6 +159,28 @@ flowchart TB
 |**Process Input**|<ul><li>Customer details - Fullname, Address, Phone Number, {{product}}, Subscription and Quantity.</li><li>Delivery details - Customer Number, {{product}}, Quantity, Price and Date Time.</li><ul>|
 |**Process Output**|Invoice receipt is shared with customer for payment.|
 |**Process Flow**|<ol><li>The process initiates by administrator getting customer subscription details from customer journal. Customer details - Fullname, Address, Phone Number, {{product}}, Subscription and Quantity. (Input)</li><li>Administrator gets customer delivery details from delivery journal. Delivery details - Customer Number, {{product}}, Quantity, Price and Date Time.</li><li>Administrator calculates invoice amount based on customer subscription and delivery details.</li><li>Administrator prepares invoice receipt mentioning customer subscription & delivery details with invoice amount.</li><li>The process ends with delivery squad or administrator sharing invoice receipt with customer for payment. (Output)</li><ol>|
-|**Process Boundary**|<ul><li>The starting boundary of process is defined by administrator getting customer subscription and delivery details from journal.</li><li>The ending boundary of process is defined by invoice receipt getting shared with customer for payment.</li></ul>|
+|**Process Boundary**|<ul><li>The starting boundary of process is defined by administrator getting customer subscription and delivery details from journal.</li><li>The ending boundary of process is defined by invoice receipt being shared with customer for payment.</li></ul>|
 |**Exceptions To Normal Process Flow**|NA|
+|**Control Points and Measurements**|NA|
+
+### 6. Payment Process
+
+```mermaid
+flowchart TB
+    start([Start]) -->
+    customer-pay[Customer pays for {{product}} against the received invoice in cash/card/upi/online payment] -->
+    ack-admin[Administrator sends acknowledgement to customer once payment is received] -->
+    finish([Finish])
+```
+
+|Name Of Process|Payment Process|
+|:--|:--|
+|**Process Owner**|Customer|
+|**Description**|Customer make payment for {{product}} against the invoice received|
+|**Actors**|<ol><li>Administrator</li><li>Customer</li><li>Payment Mode</li><ol>|
+|**Process Input**|<ul><li>Customer pays for {{product}} against the invoice.</li><ul>|
+|**Process Output**|Administrator acknowledges the receipt of payment.|
+|**Process Flow**|<ol><li>The process initiates by customer paying for {{product}} against the invoice received. (Input)</li><li>The process ends with administrator sending acknowledgement to customer once payment is received. (Output)</li><ol>|
+|**Process Boundary**|<ul><li>The starting boundary of process is defined by customer paying for {{product}}.</li><li>The ending boundary of process is defined by administrator sending acknowledgement to customer for received payment.</li></ul>|
+|**Exceptions To Normal Process Flow**|If online mode of payment doesn't work due to technical errors, customer starts the Payment Process again|
 |**Control Points and Measurements**|NA|
