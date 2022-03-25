@@ -120,3 +120,5 @@ To run the business successfully and effeciently, {{app_for}} carry out number o
 
 ## Core Enitities And Relationships ↔️
 [filename](diagram/er.drawio ':include :type=code')
+
+## MVP Modules ✔️
