@@ -24,18 +24,8 @@ To run the business successfully and effeciently, {{app_for}} carry out number o
 
 ### 1. Product Creation Process
 
-```mermaid
-flowchart TB
-    start([Start]) --> 
-    product-details[/Administrator get's {{product}} details from manufacturer. \n Name, Brand, Available In Quantity And Price./] -->
-    check-product{Administrator checks \n if product already exists \n in product catalog.}
-    check-product --> |no|create-product[Administrator creates new product \n in catalog with provided details]
-    check-product --> |yes|update-product[Administrator updates existing product \n in catalog with provided details]
-    create-product --> 
-    product-created[/Product details are recorded in catalog and ready to \n get map to end customer for delivery/]
-    update-product --> product-created -->
-    finish([Finish])
-```
+[filename](diagram/product_creation_process.drawio ':include :type=code')
+
 |Name Of Process|Product Creation Process|
 |:--|:--|
 |**Process Owner**|Administrator|
@@ -50,19 +40,7 @@ flowchart TB
 
 ### 2. Recruit Delivery Squad Process
 
-```mermaid
-flowchart TB
-    start([Start]) -->
-    admin-request[Administrator asks for details of delivery squad member] --> delivery-squad-details[/Delivery squad member provide details. \n Fullname, Address, Phone Number, Email Address, Profile Pic and Idenitity Proof. \n Salary per month is agreed by administrator./] --> 
-    check-delivery-squad{Administrator checks \n if delivery squad member details \n already exists in records}
-    check-delivery-squad --> |no|create-delivery-squad[Administrator creates new delivery squad member record \n in journal with provided details]
-    check-delivery-squad --> |yes|update-delivery-squad[Administrator updates existing delivery squad member record \n in journal with provided details]
-    create-delivery-squad --> 
-    delivery-squad-recruited[/Delivery squad member details are recorded in journal \n and ready to get map for delivery of {{product}}/]
-    update-delivery-squad --> 
-    delivery-squad-recruited -->
-    finish([Finish])
-```
+[filename](diagram/recruit_delivery_squad_process.drawio ':include :type=code')
 
 |Name Of Process|Recruit Delivery Squad Process|
 |:--|:--|
@@ -78,20 +56,7 @@ flowchart TB
 
 ### 3. Customer Enrollment Process
 
-```mermaid
-flowchart TB
-    start([Start]) -->
-    customer-request[Customer requests for enrollment and subscription] --> 
-    customer-details[/Customer provide details. Fullname, Address, Phone Number, \n Email Address, Profile Pic, {{product}}, \n Subscription Period and Quantity/] --> 
-    check-customer{Administrator checks \n if customer details \n already exists in records}
-    check-customer --> |no|create-customer[Administrator creates new customer record \n in journal with provided details]
-    check-customer --> |yes|update-customer[Administrator updates existing customer record \n in journal with provided details]
-    create-customer --> 
-    customer-enrolled[/Customer details are recorded in journal and ready to \n get map to delivery squad for delivery of {{product}}/]
-    update-customer --> 
-    customer-enrolled -->
-    finish([Finish])
-```
+[filename](diagram/enroll_customer_process.drawio ':include :type=code')
 
 |Name Of Process|Customer Enrollment Process|
 |:--|:--|
@@ -107,24 +72,7 @@ flowchart TB
 
 ### 4. Delivery Process
 
-```mermaid
-flowchart TB
-    start([Start]) -->
-    customer-subscription[/Delivery squad gets customer details from journal. \n Fullname, Address, Phone Number, {{product}}, \n Subscription and Quantity/] --> 
-    check-customer-subscription{Delivery squad checks \n if customer subscription is active} -->
-    |no|finish
-    check-customer-subscription --> 
-    |yes|check-customer-product-quantity{Delivery squad checks \n if {{product}} \n to be delivered \n is available  \n with required quantity} --> 
-    |yes|deliver-product
-    check-customer-product-quantity --> |no|check-customer-other-product-quantity{Delivery squad \n connects with customer \n to check if \n some other {{product}} \n can be delivered \n with required quantity} -->
-    |no|enter-no-delivery
-    check-customer-other-product-quantity --> 
-    |yes|deliver-product[Delivery squad delivers \n {{product}} to customer] -->
-    enter-delivery-details[Delivery squad enters delivery details in delivery journal. \n Customer number, {{product}}, Quantity, Price and Date Time] --> finish
-    enter-no-delivery[Delivery squad cancels delivery \n in delivery journal. \n Customer number, Date Time] --> finish
-
-    finish([Finish])
-```
+[filename](diagram/delivery_process.drawio ':include :type=code')
 
 |Name Of Process|Delivery Process|
 |:--|:--|
@@ -140,16 +88,7 @@ flowchart TB
 
 ### 5. Invoice Process
 
-```mermaid
-flowchart TB
-    start([Start]) -->
-    admin-customer-detail[/Administrator gets customer subscription detail from customer journal. \n Customer details - Fullname, Address, Phone Number, {{product}}, Subscription and Quantity/] -->
-    admin-delivery-detail[/Once customer subscription is over, Administrator gets customer delivery details from delivery journal. \n Delivery details - Customer Number, {{product}}, Quantity, Price and Date Time./] --> 
-    admin-calculate-amount[Administrator calculates amount of invoice based on customer delivery details of {{product}}] -->
-    admin-prepare-invoice[Administrator prepares invoice receipt mentioning customer subscription & delivery details with invoice amount] --> 
-    delivery-squad-send-invoice[/Delivery squad or Administrator shares invoice receipt with customer/] -->
-    finish([Finish])
-```
+[filename](diagram/invoice_process.drawio ':include :type=code')
 
 |Name Of Process|Invoice Process|
 |:--|:--|
@@ -158,20 +97,14 @@ flowchart TB
 |**Actors**|<ol><li>Administrator</li><li>Customer</li><li>Delivery Squad</li><li>Customer Journal</li><li>Delivery Journal</li><li>Invoice receipt</li><ol>|
 |**Process Input**|<ul><li>Customer details - Fullname, Address, Phone Number, {{product}}, Subscription and Quantity.</li><li>Delivery details - Customer Number, {{product}}, Quantity, Price and Date Time.</li><ul>|
 |**Process Output**|Invoice receipt is shared with customer for payment.|
-|**Process Flow**|<ol><li>The process initiates by administrator getting customer subscription details from customer journal. Customer details - Fullname, Address, Phone Number, {{product}}, Subscription and Quantity. (Input)</li><li>Administrator gets customer delivery details from delivery journal. Delivery details - Customer Number, {{product}}, Quantity, Price and Date Time.</li><li>Administrator calculates invoice amount based on customer subscription and delivery details.</li><li>Administrator prepares invoice receipt mentioning customer subscription & delivery details with invoice amount.</li><li>The process ends with delivery squad or administrator sharing invoice receipt with customer for payment. (Output)</li><ol>|
+|**Process Flow**|<ol><li>The process initiates by administrator getting customer subscription details from customer journal. Customer details - Fullname, Address, Phone Number, {{product}}, Subscription and Quantity. (Input)</li><li>Administrator gets customer delivery details from delivery journal. Delivery details - Customer Number, {{product}}, Quantity, Price and Date Time.</li><li>Administrator calculates invoice amount based on customer subscription and delivery details.</li><li>Administrator prepares invoice receipt mentioning invoice amount with customer subscription & delivery details.</li><li>The process ends with delivery squad or administrator sharing invoice receipt with customer for payment. (Output)</li><ol>|
 |**Process Boundary**|<ul><li>The starting boundary of process is defined by administrator getting customer subscription and delivery details from journal.</li><li>The ending boundary of process is defined by invoice receipt being shared with customer for payment.</li></ul>|
 |**Exceptions To Normal Process Flow**|NA|
 |**Control Points and Measurements**|NA|
 
 ### 6. Payment Process
 
-```mermaid
-flowchart TB
-    start([Start]) -->
-    customer-pay[Customer pays for {{product}} against the received invoice in cash/card/upi/online payment] -->
-    ack-admin[Administrator sends acknowledgement to customer once payment is received] -->
-    finish([Finish])
-```
+[filename](diagram/payment_process.drawio ':include :type=code')
 
 |Name Of Process|Payment Process|
 |:--|:--|
@@ -179,8 +112,11 @@ flowchart TB
 |**Description**|Customer make payment for {{product}} against the invoice received|
 |**Actors**|<ol><li>Administrator</li><li>Customer</li><li>Payment Mode</li><ol>|
 |**Process Input**|<ul><li>Customer pays for {{product}} against the invoice.</li><ul>|
-|**Process Output**|Administrator acknowledges the receipt of payment.|
-|**Process Flow**|<ol><li>The process initiates by customer paying for {{product}} against the invoice received. (Input)</li><li>The process ends with administrator sending acknowledgement to customer once payment is received. (Output)</li><ol>|
-|**Process Boundary**|<ul><li>The starting boundary of process is defined by customer paying for {{product}}.</li><li>The ending boundary of process is defined by administrator sending acknowledgement to customer for received payment.</li></ul>|
+|**Process Output**|Administrator records entry in payment register and acknowledges the receipt of payment.|
+|**Process Flow**|<ol><li>The process initiates by customer paying for {{product}} against the invoice received. (Input)</li><li>The process ends with administrator recording entry in payment register and sending acknowledgement to customer for received payment. (Output)</li><ol>|
+|**Process Boundary**|<ul><li>The starting boundary of process is defined by customer paying for {{product}}.</li><li>The ending boundary of process is defined by administrator recording entry in payment register and sending acknowledgement to customer for received payment.</li></ul>|
 |**Exceptions To Normal Process Flow**|If online mode of payment doesn't work due to technical errors, customer starts the Payment Process again|
 |**Control Points and Measurements**|NA|
+
+## Core Enitities And Relationships ↔️
+[filename](diagram/er.drawio ':include :type=code')

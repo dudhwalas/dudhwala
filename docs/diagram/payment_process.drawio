@@ -1,0 +1,37 @@
+<mxfile host="65bd71144e">
+    <diagram id="gYplu0gBrDNn6FZVZYES" name="Page-1">
+        <mxGraphModel dx="667" dy="566" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="1">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="9" value="" style="edgeStyle=none;html=1;fontSize=16;" parent="1" source="2" target="3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Start&lt;/font&gt;" style="html=1;dashed=0;whitespace=wrap;shape=mxgraph.dfd.start;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="46" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="&lt;span class=&quot;nodeLabel&quot; style=&quot;font-size: 16px;&quot;&gt;Customer pays for Milk or other products against &lt;br style=&quot;font-size: 16px;&quot;&gt;the received invoice in cash/card/upi/online payment&lt;/span&gt;" style="html=1;dashed=0;whitespace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="128" width="440" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="" style="edgeStyle=none;html=1;fontSize=16;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0.5;entryDx=0;entryDy=-15;entryPerimeter=0;" parent="1" source="7" target="8" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="414.3669724770642" y="660" as="sourcePoint"/>
+                        <mxPoint x="414.8623853211009" y="714" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="7" value="&lt;span style=&quot;font-size: 16px;&quot;&gt;Once payment is received - &lt;br style=&quot;font-size: 16px;&quot;&gt;Administrator records entry in payment register and &lt;br style=&quot;font-size: 16px;&quot;&gt;sends acknowledgement to&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;customer&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;dashed=0;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="170" y="240" width="500" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Finish" style="html=1;dashed=0;whitespace=wrap;shape=mxgraph.dfd.start;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="380" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="" style="edgeStyle=none;html=1;fontSize=16;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="3" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="420" y="318" as="sourcePoint"/>
+                        <mxPoint x="420" y="241" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

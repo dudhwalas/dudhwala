@@ -27,7 +27,23 @@
             product:'Milk or other products'
           }
         ]
-      }
+      },
+      markdown: {
+        renderer: {
+          code: function (code, lang) {
+            if (lang === 'drawio') {
+              if (window.drawioConverter) {
+                console.log('drawio 转化中')
+                return window.drawioConverter(code)
+              } else {
+                return `<div class='drawio-code'>${code}</div>`
+              }
+            } else {
+              return this.origin.code.apply(this, arguments);
+            }
+          }
+        }
+      },
     }
   </script>
   <!-- Docsify v4 -->
@@ -36,7 +52,9 @@
   <script src="//cdn.jsdelivr.net/npm/docsify-mustache"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
   <script src="//unpkg.com/mermaid/dist/mermaid.js"></script>
-  <script src="//unpkg.com/docsify-mermaid@latest/dist/docsify-mermaid.js"> 
+  <script src="//unpkg.com/docsify-mermaid@latest/dist/docsify-mermaid.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-drawio/viewer.min.js"></script>
+  <script src='https://cdn.jsdelivr.net/npm/docsify-drawio/drawio.js'></script>
   <script>
     mermaid.initialize({ 
       startOnLoad: true,

@@ -1,0 +1,139 @@
+<mxfile host="65bd71144e">
+    <diagram id="gYplu0gBrDNn6FZVZYES" name="Page-1">
+        <mxGraphModel dx="635" dy="539" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="1">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="9" value="" style="edgeStyle=none;html=1;fontSize=16;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="2" target="22" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Start&lt;/font&gt;" style="html=1;dashed=0;whitespace=wrap;shape=mxgraph.dfd.start;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="571" y="10" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="edgeStyle=none;html=1;fontSize=16;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="4" target="24" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" parent="12" vertex="1" connectable="0">
+                    <mxGeometry x="-0.0016" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="4" value="&lt;span class=&quot;nodeLabel&quot; style=&quot;font-size: 16px;&quot;&gt;Delivery squad checks if &lt;br style=&quot;font-size: 16px;&quot;&gt;customer subscription is active&lt;/span&gt;" style="shape=rhombus;html=1;dashed=0;whitespace=wrap;perimeter=rhombusPerimeter;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="199" width="260" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="" style="edgeStyle=none;html=1;fontSize=16;" parent="1" source="6" target="7" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="&lt;span class=&quot;nodeLabel&quot; style=&quot;font-size: 16px;&quot;&gt;Delivery squad delivers &lt;br style=&quot;font-size: 16px;&quot;&gt; Milk or other products to customer&lt;/span&gt;" style="html=1;dashed=0;whitespace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="255" y="900" width="316" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="&lt;span class=&quot;nodeLabel&quot; style=&quot;font-size: 16px;&quot;&gt;Delivery squad enters delivery &lt;br style=&quot;font-size: 16px;&quot;&gt;details in delivery journal. &lt;br style=&quot;font-size: 16px;&quot;&gt; Customer number, Milk or other products, &lt;br style=&quot;font-size: 16px;&quot;&gt;Quantity, Price and Date Time&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;dashed=0;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="187" y="1097" width="452" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Finish" style="html=1;dashed=0;whitespace=wrap;shape=mxgraph.dfd.start;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="571" y="1300" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="No" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontSize=16;" parent="1" source="4" target="8" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="464.60646011865515" y="484.4680290046143" as="sourcePoint"/>
+                        <mxPoint x="271.178" y="573" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="160" y="319"/>
+                            <mxPoint x="160" y="842"/>
+                            <mxPoint x="160" y="1315"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="23" value="" style="edgeStyle=none;html=1;fontSize=16;" parent="1" source="22" target="4" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="414.13111111111107" y="236" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="22" value="&lt;span class=&quot;nodeLabel&quot; style=&quot;font-size: 16px;&quot;&gt;Delivery squad gets customer details from journal. &lt;br style=&quot;font-size: 16px;&quot;&gt; Fullname, Address, Phone Number, Milk or other products, &lt;br style=&quot;font-size: 16px;&quot;&gt; Subscription and Quantity&lt;/span&gt;" style="html=1;dashed=0;whitespace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="391.5" y="100" width="439" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="&lt;span class=&quot;nodeLabel&quot; style=&quot;font-size: 16px;&quot;&gt;Delivery squad checks &lt;br style=&quot;font-size: 16px;&quot;&gt; if Milk or other products &lt;br style=&quot;font-size: 16px;&quot;&gt; to be delivered &lt;br style=&quot;font-size: 16px;&quot;&gt; is available  &lt;br style=&quot;font-size: 16px;&quot;&gt; with required quantity&lt;/span&gt;" style="shape=rhombus;html=1;dashed=0;whitespace=wrap;perimeter=rhombusPerimeter;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;" vertex="1" parent="1">
+                    <mxGeometry x="480" y="500" width="260" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="&lt;span class=&quot;nodeLabel&quot; style=&quot;font-size: 16px;&quot;&gt;Delivery squad &lt;br style=&quot;font-size: 16px;&quot;&gt; connects with customer &lt;br style=&quot;font-size: 16px;&quot;&gt; to check if &lt;br style=&quot;font-size: 16px;&quot;&gt; some other Milk or other products &lt;br style=&quot;font-size: 16px;&quot;&gt; can be delivered &lt;br style=&quot;font-size: 16px;&quot;&gt; with required quantity&lt;/span&gt;" style="shape=rhombus;html=1;dashed=0;whitespace=wrap;perimeter=rhombusPerimeter;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;" vertex="1" parent="1">
+                    <mxGeometry x="670" y="700" width="310" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="" style="edgeStyle=none;html=1;fontSize=16;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="24" target="6">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="544.475752124672" y="329.5788468951339" as="sourcePoint"/>
+                        <mxPoint x="400" y="700" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="200" y="620"/>
+                            <mxPoint x="200" y="780"/>
+                            <mxPoint x="200" y="940"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="27" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="26">
+                    <mxGeometry x="-0.0016" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="28" value="" style="edgeStyle=none;html=1;fontSize=16;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="24" target="25">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="512" y="450" as="sourcePoint"/>
+                        <mxPoint x="708" y="480" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="826" y="620"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="29" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="28">
+                    <mxGeometry x="-0.0016" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="30" value="" style="edgeStyle=none;html=1;fontSize=16;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="25" target="6">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="583" y="590" as="sourcePoint"/>
+                        <mxPoint x="408" y="940" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="413" y="830"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="31" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="30">
+                    <mxGeometry x="-0.0016" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="32" value="&lt;span class=&quot;nodeLabel&quot; style=&quot;font-size: 16px;&quot;&gt;Delivery squad cancels delivery &lt;br style=&quot;font-size: 16px;&quot;&gt; in delivery journal. &lt;br style=&quot;font-size: 16px;&quot;&gt; Customer number, Date Time&lt;/span&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;dashed=0;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;" vertex="1" parent="1">
+                    <mxGeometry x="600" y="1097" width="452" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="" style="edgeStyle=none;html=1;fontSize=16;entryX=0.5;entryY=0.5;entryDx=0;entryDy=-15;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="7" target="8">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="398" y="1150" as="sourcePoint"/>
+                        <mxPoint x="397.5" y="1250" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="34" value="" style="edgeStyle=none;html=1;fontSize=16;entryX=0.5;entryY=0.5;entryDx=0;entryDy=-15;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="32" target="8">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="408" y="1160" as="sourcePoint"/>
+                        <mxPoint x="544.395" y="1314.395" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="35" value="" style="edgeStyle=none;html=1;fontSize=16;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="25" target="32">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="708" y="700" as="sourcePoint"/>
+                        <mxPoint x="708" y="760" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="826" y="1020"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="36" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="35">
+                    <mxGeometry x="-0.0016" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
