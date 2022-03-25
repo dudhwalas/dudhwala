@@ -16,10 +16,7 @@
                 <mxCell id="3" value="&lt;span class=&quot;nodeLabel&quot; style=&quot;font-size: 16px;&quot;&gt;Customer provide details. Fullname, Address, Phone Number, &lt;br style=&quot;font-size: 16px;&quot;&gt; Email Address, Profile Pic, Milk or other products, &lt;br style=&quot;font-size: 16px;&quot;&gt; Subscription Period and Quantity&lt;/span&gt;" style="html=1;dashed=0;whitespace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" parent="1" vertex="1">
                     <mxGeometry x="142" y="236" width="544" height="59" as="geometry"/>
                 </mxCell>
-                <mxCell id="11" value="" style="edgeStyle=none;html=1;fontSize=16;" parent="1" source="4" target="6" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="12" value="" style="edgeStyle=none;html=1;fontSize=16;strokeColor=#FF66B3;" parent="1" source="4" target="6" edge="1">
+                <mxCell id="12" value="" style="edgeStyle=none;html=1;fontSize=16;strokeColor=#FF66B3;exitX=1;exitY=1;exitDx=0;exitDy=0;" parent="1" source="4" target="6" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="19" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" parent="12" vertex="1" connectable="0">
@@ -40,7 +37,7 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="6" value="&lt;span class=&quot;nodeLabel&quot; style=&quot;font-size: 16px;&quot;&gt;Administrator updates existing customer record &lt;br style=&quot;font-size: 16px;&quot;&gt; in journal with provided details&lt;/span&gt;" style="html=1;dashed=0;whitespace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" parent="1" vertex="1">
-                    <mxGeometry x="424" y="573" width="316" height="50" as="geometry"/>
+                    <mxGeometry x="424" y="573" width="346" height="50" as="geometry"/>
                 </mxCell>
                 <mxCell id="16" value="" style="edgeStyle=none;html=1;fontSize=16;strokeColor=#FF66B3;" parent="1" edge="1">
                     <mxGeometry relative="1" as="geometry">
@@ -54,9 +51,9 @@
                 <mxCell id="8" value="Finish" style="html=1;dashed=0;whitespace=wrap;shape=mxgraph.dfd.start;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontSize=16;" parent="1" vertex="1">
                     <mxGeometry x="374" y="827" width="80" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="13" value="No" style="edgeStyle=none;html=1;entryX=0.577;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.314;exitY=0.819;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=16;strokeColor=#FF66B3;" parent="1" source="4" target="5" edge="1">
+                <mxCell id="13" value="No" style="edgeStyle=none;html=1;entryX=0.577;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=16;strokeColor=#FF66B3;exitX=0;exitY=1;exitDx=0;exitDy=0;" parent="1" source="4" target="5" edge="1">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="464.60646011865515" y="484.4680290046143" as="sourcePoint"/>
+                        <mxPoint x="370" y="500" as="sourcePoint"/>
                         <mxPoint x="543.8850574712644" y="583" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
