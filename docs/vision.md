@@ -1,5 +1,5 @@
 # Vision
-{{app_name}}'s vision is to automate and digitize business process and workflow of {{app_for}} by providing first class and complete end to end software solution.
+{{app_name}}'s vision is to automate and digitize business process & workflow of {{app_for}} by providing first class and complete end to end software solution.
 
 ## Business And Company 💼
 
@@ -9,7 +9,10 @@
 
 {{app_name}} identifies these roles & their responsibilities across bussiness processes and develops a standard bussiness workflow through software automation.
 
-## Roles And Responsibilties 👥
+# Discovery Phase
+Roles & Responsibilities, Business Processes and Core Entities & Relationships are identified as a part of discovery phase for {{app_name}}.
+
+## Roles & Responsibilties 👥
 
 |Sr No.|Role|Responsibility|
 |:-|:-|:-|
@@ -38,11 +41,11 @@ To run the business successfully and effeciently, {{app_for}} carry out number o
 |**Exceptions To Normal Process Flow**|In step-2, if manufacturer doesn't provide all necessary product details then administrator re-requests for details and the Product Creation Process will begin again.|
 |**Control Points and Measurements**|In step-3,<ul><li>Administrator checks if {{product}} details already exists in product catalog.</li><li>If administrator finds product details then administrator updates existing product OR else creates new product in product catalog.</li></ul>|
 
-### 2. Recruit Delivery Squad Process
+### 2. Delivery Squad Recruitment Process
 
 [filename](diagram/recruit_delivery_squad_process.drawio ':include :type=code')
 
-|Name Of Process|Recruit Delivery Squad Process|
+|Name Of Process|Delivery Squad Recruitment Process|
 |:--|:--|
 |**Process Owner**|Administrator|
 |**Description**|Administrator recruits new delivery squad member for delivery of {{product}}.|
@@ -86,11 +89,11 @@ To run the business successfully and effeciently, {{app_for}} carry out number o
 |**Exceptions To Normal Process Flow**|Delivery squad cancels the delivery if customer subscription is elapsed OR {{product}} is unavailable.|
 |**Control Points and Measurements**|In step-2, <ul><li>Delivery squad checks if customer subscription already exists.</li><li>If subscription is elapsed then delivery squad ends the process.</li><li>If active subscription exists then delivery squad checks for availablity of {{product}} for which customer has enrolled.</li><li>If opted {{product}} is available then delivery squads delivers it.</li><li>If opted {{product}} is unavailable then delivery squad checks with customer for delivery of some other {{product}}.</li><li>If customer agrees then delivery squad delivers it.</li><li>If customer denies then delivery squad cancels the delivery.</li></ul>|
 
-### 5. Invoice Process
+### 5. Invoice Creation Process
 
 [filename](diagram/invoice_process.drawio ':include :type=code')
 
-|Name Of Process|Invoice Process|
+|Name Of Process|Invoice Creation Process|
 |:--|:--|
 |**Process Owner**|Administrator|
 |**Description**|Administrator prepares invoice receipt to share with customer for payment|
@@ -118,7 +121,18 @@ To run the business successfully and effeciently, {{app_for}} carry out number o
 |**Exceptions To Normal Process Flow**|If online mode of payment doesn't work due to technical errors, customer starts the Payment Process again|
 |**Control Points and Measurements**|NA|
 
-## Core Enitities And Relationships ↔️
+## Core Enitities & Relationships ↔️
 [filename](diagram/er.drawio ':include :type=code')
 
-## MVP Modules ✔️
+## MVP Modules 🥛
+
+Based on discovery phase - MVP (Minimum Viable Product) modules are identified for {{app_name}}.
+
+|Sr No|Module Name|Business Process|
+|:--|:--|:--|
+|1.|{{product}} Management|Product Creation|
+|2.|Delivery Squad Management|Delivery Squad Recruitment|
+|3.|Customer Management|Customer Enrollment|
+|4.|{{product}} Delivery Management|{{product}} Delivery|
+|5.|Invoice Management|Invoice Creation|
+|6.|Payment|Invoice Payment|
