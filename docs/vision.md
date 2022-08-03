@@ -9,7 +9,7 @@
 
 {{app_name}} identifies these roles & their responsibilities across bussiness processes and develops a standard bussiness workflow through software automation.
 
-# Discovery Phase
+# Discovery Phase 🔍
 Roles & Responsibilities, Business Processes and Core Entities & Relationships are identified as a part of discovery phase for {{app_name}}.
 
 ## Roles & Responsibilties 👥
@@ -124,7 +124,7 @@ To run the business successfully and effeciently, {{app_for}} carry out number o
 ## Core Enitities & Relationships ↔️
 [filename](diagram/er.drawio ':include :type=code')
 
-## MVP Modules 🥛
+## MVP Modules 🌱
 
 Based on discovery phase - MVP (Minimum Viable Product) modules are identified for {{app_name}}.
 
