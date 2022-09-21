@@ -1,2 +1,2 @@
 # Technical
-{{app_name}}'s vision is to automate and digitize business process & workflow of {{app_for}} by providing first class and complete end to end software solution.
+{{app_name}}'s technical software solution design comprises of **Solution Architecture**, **Solution Design**, **Infrastructure**, **DevOps**, **Info Sec**, **APLM Process** and other technical aspects of the system.

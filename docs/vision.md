@@ -80,7 +80,7 @@ To run the business successfully and effeciently, {{app_for}} carry out number o
 |Name Of Process|Delivery Process|
 |:--|:--|
 |**Process Owner**|Delivery Squad|
-|**Description**|Delivery Squad delivers {{product}} to customer|
+|**Description**|Delivery Squad delivers {{product}} to customer.|
 |**Actors**|<ol><li>Customer</li><li>Delivery Squad</li><li>Customer Journal</li><li>Delivery Journal</li><ol>|
 |**Process Input**|Customer details - Fullname, Address, Phone Number, {{product}}, Subscription and Quantity.|
 |**Process Output**|Delivery details are recorded in delivery journal.|
@@ -96,7 +96,7 @@ To run the business successfully and effeciently, {{app_for}} carry out number o
 |Name Of Process|Invoice Creation Process|
 |:--|:--|
 |**Process Owner**|Administrator|
-|**Description**|Administrator prepares invoice receipt to share with customer for payment|
+|**Description**|Administrator prepares invoice receipt to share with customer for payment.|
 |**Actors**|<ol><li>Administrator</li><li>Customer</li><li>Delivery Squad</li><li>Customer Journal</li><li>Delivery Journal</li><li>Invoice receipt</li><ol>|
 |**Process Input**|<ul><li>Customer details - Fullname, Address, Phone Number, {{product}}, Subscription and Quantity.</li><li>Delivery details - Customer Number, {{product}}, Quantity, Price and Date Time.</li><ul>|
 |**Process Output**|Invoice receipt is shared with customer for payment.|
@@ -112,7 +112,7 @@ To run the business successfully and effeciently, {{app_for}} carry out number o
 |Name Of Process|Payment Process|
 |:--|:--|
 |**Process Owner**|Customer|
-|**Description**|Customer make payment for {{product}} against the invoice received|
+|**Description**|Customer make payment for {{product}} against the invoice received.|
 |**Actors**|<ol><li>Administrator</li><li>Customer</li><li>Payment Mode</li><ol>|
 |**Process Input**|<ul><li>Customer pays for {{product}} against the invoice.</li><ul>|
 |**Process Output**|Administrator records entry in payment register and acknowledges the receipt of payment.|
@@ -124,7 +124,7 @@ To run the business successfully and effeciently, {{app_for}} carry out number o
 ## Core Enitities & Relationships ↔️
 [filename](diagram/er.drawio ':include :type=code')
 
-## MVP Modules 🌱
+# MVP Modules 🌱
 
 Based on discovery phase - MVP (Minimum Viable Product) modules are identified for {{app_name}}.
 
