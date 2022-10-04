@@ -36,7 +36,7 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 |Single Responsiblity|<ul><li>Right grained micro-service. Not too fine - not to coarse</li><li>Cohesion.</li></ul>**Tactics:**<ol><li>Domain Driven Design - DDD</li><li>Scope of bounded context - BC</li><li>Domain events</li><ol>|G|
 
 ### 4. Conceptual Architecture
-
+[filename](diagram/conceptual_view.drawio ':include :type=code')
 ### 5. Logical Architecture
-
+[filename](diagram/logical_view.drawio ':include :type=code')
 ### 6. Physical Architecture (TBD)
