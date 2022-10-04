@@ -26,7 +26,7 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 |Testability|Unit Test</br>Functional Test</br>|Test reports|
 |Deployability|CI-CD|DevOps pipeline|
 
-### 2. Architecture Core Priciples
+### 3. Architecture Core Principles
 |Principle|Description|RAG
 |:--|:--|:--|
 |Inteface Segregation|<ul><li>Design of interfaces (i.e., service contracts/API contracts).</li><li>Support multiple client.</li></ul>**Tactics:**<ol><li>Backend For Frontend (BFF)</li><li>API Gateway</li><li>Gateway Aggregation</li><li>Gateway Offloading</li><li>Gateway Routing</li><ol>|G|
@@ -34,3 +34,9 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 |Loose coupling|<ul><li>Asynchronous messaging.</li><li>Event Driven</li><li>Send to and receive messages from a queue/topic.</li><li>Publisher/Subscriber.</li></ul>**Tactics:**<ol><li>Message broker.</li><li>Database per micro-service</li><li>Saga</li><li>Distributed transaction</li><li>Compensating transaction</li><ol>|G|
 |Availability over consistency|<ul><li>Minimum downtime - High availability.</li><li>Fault tolerance.</li><li>Resilient.</li></ul>**Tactics:**<ol><li>Service data replication</li><li>CQRS</li><li>Event Sourcing</li><li>Retry</li><li>Circuit breaker</li><li>Network timeouts</li><ol>|G|
 |Single Responsiblity|<ul><li>Right grained micro-service. Not too fine - not to coarse</li><li>Cohesion.</li></ul>**Tactics:**<ol><li>Domain Driven Design - DDD</li><li>Scope of bounded context - BC</li><li>Domain events</li><ol>|G|
+
+### 4. Conceptual Architecture
+
+### 5. Logical Architecture
+
+### 6. Physical Architecture (TBD)
