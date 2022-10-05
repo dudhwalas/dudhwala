@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="77SJs8YhrJnuFPgeouHo" name="Page-1">
-        <mxGraphModel dx="2077" dy="2763" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="1">
+        <mxGraphModel dx="2077" dy="2763" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -51,7 +51,7 @@
                 <mxCell id="ynAYVbjxXFCVVAlDxMAP-8" value="Internet" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=20;fontFamily=Helvetica;labelBackgroundColor=none;fontColor=#FF0080;fontStyle=0;shadow=0;sketch=0;html=1;whiteSpace=wrap;labelBorderColor=none;" parent="1" vertex="1">
                     <mxGeometry x="210" y="-44" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="ynAYVbjxXFCVVAlDxMAP-9" value="Cloud" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=20;fontFamily=Helvetica;labelBackgroundColor=none;fontColor=#FF0080;fontStyle=0;shadow=0;sketch=0;html=1;whiteSpace=wrap;labelBorderColor=none;" parent="1" vertex="1">
+                <mxCell id="ynAYVbjxXFCVVAlDxMAP-9" value="Cloud" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=20;fontFamily=Helvetica;labelBackgroundColor=none;fontColor=#FF0080;fontStyle=0;shadow=0;sketch=0;html=1;whiteSpace=wrap;labelBorderColor=none;spacing=2;" parent="1" vertex="1">
                     <mxGeometry x="796.98" y="-44" width="60" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="ynAYVbjxXFCVVAlDxMAP-10" value="" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fillStyle=solid;fillColor=#fff2cc;fontSize=14;fontFamily=Helvetica;labelBackgroundColor=none;strokeWidth=2;strokeColor=#d6b656;" parent="1" vertex="1">
