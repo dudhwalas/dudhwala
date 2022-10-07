@@ -9,7 +9,10 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 
 [filename](diagram/context_view.drawio ':include :type=code')
 
-### 2. Architecturally Significant Requirements (ASR) - Quality Attributes
+### 2. Subdomain Services Defination
+[filename](diagram/subdomain_service_view.drawio ':include :type=code')
+
+### 3. Architecturally Significant Requirements (ASR) - Quality Attributes
 |Quality Attribute|Measurable Metric|Benchmark|
 |:--|:--|:--|
 |Performance|Latency of API response|Max <= 5 sec</br>Avg <=2 sec|
@@ -26,7 +29,7 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 |Testability|Unit Test</br>Functional Test</br>|Test reports|
 |Deployability|CI-CD|DevOps pipeline|
 
-### 3. Architecture Core Principles
+### 4. Architecture Core Principles
 |Principle|Description|RAG
 |:--|:--|:--|
 |Inteface Segregation|<ul><li>Design of interfaces (i.e., service contracts/API contracts).</li><li>Support multiple client.</li></ul>**Tactics:**<ol><li>Backend For Frontend (BFF)</li><li>API Gateway</li><li>Gateway Aggregation</li><li>Gateway Offloading</li><li>Gateway Routing</li><ol>|G|
@@ -35,8 +38,8 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 |Availability over consistency|<ul><li>Minimum downtime - High availability.</li><li>Fault tolerance.</li><li>Resilient.</li></ul>**Tactics:**<ol><li>Service data replication</li><li>CQRS</li><li>Event Sourcing</li><li>Retry</li><li>Circuit breaker</li><li>Network timeouts</li><ol>|G|
 |Single Responsiblity|<ul><li>Right grained micro-service. Not too fine - not to coarse</li><li>Cohesion.</li></ul>**Tactics:**<ol><li>Domain Driven Design - DDD</li><li>Scope of bounded context - BC</li><li>Domain events</li><ol>|G|
 
-### 4. Conceptual Architecture
+### 5. Conceptual Architecture
 [filename](diagram/conceptual_view.drawio ':include :type=code')
-### 5. Logical Architecture
+### 6. Logical Architecture
 [filename](diagram/logical_view.drawio ':include :type=code')
-### 6. Physical Architecture (TBD)
+### 7. Physical Architecture (TBD)
