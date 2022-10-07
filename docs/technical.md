@@ -9,7 +9,7 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 
 [filename](diagram/context_view.drawio ':include :type=code')
 
-### 2. Subdomain Services Defination
+### 2. Subdomain Services Definition
 [filename](diagram/subdomain_service_view.drawio ':include :type=code')
 
 ### 3. Architecturally Significant Requirements (ASR) - Quality Attributes
