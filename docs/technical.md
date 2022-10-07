@@ -13,6 +13,7 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 [filename](diagram/subdomain_service_view.drawio ':include :type=code')
 
 ### 3. High Level Service Domain Model
+[filename](diagram/product_service_domain_model.drawio ':include :type=code')
 
 ### 4. High Level Service APIs
 

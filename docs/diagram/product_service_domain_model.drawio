@@ -1,0 +1,55 @@
+<mxfile host="65bd71144e">
+    <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
+        <mxGraphModel dx="922" dy="858" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="87" value="Product Service Domain Model" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;strokeWidth=2;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;fontSize=20;" parent="1" vertex="1">
+                    <mxGeometry x="210" width="930" height="660" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" value="Product" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;fontSize=20;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="522.5" y="160" width="165" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="89" value="Name" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontSize=20;strokeWidth=2;" vertex="1" parent="88">
+                    <mxGeometry y="30" width="165" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="90" value="Price" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontSize=20;strokeWidth=2;" vertex="1" parent="88">
+                    <mxGeometry y="60" width="165" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="91" value="Image" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontSize=20;strokeWidth=2;" vertex="1" parent="88">
+                    <mxGeometry y="90" width="165" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="93" value="Available Qty" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontSize=20;strokeWidth=2;" vertex="1" parent="88">
+                    <mxGeometry y="120" width="165" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="100" value="Status" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontSize=20;strokeWidth=2;" vertex="1" parent="88">
+                    <mxGeometry y="150" width="165" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" value="Brand" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=20;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="760" y="390" width="165" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="95" value="Name" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontSize=20;strokeWidth=2;" vertex="1" parent="94">
+                    <mxGeometry y="30" width="165" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="99" value="Image" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontSize=20;strokeWidth=2;" vertex="1" parent="94">
+                    <mxGeometry y="60" width="165" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="101" value="Status" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontSize=20;strokeWidth=2;" vertex="1" parent="94">
+                    <mxGeometry y="90" width="165" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="102" value="Has" style="rhombus;whiteSpace=wrap;html=1;fontSize=20;fillColor=none;strokeWidth=2;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="420" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="109" style="edgeStyle=none;html=1;exitX=0.47;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=20;exitPerimeter=0;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="100" target="102">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="110" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=20;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="102">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="610.0500000000002" y="370" as="sourcePoint"/>
+                        <mxPoint x="760" y="460" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
