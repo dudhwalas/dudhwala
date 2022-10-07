@@ -15,6 +15,8 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 ### 3. High Level Service Domain Model
 [filename](diagram/product_service_domain_model.drawio ':include :type=code')
 
+[filename](diagram/customer_service_domain_model.drawio ':include :type=code')
+
 ### 4. High Level Service APIs
 
 ### 5. Architecturally Significant Requirements (ASR) - Quality Attributes
