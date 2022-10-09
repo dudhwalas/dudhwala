@@ -1,0 +1,63 @@
+<mxfile host="65bd71144e">
+    <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
+        <mxGraphModel dx="614" dy="1658" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="87" value="Invoice Service Domain Model" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;strokeWidth=2;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;fontSize=20;" parent="1" vertex="1">
+                    <mxGeometry x="170" y="-109" width="800" height="700" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" value="Invoice" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;fontSize=20;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="474.25" y="50" width="237.5" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="89" value="Amount" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontSize=20;strokeWidth=2;" parent="88" vertex="1">
+                    <mxGeometry y="30" width="237.5" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="100" value="Date" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontSize=20;strokeWidth=2;" parent="88" vertex="1">
+                    <mxGeometry y="60" width="237.5" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="119" value="Start Date" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontSize=20;strokeWidth=2;" parent="88" vertex="1">
+                    <mxGeometry y="90" width="237.5" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="120" value="End Date" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontSize=20;strokeWidth=2;" parent="88" vertex="1">
+                    <mxGeometry y="120" width="237.5" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="121" value="Status" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;fontSize=20;strokeWidth=2;" parent="88" vertex="1">
+                    <mxGeometry y="150" width="237.5" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" value="Invoice Line Item" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=20;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="312" y="380" width="225.5" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="116" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;strokeWidth=2;" parent="1" source="102" target="112" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="758" y="334"/>
+                        </Array>
+                        <mxPoint x="630" y="334" as="sourcePoint"/>
+                        <mxPoint x="693.5" y="420" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="102" value="Has" style="rhombus;whiteSpace=wrap;html=1;fontSize=20;fillColor=none;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="553" y="294" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="109" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=20;endArrow=block;endFill=1;strokeWidth=2;exitX=0.5;exitY=1.067;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="121" target="102" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="593" y="170" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="111" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=20;endArrow=block;endFill=1;strokeWidth=2;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="102" target="94" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="592" y="370" as="sourcePoint"/>
+                        <mxPoint x="602" y="304" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="425" y="334"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="112" value="Customer" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=20;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="675.5" y="380" width="165" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
