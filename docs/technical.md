@@ -41,8 +41,26 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 
 ---
 
-
 ### 4. High Level Service APIs
+|Service|Operations|Collaborators|
+|:--|:--|:--|
+|Product|createProduct|<center>**--**</center>|
+||modifyProduct|**Subscription Service**<br>- updateProductDetails|
+||deactivateProduct|**Subscription Service**<br>- verifyProductSubscription|
+|Customer|enrollCustomer|<center>**--**</center>|
+||modifyCustomer|**Subscription Service**<br>- updateCustomerDetails|
+||deactivateCustomer|**Subscription Service**<br>- verifyConsumerSubscription|
+|Delivery Squad|recruitDeliverySquadMember|<center>**--**</center>|
+||modifyDeliverySquadMember|**Subscription Service**<br>- updateDeliverySquadMemberDetails|
+||deactivateDeliverySquadMember|**Subscription Service**<br>- verifyDeliverySquadMemberInSubscription|
+|Subscription|createSubscription|<center>**--**</center>|
+||modifySubscription|<center>**--**</center>|
+||deactivateSubscription|<center>**--**</center>|
+|Delivery|deliverProduct|<center>**--**</center>|
+||modifyDelivery|<center>**--**</center>|
+|Invoice|prepareInvoice|**Delivery Service**<br>- fetchDeliveryDetails<br>**Product Service**<br>- fetchProductAmountDetails|
+||shareInvoice|<center>**--**</center>|
+|Payment|notePayment|**Invoice Service**<br>- updateInvoiceStatus|
 
 ### 5. Architecturally Significant Requirements (ASR) - Quality Attributes
 |Quality Attribute|Measurable Metric|Benchmark|
