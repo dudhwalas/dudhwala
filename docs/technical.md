@@ -13,6 +13,7 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 [filename](diagram/subdomain_service_view.drawio ':include :type=code')
 
 ### 3. High Level Service Domain Model
+
 [filename](diagram/product_service_domain_model.drawio ':include :type=code')
 
 ---
@@ -44,49 +45,49 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 ### 4. High Level Service APIs
 |Service|Operations|Collaborators|
 |:--|:--|:--|
-|Product|createProduct|<center>**--**</center>|
+|**Product**|createProduct|<center>**--**</center>|
 ||modifyProduct|**Subscription Service**<br>- updateProductDetails|
 ||deactivateProduct|**Subscription Service**<br>- verifyProductSubscription|
-|Customer|enrollCustomer|<center>**--**</center>|
-||modifyCustomer|**Subscription Service**<br>- updateCustomerDetails|
+|**Customer**|enrollCustomer|<center>**--**</center>|
+||modifyCustomer|**Subscription Service**<br>- updateConsumerDetails|
 ||deactivateCustomer|**Subscription Service**<br>- verifyConsumerSubscription|
-|Delivery Squad|recruitDeliverySquadMember|<center>**--**</center>|
+|**Delivery Squad**|recruitDeliverySquadMember|<center>**--**</center>|
 ||modifyDeliverySquadMember|**Subscription Service**<br>- updateDeliverySquadMemberDetails|
 ||deactivateDeliverySquadMember|**Subscription Service**<br>- verifyDeliverySquadMemberInSubscription|
-|Subscription|createSubscription|<center>**--**</center>|
+|**Subscription**|createSubscription|<center>**--**</center>|
 ||modifySubscription|<center>**--**</center>|
 ||deactivateSubscription|<center>**--**</center>|
-|Delivery|deliverProduct|<center>**--**</center>|
+|**Delivery**|deliverProduct|<center>**--**</center>|
 ||modifyDelivery|<center>**--**</center>|
-|Invoice|prepareInvoice|**Delivery Service**<br>- fetchDeliveryDetails<br>**Product Service**<br>- fetchProductAmountDetails|
+|**Invoice**|prepareInvoice|**Delivery Service**<br>- fetchDeliveryDetails<br>**Product Service**<br>- fetchProductAmountDetails|
 ||shareInvoice|<center>**--**</center>|
-|Payment|notePayment|**Invoice Service**<br>- updateInvoiceStatus|
+|**Payment**|notePayment|**Invoice Service**<br>- updateInvoiceStatus|
 
 ### 5. Architecturally Significant Requirements (ASR) - Quality Attributes
 |Quality Attribute|Measurable Metric|Benchmark|
 |:--|:--|:--|
-|Performance|Latency of API response|Max <= 5 sec</br>Avg <=2 sec|
-|Performance|Timeout of API response|Max <= 15 sec|
-|Performance|API request post size|Max <= 2 MB|
-|Concurrent|Concurrent users|Max = 100 users</br>Performance benchmark report|
-|High Availability|SLA</br>Failure detection|Min = 99% SLA</br>Alert on failure within 30 sec|
-|Portability|Docker containers|Platform agnostic. Run on any platform supporting Docker|
-|Portability|Container orchestration - k8s|Platform agnostic. Run on any platform supporting k8s|
-|Backup|Database backup|Weekly full backup|
-|Usability|Browser Support|Google Chrome, Safari|
-|Logging|API request/response</br>Exception|UI tool to access logs|
-|Auditablity|Audit of operations that changes application state|UI tool to access audit logs|
-|Testability|Unit Test</br>Functional Test</br>|Test reports|
-|Deployability|CI-CD|DevOps pipeline|
+|**Performance**|Latency of API response|Max <= 5 sec</br>Avg <=2 sec|
+|**Performance**|Timeout of API response|Max <= 15 sec|
+|**Performance**|API request post size|Max <= 2 MB|
+|**Concurrent**|Concurrent users|Max = 100 users</br>Performance benchmark report|
+|**High Availability**|SLA</br>Failure detection|Min = 99% SLA</br>Alert on failure within 30 sec|
+|**Portability**|Docker containers|Platform agnostic. Run on any platform supporting Docker|
+|**Portability**|Container orchestration - k8s|Platform agnostic. Run on any platform supporting k8s|
+|**Backup**|Database backup|Weekly full backup|
+|**Usability**|Browser Support|Google Chrome, Safari|
+|**Logging**|API request/response</br>Exception|UI tool to access logs|
+|**Auditablity**|Audit of operations that changes application state|UI tool to access audit logs|
+|**Testability**|Unit Test</br>Functional Test</br>|Test reports|
+|**Deployability**|CI-CD|DevOps pipeline|
 
 ### 6. Architecture Core Principles
 |Principle|Description|RAG
 |:--|:--|:--|
-|Inteface Segregation|<ul><li>Design of interfaces (i.e., service contracts/API contracts).</li><li>Support multiple client.</li></ul>**Tactics:**<ol><li>Backend For Frontend (BFF)</li><li>API Gateway</li><li>Gateway Aggregation</li><li>Gateway Offloading</li><li>Gateway Routing</li><ol>|G|
-|Deployability|<ul><li>Configuring the runtime infrastructure, which includes containers, pods, clusters, persistence, security, and networking.</li><li>Expediting the commit+build+test+deploy process.</li><li>Monitoring the health of the microservices to quickly identify and remedy faults.</li></ul>**Tactics:**<ol><li>Containerization & container orchestration</li><li>Service mesh</li><li>API Gatewayt</li><li>Serverless architecture</li><li>Monitoring tools</li><li>Log consolidation tools</li><li>Tracing tools</li><li>DevOps</li><li>Blue Green deployment and canary releases</li><li>IaC</li><li>Continuous Delivery</li><li>Externalized configuration</li><ol>|G|
-|Loose coupling|<ul><li>Asynchronous messaging.</li><li>Event Driven</li><li>Send to and receive messages from a queue/topic.</li><li>Publisher/Subscriber.</li></ul>**Tactics:**<ol><li>Message broker.</li><li>Database per micro-service</li><li>Saga</li><li>Distributed transaction</li><li>Compensating transaction</li><ol>|G|
-|Availability over consistency|<ul><li>Minimum downtime - High availability.</li><li>Fault tolerance.</li><li>Resilient.</li></ul>**Tactics:**<ol><li>Service data replication</li><li>CQRS</li><li>Event Sourcing</li><li>Retry</li><li>Circuit breaker</li><li>Network timeouts</li><ol>|G|
-|Single Responsiblity|<ul><li>Right grained micro-service. Not too fine - not to coarse</li><li>Cohesion.</li></ul>**Tactics:**<ol><li>Domain Driven Design - DDD</li><li>Scope of bounded context - BC</li><li>Domain events</li><ol>|G|
+|**Inteface Segregation**|<ul><li>Design of interfaces (i.e., service contracts/API contracts).</li><li>Support multiple client.</li></ul>**Tactics:**<ol><li>Backend For Frontend (BFF)</li><li>API Gateway</li><li>Gateway Aggregation</li><li>Gateway Offloading</li><li>Gateway Routing</li><ol>|G|
+|**Deployability**|<ul><li>Configuring the runtime infrastructure, which includes containers, pods, clusters, persistence, security, and networking.</li><li>Expediting the commit+build+test+deploy process.</li><li>Monitoring the health of the microservices to quickly identify and remedy faults.</li></ul>**Tactics:**<ol><li>Containerization & container orchestration</li><li>Service mesh</li><li>API Gatewayt</li><li>Serverless architecture</li><li>Monitoring tools</li><li>Log consolidation tools</li><li>Tracing tools</li><li>DevOps</li><li>Blue Green deployment and canary releases</li><li>IaC</li><li>Continuous Delivery</li><li>Externalized configuration</li><ol>|G|
+|**Loose coupling**|<ul><li>Asynchronous messaging.</li><li>Event Driven</li><li>Send to and receive messages from a queue/topic.</li><li>Publisher/Subscriber.</li></ul>**Tactics:**<ol><li>Message broker.</li><li>Database per micro-service</li><li>Saga</li><li>Distributed transaction</li><li>Compensating transaction</li><ol>|G|
+|**Availability over consistency**|<ul><li>Minimum downtime - High availability.</li><li>Fault tolerance.</li><li>Resilient.</li></ul>**Tactics:**<ol><li>Service data replication</li><li>CQRS</li><li>Event Sourcing</li><li>Retry</li><li>Circuit breaker</li><li>Network timeouts</li><ol>|G|
+|**Single Responsiblity**|<ul><li>Right grained micro-service. Not too fine - not to coarse</li><li>Cohesion.</li></ul>**Tactics:**<ol><li>Domain Driven Design - DDD</li><li>Scope of bounded context - BC</li><li>Domain events</li><ol>|G|
 
 ### 7. Conceptual Architecture
 [filename](diagram/conceptual_view.drawio ':include :type=code')
