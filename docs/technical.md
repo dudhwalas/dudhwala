@@ -92,6 +92,28 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 ### 7. Conceptual Architecture
 [filename](diagram/conceptual_view.drawio ':include :type=code')
 
+#### Element Catalog
+
+|Solution Component|Description
+|:--|:--|
+|**Users**|Admin and delivery squad member who can access {{app_name}} portal|
+|**Channels**|Web browsers used to access {{app_name}} portal|
+|**Auth Channels**|User authentication and authorization channel|
+|**Identity Provider**|User Indentity and Access Management|
+|**{{app_name}} Platform Service**|Core business microservices - product service, customer service, delivery squad service, subscription service, delivery service, invoice service, payment service and other backend services.|
+|**Base Framework**|Set of microservices that form cross-cutting services commonly used across the {{app_name}} business services.|
+|**Cloud Infra**|Cloud infrastructure where all services, data and web app will be hosted.|
+|**Cloud Networking**|Networking services like Virtual Networks, Subnets.|
+|**Cloud Compute**|Computing services like container orchestration, VM etc., from the Cloud provider.|
+|**Cloud Storage**|File storage and data storage managed services from the cloud provider.|
+|**Cloud API Gateway**|Public facing endpoint for the {{app_name}} APIs.|
+|**Cloud Service n…**|Other cloud services identified in future.|
+|**Data pipelines**|ETL data pipelines used to perform data migration from {{app_name}} Database to DW system.|
+|**Staging data store**|{{app_name}} SQL database|
+|**Enterprise Data Warehouse**|Data Warehouse for {{app_name}} data migration.|
+|**Data Analytics Service**|Analysis Service to create data models for BI reports.|
+|**Visualisation**|BI analytics and reports.|
+
 ### 8. Logical Architecture
 [filename](diagram/logical_view.drawio ':include :type=code')
 
