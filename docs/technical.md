@@ -117,4 +117,28 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 ### 8. Logical Architecture
 [filename](diagram/logical_view.drawio ':include :type=code')
 
+#### Element Catalog
+
+|Solution Component|Technology|Licensed/Open Source
+|:--|:--|:--|
+|**Presentation Tier - Web**|HTML 5,<br>CSS,<br>Javascript|Open Source|
+|**Frontend Framework,<br>Supporting Framework**|TBD<br>TBD|Open Source|
+|**Presentation Tier Hosting - Web**|TBD|TBD|
+|**Backend Application Tier**|TBD|TBD|
+|**Backend Framework,<br>Supporting Framework**|TBD|TBD|
+|**Backend Application Tier Hosting**|TBD|TBD|
+|**API Gateway**|TBD|TBD|
+|**Data Tier - RDBMS**|TBD|TBD|
+|**Container**|Docker|Open Source|
+|**Container Orchestration**|K8S|Open Source|
+|**Container Registry**|Docker Hub|Open Source|
+|**Service Mesh**|Istio|Open Source|
+|**Message Queue**|TBD|TBD|
+|**File Store**|TBD|TBD|
+|**Cache**|Redis Cache|Open Source|
+|**Data Center**|TBD|TBD|
+|**Application Logging & Monitoring**|TBD|Open Source|
+|**Infra Monitoring Tool**|TBD|TBD|
+|**Application Deployment**|TBD|TBD|
+
 ### 9. Physical Architecture (TBD)
