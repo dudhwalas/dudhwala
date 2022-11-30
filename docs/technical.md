@@ -153,3 +153,72 @@ Set of microservices that form cross-cutting services commonly used across the {
 |**Centralized Log Integration**|Collect, Filter, Tranform, Sink log data from variety of {{app_name}}'s source systems, application, database etc.|Fluentd|
 |**Centralized Log Data Store And Search**|Search and analytical engine that centrally stores data to search, index and analyze data.|Elasticsearch|
 |**Extensible UI & Visualization**|Interactive user interface to query and visualize log data.|Kibana|
+
+#### What To Log
+The core aspects of {{app_name}} that should be monitored are functional correctness, performance, reliability, and security. Always log:
+<ol>
+<li>Application errors</li>
+<li>Input and output validation failures</li>
+<li>Authentication successes and failures</li>
+<li>Authorization failures</li>
+<li>Exceptions</li>
+<li>Other higher-risk events, like data import and export</li>
+<li>Opt-ins, like terms of service</li>
+<li>Troubleshooting</li>
+<li>Monitoring and performance improvement</li>
+<li>Understanding user behavior</li>
+<li>Security and auditing</li>
+</ol>
+
+#### Add context to the message content, such as:
+<ol>
+<li>What action was performed</li>
+<li>Who performed the action</li>
+<li>When a failure occurred</li>
+<li>Where a failure occurred</li>
+<li>Why a failure occurred</li>
+<li>Remediation information when possible for WARN and ERROR messages</li>
+<li>HTTP request ID - see HTTP Request IDs for more info.</li>
+</ol>
+
+#### Exclude sensitive information
+Keep security and compliance requirements in mind:
+<ol>
+<li>Don’t emit sensitive Personal Identifiable Information (PII).</li>
+<li>Don’t emit encryption keys or secrets to your logs.</li>
+<li>Ensure that your company’s privacy policy covers your log data.</li>
+<li>Ensure that your logging add-on provider meets your compliance needs.</li>
+<li>Ensure that you meet data residency requirements.</li>
+</ol>
+
+#### Log levels:
+|Level|Description|
+|:-|:-|
+|**INFO**|Informational messages that do not indicate any fault or error.|
+|**WARN**|Indicates that there is a potential problem, but with no user experience impact.|
+|**ERROR**|Indicates a serious problem, with some user experience impact.|
+|**FATAL**|Indicates fatal errors, user experience is majorly impacted.|
+|**DEBUG**|Used for debugging. The messaging targets specifically the app’s developers.|
+
+#### Structured Log Format
+Example
+```
+{
+    "datetime": "2021-01-01T01:01:01-0700",
+    "appid": "foobar.netportal_auth",
+    "event": "AUTHN_login_success:joebob1",
+    "level": "INFO",
+    "description": "User joebob1 login successfully",
+    "useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
+    "source_ip": "165.225.50.94",
+    "host_ip": "10.12.7.9",
+    "hostname": "portalauth.foobar.com",
+    "protocol": "https",
+    "port": "440",
+    "request_uri": "/api/v2/auth/",
+    "request_method": "POST",
+    "region": "AWS-US-WEST-2",
+    "geo": "USA"
+}
+
+```
