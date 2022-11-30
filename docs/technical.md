@@ -142,3 +142,14 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 |**Application Deployment**|TBD|TBD|
 
 ### 9. Physical Architecture (TBD)
+
+## Base Framework
+Set of microservices that form cross-cutting services commonly used across the {{app_name}} business services.
+### 1. Logging Service - Unified Logging Layer
+[filename](diagram/logging_framework.drawio ':include :type=code')
+
+|Component|Description|Technology|
+|:--|:--|:-|
+|**Centralized Log Integration**|Collect, Filter, Tranform, Sink log data from variety of {{app_name}}'s source systems, application, database etc.|Fluentd|
+|**Centralized Log Data Store And Search**|Search and analytical engine that centrally stores data to search, index and analyze data.|Elasticsearch|
+|**Extensible UI & Visualization**|Interactive user interface to query and visualize log data.|Kibana|
