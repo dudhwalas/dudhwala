@@ -155,6 +155,8 @@ Set of microservices that form cross-cutting services commonly used across the {
 |**Centralized Log Data Store And Search**|Search and analytical engine that centrally stores data to search, index and analyze data.|Elasticsearch 8.1.2|
 |**Extensible UI & Visualization**|Interactive user interface to query and visualize log data.|Kibana 8.1.2|
 
+Reference - https://docs.fluentd.org/container-deployment/docker-compose
+
 #### What To Log
 The core aspects of {{app_name}} that should be monitored are functional correctness, performance, reliability, and security. Always log:
 <ol>
@@ -230,6 +232,8 @@ Example
 |Component|Description|Technology|
 |:--|:--|:-|
 |**Identity And Access Management**|Identity Provider,Single-Sign On,Identity Brokering and Social Login,User Federation,Admin Console,Account Management Console,OpenID Connect, OAuth 2.0, and SAML,Authorization Services.|Keycloak 20.0.1|
+
+Reference - https://www.keycloak.org/documentation
 
 #### IAM Features
 Provides user federation, strong authentication, user management, fine-grained authorization, and more.
