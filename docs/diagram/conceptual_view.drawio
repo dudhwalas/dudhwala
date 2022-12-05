@@ -401,7 +401,7 @@
                 <mxCell id="j7dnmn5wsTtFB2skk1Vw-204" value="" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=10;rounded=0;glass=0;sketch=0;curveFitting=0.95;fontFamily=Helvetica;strokeWidth=2;direction=south;fillColor=#f8cecc;fontSize=14;strokeColor=#000000;fontStyle=1;" parent="1" vertex="1">
                     <mxGeometry x="652.5" y="458" width="50" height="760" as="geometry"/>
                 </mxCell>
-                <mxCell id="j7dnmn5wsTtFB2skk1Vw-205" value="Data Pipelines And Triggers" style="text;html=1;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;glass=0;sketch=0;curveFitting=0.95;fontFamily=Helvetica;rotation=270;fontSize=14;strokeColor=#000000;strokeWidth=2;fontStyle=1" parent="1" vertex="1">
+                <mxCell id="j7dnmn5wsTtFB2skk1Vw-205" value="Data Pipelines And Triggers" style="text;html=1;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;glass=0;sketch=0;curveFitting=0.95;fontFamily=Helvetica;rotation=270;fontSize=14;strokeColor=none;strokeWidth=2;fontStyle=1" parent="1" vertex="1">
                     <mxGeometry x="550" y="820" width="255" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="j7dnmn5wsTtFB2skk1Vw-216" value="Data Migration" style="rounded=0;whiteSpace=wrap;html=1;glass=0;sketch=0;curveFitting=0.95;fontFamily=Helvetica;strokeWidth=2;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;fillColor=none;fontSize=14;strokeColor=#000000;fontStyle=1" parent="1" vertex="1">

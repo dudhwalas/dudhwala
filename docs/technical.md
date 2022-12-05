@@ -255,3 +255,15 @@ Provides user federation, strong authentication, user management, fine-grained a
 |**Customer**|-|-|-|-|-|-|-|-|-|-|-|-|
 |**Delivery Squad**|-|-|-|-|-|-|read|read|read|read-write|read|read-write|
 |**Administrator**|-|-|-|-|-|-|read-write|read-write|read-write|read-write|read-write|read-write|
+
+## {{app_name}} Platform Services
+Core business microservices - product service, customer service, delivery squad service, subscription service, delivery service, invoice service, payment service and other backend services.
+
+### 1. Product Service
+[filename](diagram/product_service_domain_model.drawio ':include :type=code')
+
+#### Sequence View
+[filename](diagram/product_sequence_view.drawio ':include :type=code')
+
+#### Data Model
+[filename](diagram/product_erd.drawio ':include :type=code')
