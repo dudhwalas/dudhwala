@@ -150,9 +150,9 @@ Set of microservices that form cross-cutting services commonly used across the {
 
 |Component|Description|Technology|
 |:--|:--|:-|
-|**Centralized Log Integration**|Collect, Filter, Tranform, Sink log data from variety of {{app_name}}'s source systems, application, database etc.|Fluentd|
-|**Centralized Log Data Store And Search**|Search and analytical engine that centrally stores data to search, index and analyze data.|Elasticsearch|
-|**Extensible UI & Visualization**|Interactive user interface to query and visualize log data.|Kibana|
+|**Centralized Log Integration**|Collect, Filter, Tranform, Sink log data from variety of {{app_name}}'s source systems, application, database etc.|Fluentd 1.12.0-debian-1.0|
+|**Centralized Log Data Store And Search**|Search and analytical engine that centrally stores data to search, index and analyze data.|Elasticsearch 8.1.2|
+|**Extensible UI & Visualization**|Interactive user interface to query and visualize log data.|Kibana 8.1.2|
 
 #### What To Log
 The core aspects of {{app_name}} that should be monitored are functional correctness, performance, reliability, and security. Always log:
