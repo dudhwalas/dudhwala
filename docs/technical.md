@@ -231,18 +231,27 @@ Example
 
 |Component|Description|Technology|
 |:--|:--|:-|
-|**Identity And Access Management**|Identity Provider,Single-Sign On,Identity Brokering and Social Login,User Federation,Admin Console,Account Management Console,OpenID Connect, OAuth 2.0, and SAML,Authorization Services.|Keycloak 20.0.1|
+|**Identity And Access Management**|Identity Provider, Single-Sign On, Identity Brokering and Social Login, User Federation, Admin Console, Account Management Console, OpenID Connect, OAuth 2.0, and SAML, Authorization Services.|Keycloak 20.0.1|
 
 Reference - https://www.keycloak.org/documentation
 
 #### IAM Features
 Provides user federation, strong authentication, user management, fine-grained authorization, and more.
 <ol>
-<li>Single-Sign On - Users authenticate with IAM Server. Once logged-in, users don't have to login again to access a different application.</li>
-<li>Identity Brokering and Social Login - Enabling login with social networks is easy to add through the admin console.</li>
-<li>User Federation - Own identity provider using relational database.</li>
-<li>Admin Console - Through the admin console administrators can centrally manage all aspects of the IAM server.</li>
-<li>Account Management Console - Through the account management console users can manage their own accounts. They can update the profile, change passwords, and setup two-factor authentication.</li>
-<li>Standard Protocols - Based on standard protocols and provides support for OpenID Connect, OAuth 2.0, and SAML.</li>
-<li>Authorization Services - Allows you to manage permissions for all your services from the admin console and gives you the power to define exactly the policies you need.</li>
+<li><b>Single-Sign On - </b> Users authenticate with IAM Server. Once logged-in, users don't have to login again to access a different application.</li>
+<li><b>Identity Brokering and Social Login - </b> Enabling login with social networks is easy to add through the admin console.</li>
+<li><b>User Federation - </b> Own identity provider using relational database.</li>
+<li><b>Admin Console - </b> Through the admin console administrators can centrally manage all aspects of the IAM server.</li>
+<li><b>Account Management Console - </b> Through the account management console users can manage their own accounts. They can update the profile, change passwords, and setup two-factor authentication.</li>
+<li><b>Standard Protocols - </b> Based on standard protocols and provides support for OpenID Connect, OAuth 2.0, and SAML.</li>
+<li><b>Authorization Services - </b> Allows you to manage permissions for all your services from the admin console and gives you the power to define exactly the policies you need.</li>
 </ol>
+
+#### Access Control Matrix
+|<sub>Role</sub>╲<sup>Feature</sup>|Tenant (Realm)|Role|Scope|Policy & Permission|User|Product|Customer|Delivery Squad|Subscription|Delivery|Invoice|Payment|
+|:--|:--|:-|:-|:-|:-|:-|:-|:-|:-|:-|:-|:-|
+|**Super Admin**|read-write|read-write|read-write|read-write|read-write|read-write|read-write|read-write|read-write|read-write|read-write|read-write|
+|**Owner**|-|-|-|-|-|-|read-write|read-write|read-write|read-write|read-write|read-write|
+|**Customer**|-|-|-|-|-|-|-|-|-|-|-|-|
+|**Delivery Squad**|-|-|-|-|-|-|read|read|read|read-write|read|read-write|
+|**Administrator**|-|-|-|-|-|-|read-write|read-write|read-write|read-write|read-write|read-write|
