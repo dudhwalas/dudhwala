@@ -259,7 +259,7 @@ Provides user federation, strong authentication, user management, fine-grained a
 ## {{app_name}} Platform Services
 Core business microservices - product service, customer service, delivery squad service, subscription service, delivery service, invoice service, payment service and other backend services.
 
-### 1. Product Service
+### 1. Product Catalog Service
 [filename](diagram/product_service_domain_model.drawio ':include :type=code')
 
 #### Sequence View
@@ -272,37 +272,113 @@ Core business microservices - product service, customer service, delivery squad 
 |Service|Operation|Service Endpoint|
 |:--|:--|:--|
 |**catalog.v1.brand**|AddBrand|/catalog.v1.brand/addbrand|
-||GetAllBrand|/catalog.v1.brand/getallbrand|
-||GetBrandById|/catalog.v1.brand/getbrandbyid|
+||GetAllBrand|/catalog.v1.brand/getbrand|
 ||ModifyBrand|/catalog.v1.brand/modifybrand|
 ||DeactivateBrand|/catalog.v1.brand/deactivatebrand|
 |**catalog.v1.product**|AddProduct|/catalog.v1.product/addproduct|
-||GetAllProduct|/catalog.v1.product/getallproduct|
-||GetProductById|/catalog.v1.product/getproductbyid|
-||ModifyProduct|/catalog.v1.product/updateproduct|
+||GetAllProduct|/catalog.v1.product/getproduct|
+||ModifyProduct|/catalog.v1.product/modifyproduct|
 ||DeactivateProduct|/catalog.v1.product/deactivateproduct|
 
 ```
 syntax = "proto3";
 package catalog.v1;
 
-service Member {
-  rpc GetMemberInfo (GetMemberRequest) returns (MemberResponse);
+service BrandService {
+    rpc GetBrand (GetBrandRequest) returns (BrandResponse);
 
-  rpc UpdateMemberInfo(UpdateMemberRequest) returns (MemberResponse);
+    rpc AddBrand(BrandRequest) returns (StatusResponse);
 
-  rpc VerifyBankAccount(VerifyBankAccountRequest) returns (VerifyBankAccountResponse);
+    rpc ModifyBrand(BrandRequest) returns (StatusResponse);
+
+    rpc DeactivateBrand(DeactivateBrandRequest) returns (StatusResponse);
 }
 
-message GetMemberRequest {
-  string id = 1;
-  string name = 2;
-  string number = 3; 
-  … other value types
+message GetBrandRequest {
+    string filterParams = 1;
+    … other value types
 }
 
-message MemberResponse {
-   Member  member = 1;
-… other value types
+message BrandRequest {
+    Brand brand = 1;
+    … other value types
+}
+
+message DeactivateBrandRequest {
+    string brandId = 1;
+    … other value types
+}
+
+message BrandResponse {
+    repeated Brand brand = 1;
+    … other value types
+}
+
+message Brand {
+    string id = 1;
+    string realmId = 2;
+    string name = 3;
+    string image = 4;
+    bool status = 5;
+    … other value types
+}
+
+message StatusResponse {
+    bool success = 1;
+    string message = 2;
+    … other value types
+}
+```
+
+```
+syntax = "proto3";
+package catalog.v1;
+
+service ProductService {
+    rpc GetProduct (GetProductRequest) returns (ProductResponse);
+
+    rpc AddProduct(ProductRequest) returns (StatusResponse);
+
+    rpc ModifyProduct(ProductRequest) returns (StatusResponse);
+
+    rpc DeactivateProduct(DeactivateProductRequest) returns (StatusResponse);
+}
+
+message GetProductRequest {
+    string filterParams = 1;
+    … other value types
+}
+
+message ProductRequest {
+    Product product = 1;
+    … other value types
+}
+
+message DeactivateProductRequest {
+    string productId = 1;
+    … other value types
+}
+
+message ProductResponse {
+    repeated Product product = 1;
+    … other value types
+}
+
+message Product {
+    string id = 1;
+    string realmId = 2;
+    string name = 3;
+    string image = 4;
+    string price = 5;
+    string quantity = 6;
+    string brandId = 7;
+    bool status = 8;
+    … other value types
+}
+
+message StatusResponse {
+    bool success = 1;
+    string message = 2;
+    … other value types
 }
 ```
