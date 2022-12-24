@@ -45,7 +45,7 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 ### 4. High Level Service APIs
 |Service|Operations|Collaborators|
 |:--|:--|:--|
-|**Product**|createProduct|<center>**--**</center>|
+|**Product**|addProduct|<center>**--**</center>|
 ||modifyProduct|**Subscription Service**<br>- updateProductDetails|
 ||deactivateProduct|**Subscription Service**<br>- verifyProductSubscription|
 |**Customer**|enrollCustomer|<center>**--**</center>|
@@ -267,3 +267,42 @@ Core business microservices - product service, customer service, delivery squad 
 
 #### Data Model
 [filename](diagram/product_erd.drawio ':include :type=code')
+
+#### API - Service
+|Service|Operation|Service Endpoint|
+|:--|:--|:--|
+|**catalog.v1.brand**|AddBrand|/catalog.v1.brand/addbrand|
+||GetAllBrand|/catalog.v1.brand/getallbrand|
+||GetBrandById|/catalog.v1.brand/getbrandbyid|
+||ModifyBrand|/catalog.v1.brand/modifybrand|
+||DeactivateBrand|/catalog.v1.brand/deactivatebrand|
+|**catalog.v1.product**|AddProduct|/catalog.v1.product/addproduct|
+||GetAllProduct|/catalog.v1.product/getallproduct|
+||GetProductById|/catalog.v1.product/getproductbyid|
+||ModifyProduct|/catalog.v1.product/updateproduct|
+||DeactivateProduct|/catalog.v1.product/deactivateproduct|
+
+```
+syntax = "proto3";
+package catalog.v1;
+
+service Member {
+  rpc GetMemberInfo (GetMemberRequest) returns (MemberResponse);
+
+  rpc UpdateMemberInfo(UpdateMemberRequest) returns (MemberResponse);
+
+  rpc VerifyBankAccount(VerifyBankAccountRequest) returns (VerifyBankAccountResponse);
+}
+
+message GetMemberRequest {
+  string id = 1;
+  string name = 2;
+  string number = 3; 
+  … other value types
+}
+
+message MemberResponse {
+   Member  member = 1;
+… other value types
+}
+```
