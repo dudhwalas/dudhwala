@@ -382,3 +382,222 @@ message StatusResponse {
     … other value types
 }
 ```
+
+
+### 2. Customer Service
+[filename](diagram/customer_service_domain_model.drawio ':include :type=code')
+
+#### Sequence View
+[filename](diagram/customer_sequence_view.drawio ':include :type=code')
+
+#### Data Model
+[filename](diagram/customers_erd.drawio ':include :type=code')
+
+#### API - Service
+|Service|Operation|Service Endpoint|
+|:--|:--|:--|
+|**user.v1.customer**|EnrollCustomer|/user.v1.customer/enrollcustomer|
+||GetCustomer|/user.v1.customer/getcustomer|
+||ModifyCustomer|/user.v1.customer/modifycustomer|
+||DeactivateCustomer|/user.v1.customer/deactivatecustomer|
+||AddCustomerAddress|/user.v1.customer/addcustomeraddress|
+||GetCustomerAddress|/user.v1.customer/getcustomeraddress|
+||ModifyCustomerAddress|/user.v1.customer/modifycustomeraddress|
+||DeactivateCustomerAddress|/user.v1.customer/deactivatecustomeraddress|
+
+```
+syntax = "proto3";
+package user.v1;
+
+service CustomerService {
+    rpc GetCustomer (GetCustomerRequest) returns (CustomerResponse);
+
+    rpc EnrollCustomer(CustomerRequest) returns (CustomerResponse);
+
+    rpc ModifyCustomer(CustomerRequest) returns (StatusResponse);
+
+    rpc DeactivateCustomer(DeactivateCustomerRequest) returns (StatusResponse);
+
+    rpc GetCustomerAddress (GetCustomerAddressRequest) returns (CustomerAddressResponse);
+
+    rpc AddCustomerAddress(CustomerAddressRequest) returns (CustomerAddressResponse);
+
+    rpc ModifyCustomerAddress(CustomerAddressRequest) returns (StatusResponse);
+
+    rpc DeactivateCustomerAddress(DeactivateCustomerAddressRequest) returns (StatusResponse);
+}
+
+message GetCustomerRequest {
+    string filterParams = 1;
+    … other value types
+}
+
+message CustomerRequest {
+    Customer customer = 1;
+    … other value types
+}
+
+message DeactivateCustomerRequest {
+    string customerId = 1;
+    … other value types
+}
+
+message CustomerResponse {
+    repeated Customer customer = 1;
+    … other value types
+}
+
+message Customer {
+    string id = 1;
+    string realmId = 2;
+    string firstname = 3;
+    string lastname = 4;
+    bool status = 5;
+    … other value types
+}
+
+message StatusResponse {
+    bool success = 1;
+    string message = 2;
+    … other value types
+}
+
+
+message GetCustomerAddressRequest {
+    string filterParams = 1;
+    … other value types
+}
+
+message CustomerAddressRequest {
+    CustomerAddress customerAddress = 1;
+    … other value types
+}
+
+message DeactivateCustomerAddressRequest {
+    string customerAddressId = 1;
+    … other value types
+}
+
+message CustomerAddressResponse {
+    repeated CustomerAddress customerAddress = 1;
+    … other value types
+}
+
+message CustomerAddress {
+    string id = 1;
+    string customerId = 2;
+    string line = 3;
+    int pincode = 4;
+    bool status = 5;
+    … other value types
+}
+```
+
+### 3. Delivery Squad Service
+[filename](diagram/deliverysquad_service_domain_model.drawio ':include :type=code')
+
+#### Sequence View
+[filename](diagram/delivery_squad_sequence_view.drawio ':include :type=code')
+
+#### Data Model
+[filename](diagram/deliverysquad_erd.drawio ':include :type=code')
+
+#### API - Service
+|Service|Operation|Service Endpoint|
+|:--|:--|:--|
+|**user.v1.DeliverySquad**|RecruitDeliverySquad|/user.v1.deliverysquad/recruitdeliverysquad|
+||GetDeliverySquad|/user.v1.deliverysquad/getdeliverysquad|
+||ModifyDeliverySquad|/user.v1.deliverysquad/modifydeliverysquad|
+||DeactivateDeliverySquad|/user.v1.deliverysquad/deactivatedeliverysquad|
+||AddDeliverySquadAddress|/user.v1.deliverysquad/adddeliverysquadaddress|
+||GetDeliverySquadAddress|/user.v1.deliverysquad/getdeliverysquadaddress|
+||ModifyDeliverySquadAddress|/user.v1.deliverysquad/modifydeliverysquadaddress|
+||DeactivateDeliverySquadAddress|/user.v1.deliverysquad/deactivatedeliverysquadaddress|
+
+```
+syntax = "proto3";
+package user.v1;
+
+service DeliverySquadService {
+    rpc GetDeliverySquad (GetDeliverySquadRequest) returns (DeliverySquadResponse);
+
+    rpc EnrollDeliverySquad(DeliverySquadRequest) returns (DeliverySquadResponse);
+
+    rpc ModifyDeliverySquad(DeliverySquadRequest) returns (StatusResponse);
+
+    rpc DeactivateDeliverySquad(DeactivateDeliverySquadRequest) returns (StatusResponse);
+
+    rpc GetDeliverySquadAddress (GetDeliverySquadAddressRequest) returns (DeliverySquadAddressResponse);
+
+    rpc AddDeliverySquadAddress(DeliverySquadAddressRequest) returns (DeliverySquadAddressResponse);
+
+    rpc ModifyDeliverySquadAddress(DeliverySquadAddressRequest) returns (StatusResponse);
+
+    rpc DeactivateDeliverySquadAddress(DeactivateDeliverySquadAddressRequest) returns (StatusResponse);
+}
+
+message GetDeliverySquadRequest {
+    string filterParams = 1;
+    … other value types
+}
+
+message DeliverySquadRequest {
+    DeliverySquad deliverySquad = 1;
+    … other value types
+}
+
+message DeactivateDeliverySquadRequest {
+    string deliverySquadId = 1;
+    … other value types
+}
+
+message DeliverySquadResponse {
+    repeated DeliverySquad deliverySquad = 1;
+    … other value types
+}
+
+message DeliverySquad {
+    string id = 1;
+    string realmId = 2;
+    string firstname = 3;
+    string lastname = 4;
+    bool status = 5;
+    … other value types
+}
+
+message StatusResponse {
+    bool success = 1;
+    string message = 2;
+    … other value types
+}
+
+
+message GetDeliverySquadAddressRequest {
+    string filterParams = 1;
+    … other value types
+}
+
+message DeliverySquadAddressRequest {
+    DeliverySquadAddress deliverySquadAddress = 1;
+    … other value types
+}
+
+message DeactivateDeliverySquadAddressRequest {
+    string deliverySquadAddressId = 1;
+    … other value types
+}
+
+message DeliverySquadAddressResponse {
+    repeated DeliverySquadAddress deliverySquadAddress = 1;
+    … other value types
+}
+
+message DeliverySquadAddress {
+    string id = 1;
+    string deliverySquadId = 2;
+    string line = 3;
+    int pincode = 4;
+    bool status = 5;
+    … other value types
+}
+```
