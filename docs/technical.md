@@ -61,7 +61,7 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 ||modifyDelivery|<center>**--**</center>|
 |**Invoice**|prepareInvoice|**Delivery Service**<br>- fetchDeliveryDetails<br>**Product Service**<br>- fetchProductAmountDetails|
 ||shareInvoice|<center>**--**</center>|
-|**Payment**|notePayment|**Invoice Service**<br>- updateInvoiceStatus|
+|**Payment**|recordPayment|**Invoice Service**<br>- updateInvoiceStatus|
 
 ### 5. Architecturally Significant Requirements (ASR) - Quality Attributes
 |Quality Attribute|Measurable Metric|Benchmark|
@@ -734,7 +734,7 @@ message StatusResponse {
 [filename](diagram/invoice_sequence_view.drawio ':include :type=code')
 
 #### Data Model
-[filename](diagram/delivery_erd.drawio ':include :type=code')
+[filename](diagram/invoice_erd.drawio ':include :type=code')
 
 #### API - Service
 |Service|Operation|Service Endpoint|
@@ -784,7 +784,65 @@ message Invoice {
     string startDate = 6;
     string endDate = 7;
     bool status = 8;
-    string amount = 3;
+    string amount = 9;
+    … other value types
+}
+
+message StatusResponse {
+    bool success = 1;
+    string message = 2;
+    … other value types
+}
+```
+
+### 7. Payment Service
+[filename](diagram/payment_service_domain_model.drawio ':include :type=code')
+
+#### Sequence View
+[filename](diagram/payment_sequence_view.drawio ':include :type=code')
+
+#### Data Model
+[filename](diagram/payment_erd.drawio ':include :type=code')
+
+#### API - Service
+|Service|Operation|Service Endpoint|
+|:--|:--|:--|
+|**{{app_name}}.v1.Payment**|GetPayment|/{{app_name}}.v1.payment/getpayment|
+||RecordPayment|/{{app_name}}.v1.payment/recordpayment|
+
+```
+syntax = "proto3";
+
+service PaymentService {
+    rpc GetPayment(GetPaymentRequest) returns (PaymentResponse);
+
+    rpc RecordPayment(RecordPaymentRequest) returns (StatusResponse);
+}
+
+message GetPaymentRequest {
+    string filterParams = 1;
+    … other value types
+}
+
+message RecordPaymentRequest {
+    Payment payment = 1;
+    … other value types
+}
+
+message PaymentResponse {
+    repeated Payment payment = 1;
+    … other value types
+}
+
+message Payment {
+    string id = 1;
+    string realmId = 2;
+    string date = 3;
+    string amount = 4;
+    repeated Invoice invoice = 5;
+    string comment = 6;
+    bool status = 7;
+    Customer customer = 8;
     … other value types
 }
 
