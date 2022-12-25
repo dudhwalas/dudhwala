@@ -726,3 +726,71 @@ message StatusResponse {
     … other value types
 }
 ```
+
+### 6. Invoice Service
+[filename](diagram/invoice_service_domain_model.drawio ':include :type=code')
+
+#### Sequence View
+[filename](diagram/invoice_sequence_view.drawio ':include :type=code')
+
+#### Data Model
+[filename](diagram/delivery_erd.drawio ':include :type=code')
+
+#### API - Service
+|Service|Operation|Service Endpoint|
+|:--|:--|:--|
+|**{{app_name}}.v1.Invoice**|PrepareInvoice|/{{app_name}}.v1.invoice/prepareinvoice|
+||ShareInvoice|/{{app_name}}.v1.invoice/shareinvoice|
+
+```
+syntax = "proto3";
+
+service InvoiceService {
+    rpc GetInvoice(GetInvoiceRequest) returns (InvoiceResponse);
+
+    rpc PrepareInvoice(PrepareInvoiceRequest) returns (StatusResponse);
+
+    rpc ShareInvoice(ShareInvoiceRequest) returns (StatusResponse);
+}
+
+message GetInvoiceRequest {
+    string filterParams = 1;
+    … other value types
+}
+
+message PrepareInvoiceRequest {
+    string customerId = 1;
+    google.protobuf.Timestamp startDate = 2;
+    google.protobuf.Timestamp endDate = 3;
+    … other value types
+}
+
+message ShareInvoiceRequest {
+    string invoiceId = 1;
+    … other value types
+}
+
+message InvoiceResponse {
+    repeated Invoice invoice = 1;
+    … other value types
+}
+
+message Invoice {
+    string id = 1;
+    string realmId = 2;
+    string invoiceTime = 3;
+    Customer customer = 4;
+    repeated Product product = 5;
+    string startDate = 6;
+    string endDate = 7;
+    bool status = 8;
+    string amount = 3;
+    … other value types
+}
+
+message StatusResponse {
+    bool success = 1;
+    string message = 2;
+    … other value types
+}
+```
