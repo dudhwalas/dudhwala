@@ -113,7 +113,7 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 
 ### 8. Physical Architecture (TBD)
 
-## Base Framework
+## Base Framework ⚙️
 Set of microservices that form cross-cutting services commonly used across the {{app_name}} business services.
 
 ### 1. Logging Service - Unified Logging
@@ -226,7 +226,7 @@ Provides user federation, strong authentication, user management, fine-grained a
 |**Delivery Squad**|-|-|-|-|-|-|read|read|read|read-write|read|read-write|
 |**Administrator**|-|-|-|-|-|-|read-write|read-write|read-write|read-write|read-write|read-write|
 
-## {{app_name}} Platform Services
+## {{app_name}} Platform Services 🧠
 Core business microservices - product service, customer service, delivery squad service, subscription service, delivery service, invoice service, payment service and other backend services.
 
 ### 1. Product Catalog Service
