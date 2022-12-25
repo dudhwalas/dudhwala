@@ -56,8 +56,8 @@ The Context view of {{app_name}} system defines the relationships, dependencies,
 ||deactivateDeliverySquadMember|**Subscription Service**<br>- verifyDeliverySquadMemberInSubscription|
 |**Subscription**|createSubscription|<center>**--**</center>|
 ||modifySubscription|<center>**--**</center>|
-||deactivateSubscription|<center>**--**</center>|
-|**Delivery**|deliverProduct|<center>**--**</center>|
+||removeSubscription|<center>**--**</center>|
+|**Delivery**|deliver|<center>**--**</center>|
 ||modifyDelivery|<center>**--**</center>|
 |**Invoice**|prepareInvoice|**Delivery Service**<br>- fetchDeliveryDetails<br>**Product Service**<br>- fetchProductAmountDetails|
 ||shareInvoice|<center>**--**</center>|
@@ -271,18 +271,17 @@ Core business microservices - product service, customer service, delivery squad 
 #### API - Service
 |Service|Operation|Service Endpoint|
 |:--|:--|:--|
-|**catalog.v1.brand**|AddBrand|/catalog.v1.brand/addbrand|
-||GetAllBrand|/catalog.v1.brand/getbrand|
-||ModifyBrand|/catalog.v1.brand/modifybrand|
-||DeactivateBrand|/catalog.v1.brand/deactivatebrand|
-|**catalog.v1.product**|AddProduct|/catalog.v1.product/addproduct|
-||GetAllProduct|/catalog.v1.product/getproduct|
-||ModifyProduct|/catalog.v1.product/modifyproduct|
-||DeactivateProduct|/catalog.v1.product/deactivateproduct|
+|**{{app_name}}.v1.brand**|AddBrand|/{{app_name}}.v1.brand/addbrand|
+||GetAllBrand|/{{app_name}}.v1.brand/getbrand|
+||ModifyBrand|/{{app_name}}.v1.brand/modifybrand|
+||DeactivateBrand|/{{app_name}}.v1.brand/deactivatebrand|
+|**{{app_name}}.v1.product**|AddProduct|/{{app_name}}.v1.product/addproduct|
+||GetAllProduct|/{{app_name}}.v1.product/getproduct|
+||ModifyProduct|/{{app_name}}.v1.product/modifyproduct|
+||DeactivateProduct|/{{app_name}}.v1.product/deactivateproduct|
 
 ```
 syntax = "proto3";
-package catalog.v1;
 
 service BrandService {
     rpc GetBrand (GetBrandRequest) returns (BrandResponse);
@@ -332,7 +331,6 @@ message StatusResponse {
 
 ```
 syntax = "proto3";
-package catalog.v1;
 
 service ProductService {
     rpc GetProduct (GetProductRequest) returns (ProductResponse);
@@ -396,23 +394,22 @@ message StatusResponse {
 #### API - Service
 |Service|Operation|Service Endpoint|
 |:--|:--|:--|
-|**user.v1.customer**|EnrollCustomer|/user.v1.customer/enrollcustomer|
-||GetCustomer|/user.v1.customer/getcustomer|
-||ModifyCustomer|/user.v1.customer/modifycustomer|
-||DeactivateCustomer|/user.v1.customer/deactivatecustomer|
-||AddCustomerAddress|/user.v1.customer/addcustomeraddress|
-||GetCustomerAddress|/user.v1.customer/getcustomeraddress|
-||ModifyCustomerAddress|/user.v1.customer/modifycustomeraddress|
-||DeactivateCustomerAddress|/user.v1.customer/deactivatecustomeraddress|
+|**{{app_name}}.v1.customer**|EnrollCustomer|/{{app_name}}.v1.customer/enrollcustomer|
+||GetCustomer|/{{app_name}}.v1.customer/getcustomer|
+||ModifyCustomer|/{{app_name}}.v1.customer/modifycustomer|
+||DeactivateCustomer|/{{app_name}}.v1.customer/deactivatecustomer|
+||AddCustomerAddress|/{{app_name}}.v1.customer/addcustomeraddress|
+||GetCustomerAddress|/{{app_name}}.v1.customer/getcustomeraddress|
+||ModifyCustomerAddress|/{{app_name}}.v1.customer/modifycustomeraddress|
+||DeactivateCustomerAddress|/{{app_name}}.v1.customer/deactivatecustomeraddress|
 
 ```
 syntax = "proto3";
-package user.v1;
 
 service CustomerService {
     rpc GetCustomer (GetCustomerRequest) returns (CustomerResponse);
 
-    rpc EnrollCustomer(CustomerRequest) returns (CustomerResponse);
+    rpc EnrollCustomer(CustomerRequest) returns (StatusResponse);
 
     rpc ModifyCustomer(CustomerRequest) returns (StatusResponse);
 
@@ -505,23 +502,22 @@ message CustomerAddress {
 #### API - Service
 |Service|Operation|Service Endpoint|
 |:--|:--|:--|
-|**user.v1.DeliverySquad**|RecruitDeliverySquad|/user.v1.deliverysquad/recruitdeliverysquad|
-||GetDeliverySquad|/user.v1.deliverysquad/getdeliverysquad|
-||ModifyDeliverySquad|/user.v1.deliverysquad/modifydeliverysquad|
-||DeactivateDeliverySquad|/user.v1.deliverysquad/deactivatedeliverysquad|
-||AddDeliverySquadAddress|/user.v1.deliverysquad/adddeliverysquadaddress|
-||GetDeliverySquadAddress|/user.v1.deliverysquad/getdeliverysquadaddress|
-||ModifyDeliverySquadAddress|/user.v1.deliverysquad/modifydeliverysquadaddress|
-||DeactivateDeliverySquadAddress|/user.v1.deliverysquad/deactivatedeliverysquadaddress|
+|**{{app_name}}.v1.DeliverySquad**|RecruitDeliverySquad|/{{app_name}}.v1.deliverysquad/recruitdeliverysquad|
+||GetDeliverySquad|/{{app_name}}.v1.deliverysquad/getdeliverysquad|
+||ModifyDeliverySquad|/{{app_name}}.v1.deliverysquad/modifydeliverysquad|
+||DeactivateDeliverySquad|/{{app_name}}.v1.deliverysquad/deactivatedeliverysquad|
+||AddDeliverySquadAddress|/{{app_name}}.v1.deliverysquad/adddeliverysquadaddress|
+||GetDeliverySquadAddress|/{{app_name}}.v1.deliverysquad/getdeliverysquadaddress|
+||ModifyDeliverySquadAddress|/{{app_name}}.v1.deliverysquad/modifydeliverysquadaddress|
+||DeactivateDeliverySquadAddress|/{{app_name}}.v1.deliverysquad/deactivatedeliverysquadaddress|
 
 ```
 syntax = "proto3";
-package user.v1;
 
 service DeliverySquadService {
     rpc GetDeliverySquad (GetDeliverySquadRequest) returns (DeliverySquadResponse);
 
-    rpc EnrollDeliverySquad(DeliverySquadRequest) returns (DeliverySquadResponse);
+    rpc RecruitDeliverySquad(DeliverySquadRequest) returns (StatusResponse);
 
     rpc ModifyDeliverySquad(DeliverySquadRequest) returns (StatusResponse);
 
@@ -598,6 +594,135 @@ message DeliverySquadAddress {
     string line = 3;
     int pincode = 4;
     bool status = 5;
+    … other value types
+}
+```
+
+### 4. Subscription Service
+[filename](diagram/subscription_service_domain_model.drawio ':include :type=code')
+
+#### Sequence View
+[filename](diagram/subscription_sequence_view.drawio ':include :type=code')
+
+#### Data Model
+[filename](diagram/subscription_erd.drawio ':include :type=code')
+
+#### API - Service
+|Service|Operation|Service Endpoint|
+|:--|:--|:--|
+|**{{app_name}}.v1.Subscription**|AddSubscription|/{{app_name}}.v1.subscription/addsubscription|
+||GetSubscription|/{{app_name}}.v1.subscription/getsubscription|
+||ModifySubscription|/{{app_name}}.v1.subscription/modifysubscription|
+||RemoveSubscription|/{{app_name}}.v1.subscription/removesubscription|
+
+```
+syntax = "proto3";
+
+service SubscriptionService {
+    rpc GetSubscription(GetSubscriptionRequest) returns (SubscriptionResponse);
+
+    rpc AddSubscription(SubscriptionRequest) returns (StatusResponse);
+
+    rpc ModifySubscription(SubscriptionRequest) returns (StatusResponse);
+
+    rpc RemoveSubscription(RemoveSubscriptionRequest) returns (StatusResponse);
+}
+
+message GetSubscriptionRequest {
+    string filterParams = 1;
+    … other value types
+}
+
+message SubscriptionRequest {
+    Subscription subscription = 1;
+    … other value types
+}
+
+message RemoveSubscriptionRequest {
+    string subscriptionId = 1;
+    … other value types
+}
+
+message SubscriptionResponse {
+    repeated Subscription subscription = 1;
+    … other value types
+}
+
+message Subscription {
+    string id = 1;
+    string realmId = 2;
+    string deliveryTime = 3;
+    Customer customer = 4;
+    DelvierySquad deliverySquad = 5;
+    repeated Product product = 6;
+    bool status = 7;
+    … other value types
+}
+
+message StatusResponse {
+    bool success = 1;
+    string message = 2;
+    … other value types
+}
+```
+
+### 5. Delivery Service
+[filename](diagram/delivery_service_domain_model.drawio ':include :type=code')
+
+#### Sequence View
+[filename](diagram/delivery_sequence_view.drawio ':include :type=code')
+
+#### Data Model
+[filename](diagram/delivery_erd.drawio ':include :type=code')
+
+#### API - Service
+|Service|Operation|Service Endpoint|
+|:--|:--|:--|
+|**{{app_name}}.v1.Delivery**|Deliver|/{{app_name}}.v1.delivery/deliver|
+||GetDelivery|/{{app_name}}.v1.delivery/getdelivery|
+||ModifyDelivery|/{{app_name}}.v1.delivery/modifydelivery|
+
+```
+syntax = "proto3";
+
+service DeliveryService {
+    rpc GetDelivery(GetDeliveryRequest) returns (DeliveryResponse);
+
+    rpc Deliver(DeliveryRequest) returns (StatusResponse);
+
+    rpc ModifyDelivery(DeliveryRequest) returns (StatusResponse);
+}
+
+message GetDeliveryRequest {
+    string filterParams = 1;
+    … other value types
+}
+
+message DeliveryRequest {
+    Delivery delivery = 1;
+    … other value types
+}
+
+message DeliveryResponse {
+    repeated Delivery delivery = 1;
+    … other value types
+}
+
+message Delivery {
+    string id = 1;
+    string realmId = 2;
+    string deliveryTime = 3;
+    Customer customer = 4;
+    DelvierySquad deliverySquad = 5;
+    repeated Product product = 6;
+    bool status = 7;
+    string comment = 8;
+    … other value types
+}
+
+message StatusResponse {
+    bool success = 1;
+    string message = 2;
     … other value types
 }
 ```
