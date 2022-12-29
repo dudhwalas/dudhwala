@@ -1,4 +1,4 @@
-## Introduction
+## Introduction <!-- {docsify-ignore} -->
 > {{app_name}} is app for {{app_for}}.
 
 ### Wait... What? 🤔 Why you need app for this? <!-- {docsify-ignore} -->
