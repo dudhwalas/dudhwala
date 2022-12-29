@@ -1,6 +1,9 @@
+### Platform Services 🧠 <!-- {docsify-ignore} -->
+
 **Platform services** are core business microservices - product service, customer service, delivery squad service, subscription service, delivery service, invoice service, payment service and other backend services.
 
-### 1. Product Catalog Service
+1.  ### Product Catalog Service
+
 [filename](diagram/product_service_domain_model.drawio ':include :type=code')
 
 #### Sequence View
@@ -122,8 +125,8 @@ message StatusResponse {
 }
 ```
 
+2.  ### Customer Service
 
-### 2. Customer Service
 [filename](diagram/customer_service_domain_model.drawio ':include :type=code')
 
 #### Sequence View
@@ -231,7 +234,7 @@ message CustomerAddress {
 }
 ```
 
-### 3. Delivery Squad Service
+3.  ### Delivery Squad Service
 [filename](diagram/deliverysquad_service_domain_model.drawio ':include :type=code')
 
 #### Sequence View
@@ -339,7 +342,7 @@ message DeliverySquadAddress {
 }
 ```
 
-### 4. Subscription Service
+4.  ### Subscription Service
 [filename](diagram/subscription_service_domain_model.drawio ':include :type=code')
 
 #### Sequence View
@@ -407,7 +410,7 @@ message StatusResponse {
 }
 ```
 
-### 5. Delivery Service
+5.  ### Delivery Service
 [filename](diagram/delivery_service_domain_model.drawio ':include :type=code')
 
 #### Sequence View
@@ -468,7 +471,7 @@ message StatusResponse {
 }
 ```
 
-### 6. Invoice Service
+6.  ### Invoice Service
 [filename](diagram/invoice_service_domain_model.drawio ':include :type=code')
 
 #### Sequence View
@@ -536,7 +539,7 @@ message StatusResponse {
 }
 ```
 
-### 7. Payment Service
+7.  ### Payment Service
 [filename](diagram/payment_service_domain_model.drawio ':include :type=code')
 
 #### Sequence View

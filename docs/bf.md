@@ -1,6 +1,9 @@
+## Base Framework ⚙️ <!-- {docsify-ignore} -->
+
 **Base framework** are set of microservices that form cross-cutting services commonly used across the {{app_name}} business services.
 
-### 1. Logging Service - Unified Logging
+1.  ### Logging Service - Unified Logging
+
 [filename](diagram/logging_framework.drawio ':include :type=code')
 
 |Component|Description|Technology|
@@ -80,7 +83,8 @@ Example
 
 ```
 
-### 2. IAM Service - Auth
+2.  ### IAM Service - Auth
+
 [filename](diagram/iam_auth_framework.drawio ':include :type=code')
 
 |Component|Description|Technology|

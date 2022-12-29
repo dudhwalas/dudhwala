@@ -1,3 +1,5 @@
+### Discovery Phase 🔍 <!-- {docsify-ignore} -->
+
 Roles & Responsibilities, Business Processes and Core Entities & Relationships are identified as a part of discovery phase for {{app_name}}.
 
 ### Roles & Responsibilties

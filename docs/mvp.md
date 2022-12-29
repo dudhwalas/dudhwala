@@ -1,3 +1,5 @@
+### MVP Modules 🌱 <!-- {docsify-ignore} -->
+
 Based on discovery phase - MVP (Minimum Viable Product) modules are identified for {{app_name}}.
 
 |Sr No|Module Name|Business Process|
