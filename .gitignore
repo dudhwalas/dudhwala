@@ -3,3 +3,5 @@
 *.dtmp
 .vs
 .vscode
+**/obj
+**/bin
