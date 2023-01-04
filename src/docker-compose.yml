@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   elasticsearch:
-    image: elasticsearch:8.5.3
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.3
     container_name: elasticsearch
     ports:
       - 5001:9200
@@ -11,6 +11,7 @@ services:
 
   fluentd:
     build: ./fluentd
+    image: fluentd:edge
     container_name: fluentd
     ports:
       - 24224:24224
@@ -19,7 +20,7 @@ services:
       - elasticsearch
 
   kibana:
-    image: kibana:8.5.3
+    image: docker.elastic.co/kibana/kibana:8.5.3
     container_name: kibana
     ports:
       - 5003:5601
@@ -34,6 +35,7 @@ services:
 
   postgres:
     build: ./postgres
+    image: postgres:15.1
     container_name: postgres
     restart: always
     ports:
