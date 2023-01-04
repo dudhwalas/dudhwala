@@ -1,4 +1,2 @@
-# I am readme. See me later.
-
-### To run on mac 
+### To run document on local machine 
 `sudo sh ./startup.sh`
