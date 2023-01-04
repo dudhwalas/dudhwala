@@ -1,84 +1,98 @@
 version: '3.4'
 services:
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.3
-    container_name: elasticsearch
-    ports:
-      - 5001:9200
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
+    elasticsearch:
+        image: elasticsearch:8.5.3
+        container_name: elasticsearch
+        ports:
+            - 5001:9200
+        environment:
+            - discovery.type=single-node
+            - xpack.security.enabled=false
 
-  fluentd:
-    build: ./fluentd
-    image: fluentd:edge
-    container_name: fluentd
-    ports:
-      - 24224:24224
-      - 24224:24224/udp
-    links:
-      - elasticsearch
+    fluentd:
+        build: ./fluentd
+        image: fluentd:edge
+        container_name: fluentd
+        ports:
+            - 24224:24224
+            - 24224:24224/udp
+        links:
+            - elasticsearch
 
-  kibana:
-    image: docker.elastic.co/kibana/kibana:8.5.3
-    container_name: kibana
-    ports:
-      - 5003:5601
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        tag: application.kibana
-    links:
-      - elasticsearch
-      - fluentd
+    kibana:
+        image: kibana:8.5.3
+        container_name: kibana
+        ports:
+            - 5003:5601
+        links:
+            - elasticsearch
+            - fluentd
+        logging:
+            driver: fluentd
+            options:
+                fluentd-address: localhost:24224
+                tag: application.kibana
+    
+    postgres:
+        build: ./postgres
+        image: postgres:15.1
+        container_name: postgres
+        restart: always
+        ports:
+            - 5004:5432
+        environment:
+            - POSTGRES_PASSWORD=appadmin!@#$%
+            - POSTGRES_USER=appadmin
+            - POSTGRES_DB=application
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        command: postgres -c config_file=/etc/conf/postgresql.conf
+        links:
+            - fluentd
+        logging:
+            driver: fluentd
+            options:
+                fluentd-address: localhost:24224
+                tag: application.postgres
+        
+    keycloak:
+        image: quay.io/keycloak/keycloak:20.0.2
+        container_name: keycloak
+        ports:
+            - 5005:8080
+        environment:
+            - KEYCLOAK_ADMIN=appadmin
+            - KEYCLOAK_ADMIN_PASSWORD=appadmin!@#$%
+            - KC_DB=postgres
+            - KC_DB_URL_HOST=postgres
+            - KC_DB_URL_DATABASE=application
+            - KC_DB_USERNAME=appadmin
+            - KC_DB_SCHEMA=auth
+            - KC_DB_PASSWORD=appadmin!@#$%
+            - KC_HEALTH_ENABLED=true
+            - KC_METRICS_ENABLED=true
+        command: start-dev --log=console  
+        links:
+            - postgres
+        logging:
+            driver: fluentd
+            options:
+                fluentd-address: localhost:24224
+                tag: application.keycloak
 
-  postgres:
-    build: ./postgres
-    image: postgres:15.1
-    container_name: postgres
-    restart: always
-    ports:
-      - 5004:5432
-    environment:
-      - POSTGRES_PASSWORD=appadmin!@#$%
-      - POSTGRES_USER=appadmin
-      - POSTGRES_DB=application
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    command: postgres -c config_file=/etc/conf/postgresql.conf
-    links:
-      - fluentd
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        tag: application.postgres
-
-  keycloak:
-    image: quay.io/keycloak/keycloak:20.0.2
-    container_name: keycloak
-    ports:
-      - 5005:8080
-    environment:
-      - KEYCLOAK_ADMIN=appadmin
-      - KEYCLOAK_ADMIN_PASSWORD=appadmin!@#$%
-      - KC_DB=postgres
-      - KC_DB_URL_HOST=postgres
-      - KC_DB_URL_DATABASE=application
-      - KC_DB_USERNAME=appadmin
-      - KC_DB_SCHEMA=auth
-      - KC_DB_PASSWORD=appadmin!@#$%
-      - KC_HEALTH_ENABLED=true
-      - KC_METRICS_ENABLED=true
-    command: start-dev --log=console  
-    links:
-      - postgres
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: localhost:24224
-        tag: application.keycloak  
+    catalog.api:
+        build: catalog.api/
+        image: catalog.api:1.1
+        container_name: catalog.api
+        ports:
+            - 5006:80
+        links:
+            - postgres
+        logging:
+            driver: fluentd
+            options:
+                fluentd-address: localhost:24224
+                tag: application.catalog.api
     
 volumes:
   postgres_data:
