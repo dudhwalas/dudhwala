@@ -1,2 +1,3 @@
 ### To run documentation on local machine 
-`sudo sh ./startup.sh`
+`cd docs`
+`sh startup.sh`
