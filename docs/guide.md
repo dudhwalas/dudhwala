@@ -16,3 +16,22 @@ The backend services can expose API using REST over Http Or Grpc services. Here 
 |**Security**|Transport (TLS)|Transport (TLS)|
 |**Client code-generation**|Yes|OpenAPI + third-party tooling|
 
+The following is a selective list of standard guidelines for developers to understand the do’s and don’ts when designing and implementing APIs for {{app_name}}.
+
+1.  All the services should be stateless.
+1.  The services should follow gRPC best practices.
+
+• The services should be protected by authentication, authorization, CORS, OWASP guidelines,
+secured communication protocol, validations of input objects and harmless (non-sensitive)
+response.
+• The services should be self descriptive.
+• The services documentation should have enough information for external clients to consume it
+without much challenges.
+• The services should be backward compatible.
+• Avoid creating single monolith service endpoint returning a large response messages.
+• Break down service into multiple endpoints for easier consumption and extension.
+• Do not trust input messages/objects.
+• Parse and Validate input: length, range, format, type, accepted characters, injection, size,
+content-type.
+• Trace and Log all requests.
+• Do not return exception details. 
