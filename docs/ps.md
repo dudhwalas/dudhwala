@@ -1,6 +1,6 @@
 ### Platform Services 🧠 <!-- {docsify-ignore} -->
 
-**Platform services** are core business microservices - product service, customer service, delivery squad service, subscription service, delivery service, invoice service, payment service and other backend services.
+**Platform services** are core business microservices - product service, customer service, delivery squad service, subscription service, delivery service, invoice service, payment service and other backend services. The backend services can expose API using REST over Http Or Grpc services. 
 
 1.  ### Product Catalog Service
 

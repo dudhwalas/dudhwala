@@ -7,3 +7,5 @@
 <u> [Base Framework ⚙️](bf.md)
 
 <u> [Platform Services 🧠](ps.md)
+
+<u> [Development Guide 🧠](guide.md)

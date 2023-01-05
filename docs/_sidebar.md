@@ -13,3 +13,4 @@
 ** [Software Architecture 🗜️](sa.md)
 ** [Base Framework ⚙️](bf.md)
 ** [Platform Services 🧠](ps.md)
+** [Development Guide 📚](guide.md)
