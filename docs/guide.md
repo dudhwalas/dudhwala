@@ -16,22 +16,23 @@ The backend services can expose API using REST over Http Or Grpc services. Here 
 |**Security**|Transport (TLS)|Transport (TLS)|
 |**Client code-generation**|Yes|OpenAPI + third-party tooling|
 
-The following is a selective list of standard guidelines for developers to understand the do’s and don’ts when designing and implementing APIs for {{app_name}}.
+### API Design Guidelines
+1.  **SHOULD be designed for intent.**
+1.  **SHOULD be stateless.**
+1.  **SHOULD be protected by authentication, authorization along with CORS, OWASP guidelines,secured communication protocol, validations of input objects and harmless (non-sensitive) response.**
+1.  **SHOULD support bulk operations.**
+1.  **SHOULD support pagination.**
+1.  **SHOULD avoid creating single monolith API returning a large response messages.**
+1.  **SHOULD break down API into multiple endpoints for easier consumption and extension.**
+1.  **SHOULD not trust input messages/objects.**
+1.  **SHOULD parse and validate input: length, range, format, type, accepted characters, injection, size, content-type.**
+1.  **SHOULD be self descriptive.**
+1.  **SHOULD have enough documentation.**
+1.  **SHOULD support versioning.**
+1.  **SHOULD be backward compatible.**
+1.  **SHOULD trace and log all requests.**
+1.  **SHOULD not return exception details.**
 
-1.  All the services should be stateless.
-1.  The services should follow gRPC best practices.
+### REST API Guidelines
+1.  **SHOULD have consistent URL structure**
 
-• The services should be protected by authentication, authorization, CORS, OWASP guidelines,
-secured communication protocol, validations of input objects and harmless (non-sensitive)
-response.
-• The services should be self descriptive.
-• The services documentation should have enough information for external clients to consume it
-without much challenges.
-• The services should be backward compatible.
-• Avoid creating single monolith service endpoint returning a large response messages.
-• Break down service into multiple endpoints for easier consumption and extension.
-• Do not trust input messages/objects.
-• Parse and Validate input: length, range, format, type, accepted characters, injection, size,
-content-type.
-• Trace and Log all requests.
-• Do not return exception details. 
