@@ -35,7 +35,7 @@ The backend services can expose API using REST over Http Or Grpc services. Here 
 
 ### REST API Guidelines
 
-Ref : <u> https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md
+Ref : <u> https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md </u>
 
 1.  SHOULD have consistent and well structured URL. An example of a URL containing a canonical identifier is:
 `https://api.{{app_name}}.com/v1.0/user/7011042402/payment`
@@ -715,3 +715,159 @@ Ref : <u> https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md
     e.g. schemas MAY be used instead of schemata.
     
     Services MUST name counts of resources with a noun or noun phrase suffixed with 'Count'.
+
+### gRPC API Guidelines
+
+Ref : <u> https://cloud.google.com/apis/design </u>
+
+1.  #### Resource Oriented Design
+
+    The Design Guide suggests taking the following steps when designing resource-oriented APIs (more details are covered in specific sections below):
+
+    1.  Determine what types of resources an API provides.
+    1.  Determine the relationships between resources.
+    1.  Decide the resource name schemes based on types and relationships.
+    1.  Decide the resource schemas.
+    1.  Attach minimum set of methods to resources.
+
+        1.  #### Resources
+
+            A resource-oriented API is generally modeled as a resource hierarchy, where each node is either a simple resource or a collection resource. For convenience, they are often called a resource and a collection, respectively.
+
+            A collection contains a list of resources of the same type. For example, a user has a collection of contacts.
+
+            A resource has some state and zero or more sub-resources. Each sub-resource can be either a simple resource or a collection resource.
+
+            For example, Gmail API has a collection of users, each user has a collection of messages, a collection of threads, a collection of labels, a profile resource, and several setting resources.
+
+            While there is some conceptual alignment between storage systems and REST APIs, a service with a resource-oriented API is not necessarily a database, and has enormous flexibility in how it interprets resources and methods. 
+            
+            For example, creating a calendar event (resource) may create additional events for attendees, send email invitations to attendees, reserve conference rooms, and update video conference schedules.
+
+        1.  #### Methods
+
+            The key characteristic of a resource-oriented API is that it emphasizes resources (data model) over the methods performed on the resources (functionality). A typical resource-oriented API exposes a large number of resources with a small number of methods. The methods can be either the standard methods or custom methods. The standard methods are: List, Get, Create, Update, and Delete.
+
+    Where API functionality naturally maps to one of the standard methods, that method should be used in the API design. For functionality that does not naturally map to one of the standard methods, custom methods may be used. Custom methods offer the same design freedom as traditional RPC APIs, which can be used to implement common programming patterns, such as database transactions or data analysis.
+
+1.  #### Resource Name
+
+    In resource-oriented APIs, resources are named entities, and resource names are their identifiers. Each resource must have its own unique resource name. The resource name is made up of the ID of the resource itself, the IDs of any parent resources, and its API service name. We'll look at resource IDs and how a resource name is constructed below.
+
+    gRPC APIs should use scheme-less URIs for resource names. They generally follow the REST URL conventions and behave much like network file paths. They can be easily mapped to REST URLs: see the Standard Methods section for details.
+
+    A collection is a special kind of resource that contains a list of sub-resources of identical type. For example, a directory is a collection of file resources. The resource ID for a collection is called collection ID.
+
+    The resource name is organized hierarchically using collection IDs and resource IDs, separated by forward slashes. If a resource contains a sub-resource, the sub-resource's name is formed by specifying the parent resource name followed by the sub-resource's ID - again, separated by forward slashes.
+
+    Example : An email service has a collection of users. Each user has a settings sub-resource, and the settings sub-resource has a number of other sub-resources, including customFrom:
+    
+    |API Service Name|Collection ID|Resource ID|Resource ID|Resource ID|
+    |:--|:--|:--|:--|:--|
+    |mail.googleapis.com|users|name@example.com|settings|customFrom|
+
+    An API producer can choose any acceptable value for resource and collection IDs as long as they are unique within the resource hierarchy. You can find more guidelines for choosing appropriate resource and collection IDs below.
+
+    By splitting the resource name, such as name.split("/")[n], one can obtain the individual collection IDs and resource IDs, assuming none of the segments contains any forward slash.
+
+    Full Resource Name
+    
+    A scheme-less URI consisting of a DNS-compatible API service name and a resource path. The resource path is also known as relative resource name. For example:
+
+    "//library.googleapis.com/shelves/shelf1/books/book2"
+
+    The API service name is for clients to locate the API service endpoint; it may be a fake DNS name for internal-only services. If the API service name is obvious from the context, relative resource names are often used.
+
+    Relative Resource Name
+    A URI path (path-noscheme) without the leading "/". It identifies a resource within the API service. For example:
+
+    "shelves/shelf1/books/book2"
+    
+    Resource ID
+    A resource ID typically consists of one or more non-empty URI segments (segment-nz-nc) that identify the resource within its parent resource, see above examples. The non-trailing resource ID in a resource name must have exactly one URL segment, while the trailing resource ID in a resource name may have more than one URI segment. For example:
+
+    Collection ID	Resource ID
+    files	source/py/parser.py
+    
+    API services should use URL-friendly resource IDs when feasible. Resource IDs must be clearly documented whether they are assigned by the client, the server, or either. For example, file names are typically assigned by clients, while email message IDs are typically assigned by servers.
+
+    Collection ID
+    A non-empty URI segment (segment-nz-nc) identifying the collection resource within its parent resource, see above examples.
+
+    Because collection IDs often appear in the generated client libraries, they must conform to the following requirements:
+
+    1.  Must be valid C/C++ identifiers.
+    1.  Must be in plural form with lowerCamel case. If the term doesn't have suitable plural form, such as "evidence" and "weather", the singular form should be used.
+    1.  Must use clear and concise English terms.
+    1.  Overly general terms should be avoided or qualified. For example, rowValues is preferred to values. The following terms should be avoided without qualification:
+        1.  elements
+        1.  entries
+        1.  instances
+        1.  items
+        1.  objects
+        1.  resources
+        1.  types
+        1.  values
+    
+    1.  #### Resource Name vs URL
+
+    While full resource names resemble normal URLs, they are not the same thing. A single resource can be exposed by different API versions, API protocols, or API network endpoints. The full resource name does not specify such information, so it must be mapped to a specific API version and API protocol for actual use.
+
+    To use a full resource name via REST APIs, it must be converted to a REST URL by adding the HTTPS scheme before the service name, adding the API major version before the resource path, and URL-escaping the resource path. For example:
+
+    // This is a calendar event resource name.
+
+    "//calendar.googleapis.com/users/john smith/events/123"
+
+    // This is the corresponding HTTP URL.
+
+    "https://calendar.googleapis.com/v3/users/john%20smith/events/123"
+
+    1.  #### Resource Name as String
+    
+    APIs must represent resource names using plain strings, unless backward compatibility is an issue. Resource names should be handled like normal file paths. When a resource name is passed between different components, it must be treated as an atomic value and must not have any data loss.
+
+    For resource definitions, the first field should be a string field for the resource name, and it should be called name.
+
+    Note: The following code examples use gRPC Transcoding syntax. Please follow the link to see the details.
+    
+    For example:
+
+    ```
+    service LibraryService {
+    rpc GetBook(GetBookRequest) returns (Book) {
+        option (google.api.http) = {
+        get: "/v1/{name=shelves/*/books/*}"
+        };
+    };
+    rpc CreateBook(CreateBookRequest) returns (Book) {
+        option (google.api.http) = {
+        post: "/v1/{parent=shelves/*}/books"
+        body: "book"
+        };
+    };
+    }
+
+    message Book {
+    // Resource name of the book. It must have the format of "shelves/*/books/*".
+    // For example: "shelves/shelf1/books/book2".
+    string name = 1;
+
+    // ... other properties
+    }
+
+    message GetBookRequest {
+    // Resource name of a book. For example: "shelves/shelf1/books/book2".
+    string name = 1;
+    }
+
+    message CreateBookRequest {
+    // Resource name of the parent resource where to create the book.
+    // For example: "shelves/shelf1".
+    string parent = 1;
+    // The Book resource to be created. Client must not set the `Book.name` field.
+    Book book = 2;
+    }
+    ```
+
+    Note: For consistency of resource names, the leading forward slash must not be captured by any URL template variable. For example, URL template "/v1/{name=shelves/*/books/*}" must be used instead of "/v1{name=/shelves/*/books/*}".
