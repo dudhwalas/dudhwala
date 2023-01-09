@@ -17,22 +17,28 @@ The backend services can expose API using REST over Http Or Grpc services. Here 
 |**Client code-generation**|Yes|OpenAPI + third-party tooling|
 
 ### API Design Guidelines
-1.  **SHOULD be designed for intent.**
-1.  **SHOULD be stateless.**
-1.  **SHOULD be protected by authentication, authorization along with CORS, OWASP guidelines,secured communication protocol, validations of input objects and harmless (non-sensitive) response.**
-1.  **SHOULD support bulk operations.**
-1.  **SHOULD support pagination.**
-1.  **SHOULD avoid creating single monolith API returning a large response messages.**
-1.  **SHOULD break down API into multiple endpoints for easier consumption and extension.**
-1.  **SHOULD not trust input messages/objects.**
-1.  **SHOULD parse and validate input: length, range, format, type, accepted characters, injection, size, content-type.**
-1.  **SHOULD be self descriptive.**
-1.  **SHOULD have enough documentation.**
-1.  **SHOULD support versioning.**
-1.  **SHOULD be backward compatible.**
-1.  **SHOULD trace and log all requests.**
-1.  **SHOULD not return exception details.**
+1.  SHOULD be designed for intent.
+1.  SHOULD be stateless.
+1.  SHOULD be protected by authentication, authorization along with CORS, OWASP guidelines,secured communication protocol, validations of input objects and harmless (non-sensitive) response.
+1.  SHOULD support bulk operations.
+1.  SHOULD support pagination.
+1.  SHOULD avoid creating single monolith API returning a large response messages.
+1.  SHOULD break down API into multiple endpoints for easier consumption and extension.
+1.  SHOULD not trust input messages/objects.
+1.  SHOULD parse and validate input: length, range, format, type, accepted characters, injection, size, content-type.
+1.  SHOULD be self descriptive.
+1.  SHOULD have enough documentation.
+1.  SHOULD support versioning.
+1.  SHOULD be backward compatible.
+1.  SHOULD trace and log all requests.
+1.  SHOULD not return exception details.
+
+<u> https://mathieu.fenniak.net/the-api-checklist/
 
 ### REST API Guidelines
-1.  **SHOULD have consistent URL structure**
 
+<u> https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#3-introduction
+
+### GRPC API Guidelines
+
+<u> https://cloud.google.com/apis/design
