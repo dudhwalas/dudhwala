@@ -3577,3 +3577,99 @@ These are some suggested column data types to use for maximum compatibility betw
 * BOOLEAN
 * INTERVAL
 * XML
+
+### Unit Testing
+
+#### AAA Pattern
+
+The AAA (Arrange, Act, Assert) pattern is a common way of writing unit tests for a method under test.
+
+• The Arrange section of a unit test method initialises objects and sets the value of the data that is
+passed to the method under test.
+
+• The Act section invokes the method under test with the arranged parameters.
+
+• The Assert section verifies that the action of the method under test behaves as expected.
+
+#### Naming your tests
+The name of your test should consist of three parts:
+
+• The name of the method being tested.
+
+• The scenario under which it's being tested.
+
+• The expected behaviour when the scenario is invoked.
+
+#### Avoid multiple acts
+When writing your tests, try to only include one Act per test. Common approaches to using only one act include:
+
+• Create a separate test for each act.
+
+• Use parameterised tests.
+
+#### Why?
+    
+• When the test fails it is not clear which Act is failing.
+
+• Ensures the test is focussed on just a single case.
+
+• Gives you the entire picture as to why your tests are failing.
+
+Multiple Acts need to be individually Asserted and it is not guaranteed that all of the Asserts will be executed. In most unit testing frameworks, once an Assert fails in a unit test, the proceeding tests are automatically considered to be failing. This can be confusing as functionality that is actually working, will be shown as failing.
+    
+#### Avoid logic in tests
+
+When writing your unit tests avoid manual string concatenation and logical conditions such as if, while, for, switch, etc.
+
+#### Why?
+
+• Less chance to introduce a bug inside of your tests.
+
+• Focus on the end result, rather than implementation details.
+
+When you introduce logic into your test suite, the chance of introducing a bug into it increases dramatically. The last place that you want to find a bug is within your test suite. You should have a high level of confidence that your tests work, otherwise, you will not trust them. Tests that you do not trust, do not provide any value. When a test fails, you want to have a sense that something is actually wrong with your code and that it cannot be ignored.
+
+### Development Specification 
+The microservices must have the following artefacts before implementation.
+#### Design Sign Off
+• Inbound and Outbound calls
+
+• gRPC service & messages, Proto files
+
+• REST Endpoints, Request-Response Contract
+
+• Data Model
+
+• Access Policy for service
+
+• Business Rules (if applicable)
+
+• Process Flows (if applicable)
+
+• Cloud Services (S3, Custom IAM policies, Database,..)
+
+The microservices must have the following artefacts for dev completion.
+#### Dev Sign Off
+• Low Level Design Document 
+
+• Proto file
+
+• Microservice Dependency
+
+• Access Policy
+
+• BPM Files (if applicable)
+
+• Business Rules JSON (if applicable) 
+
+• Deployed to Dev and verified
+
+• Unit Test Report
+
+• Sonarqube Report
+
+• Smoke Test
+
+• Database Scripts
+
+• Update other documents
