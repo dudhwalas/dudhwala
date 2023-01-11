@@ -136,55 +136,134 @@ message StatusResponse {
 [filename](diagram/customers_erd.drawio ':include :type=code')
 
 #### API - Service
-|Service|Operation|Service Endpoint|
-|:--|:--|:--|
-|**{{app_name}}.v1.customer**|EnrollCustomer|/{{app_name}}.v1.customer/enrollcustomer|
-||GetCustomer|/{{app_name}}.v1.customer/getcustomer|
-||ModifyCustomer|/{{app_name}}.v1.customer/modifycustomer|
-||DeactivateCustomer|/{{app_name}}.v1.customer/deactivatecustomer|
-||AddCustomerAddress|/{{app_name}}.v1.customer/addcustomeraddress|
-||GetCustomerAddress|/{{app_name}}.v1.customer/getcustomeraddress|
-||ModifyCustomerAddress|/{{app_name}}.v1.customer/modifycustomeraddress|
-||DeactivateCustomerAddress|/{{app_name}}.v1.customer/deactivatecustomeraddress|
+|Service|Operation|Service Endpoint|HTTP Method|
+|:--|:--|:--|:--|
+|**api.{{app_name}}.com/v1/customer**|CreateCustomer|/v1/customer}|POST|
+||ListCustomer|/v1/customer|GET|
+||GetCustomer|/v1/customer/*|GET|
+||UpdateCustomer|/v1/customer/*|PATCH|
+||DeactivateCustomer|/v1/customer/*|PATCH|
+||AddCustomerAddress|/v1/{parent=customer/*}/address|POST|
+||ListCustomerAddress|/v1/{parent=customer/*}/address|GET|
+||GetCustomerAddress|/v1/{parent=customer/\*}/address/*|GET|
+||ModifyCustomerAddress|/v1/{parent=customer/\*}/address/*|PATCH|
+||DeactivateCustomerAddress|/v1/{parent=customer/\*}/address/*|PATCH|
 
 ```
 syntax = "proto3";
 
 service CustomerService {
-    rpc GetCustomer (GetCustomerRequest) returns (CustomerResponse);
+    rpc ListCustomer(ListCustomerRequest) returns (ListCustomerResponse) {
+        option (google.api.http) = {
+            get: "/v1/customer"
+        };
+    };
 
-    rpc EnrollCustomer(CustomerRequest) returns (StatusResponse);
+    rpc GetCustomer (GetCustomerRequest) returns (Customer) {
+        option (google.api.http) = {
+            get: "/v1/customer/*"
+        };
+    };
 
-    rpc ModifyCustomer(CustomerRequest) returns (StatusResponse);
+    rpc CreateCustomer(CreateCustomerRequest) returns (Customer)
+    {
+        option (google.api.http) = {
+        post: "/v1/customer"
+        body: "customer"
+        };
+    };
 
-    rpc DeactivateCustomer(DeactivateCustomerRequest) returns (StatusResponse);
+    rpc UpdateCustomer(UpdateCustomerRequest) returns (Customer)
+    {
+        option (google.api.http) = {
+        patch: "/v1/customer"
+        body: "customer"
+        };
+    };
 
-    rpc GetCustomerAddress (GetCustomerAddressRequest) returns (CustomerAddressResponse);
+    rpc ListCustomerAddress(ListCustomerAddressRequest) returns (ListCustomerAddressResponse) {
+        option (google.api.http) = {
+            get: "/v1/{parent=customer/*}/address"
+        };
+    };
 
-    rpc AddCustomerAddress(CustomerAddressRequest) returns (CustomerAddressResponse);
+    rpc GetCustomerAddress(GetCustomerAddressRequest) returns (CustomerAddress) {
+        option (google.api.http) = {
+            get: "/v1/{parent=customer/*}/address/*"
+        };
+    };
 
-    rpc ModifyCustomerAddress(CustomerAddressRequest) returns (StatusResponse);
+    rpc CreateCustomerAddress(CreateCustomerAddressRequest) returns (CustomerAddress)
+    {
+        option (google.api.http) = {
+        post: "/v1/{parent=customer/*}/address"
+        body: "customer_address"
+        };
+    };
 
-    rpc DeactivateCustomerAddress(DeactivateCustomerAddressRequest) returns (StatusResponse);
+    rpc UpdateCustomerAddress(UpdateCustomerAddressRequest) returns (CustomerAddress)
+    {
+        option (google.api.http) = {
+        patch: "/v1/{parent=customer/*}/address/*"
+        body: "customer_address"
+        };
+    };
+}
+
+message ListCustomerRequest {
+    int32 page_size = 1;
+    string page_token = 2;
+    string filter = 3;
+}
+
+message ListCustomerResponse {
+    repeated Customer customer = 1;
+    string next_page_token = 2;
 }
 
 message GetCustomerRequest {
-    string filterParams = 1;
+    string id = 1;
     … other value types
 }
 
-message CustomerRequest {
+message CreateCustomerRequest {
     Customer customer = 1;
     … other value types
 }
 
-message DeactivateCustomerRequest {
-    string customerId = 1;
+message UpdateCustomerRequest {
+    Customer customer = 1;
+    FieldMask update_mask = 2;
     … other value types
 }
 
-message CustomerResponse {
-    repeated Customer customer = 1;
+message ListCustomerAddressRequest {
+    string parent = 1;
+    int32 page_size = 2;
+    string page_token = 3;
+    string filter = 4;
+}
+
+message ListCustomerResponse {
+    repeated CustomerAddress customer_address = 1;
+    string next_page_token = 2;
+}
+
+message GetCustomerRequest {
+    string parent = 1;
+    string id = 2;
+    … other value types
+}
+
+message CreateCustomerRequest {
+    CustomerAddress customer_address = 1;
+    … other value types
+}
+
+message UpdateCustomerRequest {
+    string parent = 1;
+    CustomerAddress customer_address = 2;
+    FieldMask update_mask = 3;
     … other value types
 }
 
@@ -194,33 +273,6 @@ message Customer {
     string firstname = 3;
     string lastname = 4;
     bool status = 5;
-    … other value types
-}
-
-message StatusResponse {
-    bool success = 1;
-    string message = 2;
-    … other value types
-}
-
-
-message GetCustomerAddressRequest {
-    string filterParams = 1;
-    … other value types
-}
-
-message CustomerAddressRequest {
-    CustomerAddress customerAddress = 1;
-    … other value types
-}
-
-message DeactivateCustomerAddressRequest {
-    string customerAddressId = 1;
-    … other value types
-}
-
-message CustomerAddressResponse {
-    repeated CustomerAddress customerAddress = 1;
     … other value types
 }
 
