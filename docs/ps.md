@@ -244,23 +244,23 @@ message ListCustomerAddressRequest {
     string filter = 4;
 }
 
-message ListCustomerResponse {
+message ListCustomerAddressResponse {
     repeated CustomerAddress customer_address = 1;
     string next_page_token = 2;
 }
 
-message GetCustomerRequest {
+message GetCustomerAddressRequest {
     string parent = 1;
     string id = 2;
     … other value types
 }
 
-message CreateCustomerRequest {
+message CreateCustomerAddressRequest {
     CustomerAddress customer_address = 1;
     … other value types
 }
 
-message UpdateCustomerRequest {
+message UpdateCustomerAddressRequest {
     string parent = 1;
     CustomerAddress customer_address = 2;
     FieldMask update_mask = 3;
