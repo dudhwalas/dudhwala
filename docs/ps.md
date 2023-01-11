@@ -176,7 +176,7 @@ service CustomerService {
     rpc UpdateCustomer(UpdateCustomerRequest) returns (Customer)
     {
         option (google.api.http) = {
-        patch: "/v1/customer"
+        patch: "/v1/{customer.name=customer/*}"
         body: "customer"
         };
     };
