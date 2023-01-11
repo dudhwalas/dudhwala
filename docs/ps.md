@@ -139,22 +139,22 @@ message UpdateProductRequest {
 }
 
 message Brand {
-    string id = 1;
-    string realmId = 2;
-    string name = 3;
+    string name = 1;
+    string realm_id = 2;
+    string display_name = 3;
     string image = 4;
     bool status = 5;
     … other value types
 }
 
 message Product {
-    string id = 1;
-    string realmId = 2;
-    string name = 3;
+    string name = 1;
+    string realm_id = 2;
+    string display_name = 3;
     string image = 4;
     string price = 5;
     string quantity = 6;
-    string brandId = 7;
+    string brand_id = 7;
     bool status = 8;
     … other value types
 }
@@ -329,97 +329,146 @@ message CustomerAddress {
 [filename](diagram/deliverysquad_erd.drawio ':include :type=code')
 
 #### API - Service
-|Service|Operation|Service Endpoint|
-|:--|:--|:--|
-|**{{app_name}}.v1.DeliverySquad**|RecruitDeliverySquad|/{{app_name}}.v1.deliverysquad/recruitdeliverysquad|
-||GetDeliverySquad|/{{app_name}}.v1.deliverysquad/getdeliverysquad|
-||ModifyDeliverySquad|/{{app_name}}.v1.deliverysquad/modifydeliverysquad|
-||DeactivateDeliverySquad|/{{app_name}}.v1.deliverysquad/deactivatedeliverysquad|
-||AddDeliverySquadAddress|/{{app_name}}.v1.deliverysquad/adddeliverysquadaddress|
-||GetDeliverySquadAddress|/{{app_name}}.v1.deliverysquad/getdeliverysquadaddress|
-||ModifyDeliverySquadAddress|/{{app_name}}.v1.deliverysquad/modifydeliverysquadaddress|
-||DeactivateDeliverySquadAddress|/{{app_name}}.v1.deliverysquad/deactivatedeliverysquadaddress|
+|Service|Operation|Service Endpoint|HTTP Method|
+|:--|:--|:--|:--|
+|**api.{{app_name}}.com/v1/delivery_squad**|CreateDeliverySquad|/v1/delivery_squad|POST|
+||ListDeliverySquad|/v1/delivery_squad|GET|
+||GetDeliverySquad|/v1/{name=delivery_squad/*}|GET|
+||UpdateDeliverySquad|/v1/{name=delivery_squad/*}|PATCH|
+|**api.{{app_name}}.com/v1/{parent=delivery_squad/\*}/address**|AddDeliverySquadAddress|/v1/{parent=delivery_squad/*}/address|POST|
+||ListDeliverySquadAddress|/v1/{parent=delivery_squad/*}/address|GET|
+||GetDeliverySquadAddress|/v1/{name=delivery_squad/\*/address/*}|GET|
+||UpdateDeliverySquadAddress|/v1/{delivery_squad_address.name=delivery_squad/\*/address/*}|PATCH|
 
 ```
 syntax = "proto3";
 
 service DeliverySquadService {
-    rpc GetDeliverySquad (GetDeliverySquadRequest) returns (DeliverySquadResponse);
+    rpc ListDeliverySquad(ListDeliverySquadRequest) returns (ListDeliverySquadResponse) {
+        option (google.api.http) = {
+            get: "/v1/delivery_squad"
+        };
+    };
 
-    rpc RecruitDeliverySquad(DeliverySquadRequest) returns (StatusResponse);
+    rpc GetDeliverySquad (GetDeliverySquadRequest) returns (DeliverySquad) {
+        option (google.api.http) = {
+            get: "/v1/{name=delivery_squad/*}"
+        };
+    };
 
-    rpc ModifyDeliverySquad(DeliverySquadRequest) returns (StatusResponse);
+    rpc CreateDeliverySquad(CreateDeliverySquadRequest) returns (DeliverySquad)
+    {
+        option (google.api.http) = {
+            post: "/v1/delivery_squad"
+            body: "delivery_squad"
+        };
+    };
 
-    rpc DeactivateDeliverySquad(DeactivateDeliverySquadRequest) returns (StatusResponse);
+    rpc UpdateDeliverySquad(UpdateDeliverySquadRequest) returns (DeliverySquad)
+    {
+        option (google.api.http) = {
+            patch: "/v1/{delivery_squad.name=delivery_squad/*}"
+            body: "delivery_squad"
+        };
+    };
 
-    rpc GetDeliverySquadAddress (GetDeliverySquadAddressRequest) returns (DeliverySquadAddressResponse);
+    rpc ListDeliverySquadAddress(ListDeliverySquadAddressRequest) returns (ListDeliverySquadAddressResponse) {
+        option (google.api.http) = {
+            get: "/v1/{parent=delivery_squad/*}/address"
+        };
+    };
 
-    rpc AddDeliverySquadAddress(DeliverySquadAddressRequest) returns (DeliverySquadAddressResponse);
+    rpc GetDeliverySquadAddress(GetDeliverySquadAddressRequest) returns (DeliverySquadAddress) {
+        option (google.api.http) = {
+            get: "/v1/{name=delivery_squad/*/address/*}"
+        };
+    };
 
-    rpc ModifyDeliverySquadAddress(DeliverySquadAddressRequest) returns (StatusResponse);
+    rpc CreateDeliverySquadAddress(CreateDeliverySquadAddressRequest) returns (DeliverySquadAddress)
+    {
+        option (google.api.http) = {
+            post: "/v1/{parent=delivery_squad/*}/address"
+            body: "delivery_squad_address"
+        };
+    };
 
-    rpc DeactivateDeliverySquadAddress(DeactivateDeliverySquadAddressRequest) returns (StatusResponse);
+    rpc UpdateDeliverySquadAddress(UpdateDeliverySquadAddressRequest) returns (DeliverySquadAddress)
+    {
+        option (google.api.http) = {
+            patch: "/v1/{delivery_squad_address.name=delivery_squad/*/address/*}"
+            body: "delivery_squad_address"
+        };
+    };
+}
+
+message ListDeliverySquadRequest {
+    int32 page_size = 1;
+    string page_token = 2;
+    string filter = 3;
+}
+
+message ListDeliverySquadResponse {
+    repeated DeliverySquad delivery_squad = 1;
+    string next_page_token = 2;
 }
 
 message GetDeliverySquadRequest {
-    string filterParams = 1;
+    string name = 1;
     … other value types
 }
 
-message DeliverySquadRequest {
-    DeliverySquad deliverySquad = 1;
+message CreateDeliverySquadRequest {
+    DeliverySquad delivery_squad = 1;
     … other value types
 }
 
-message DeactivateDeliverySquadRequest {
-    string deliverySquadId = 1;
+message UpdateDeliverySquadRequest {
+    DeliverySquad delivery_squad = 1;
+    FieldMask update_mask = 2;
     … other value types
 }
 
-message DeliverySquadResponse {
-    repeated DeliverySquad deliverySquad = 1;
+message ListDeliverySquadAddressRequest {
+    string parent = 1;
+    int32 page_size = 2;
+    string page_token = 3;
+    string filter = 4;
+}
+
+message ListDeliverySquadAddressResponse {
+    repeated DeliverySquadAddress delivery_squad_address = 1;
+    string next_page_token = 2;
+}
+
+message GetDeliverySquadAddressRequest {
+    string name = 1;
+    … other value types
+}
+
+message CreateDeliverySquadAddressRequest {
+    string parent = 1;
+    DeliverySquadAddress delivery_squad_address = 2;
+    … other value types
+}
+
+message UpdateDeliverySquadAddressRequest {
+    DeliverySquadAddress delivery_squad_address = 1;
+    FieldMask update_mask = 2;
     … other value types
 }
 
 message DeliverySquad {
-    string id = 1;
-    string realmId = 2;
-    string firstname = 3;
-    string lastname = 4;
+    string name = 1;
+    string realm_id = 2;
+    string first_name = 3;
+    string last_name = 4;
     bool status = 5;
     … other value types
 }
 
-message StatusResponse {
-    bool success = 1;
-    string message = 2;
-    … other value types
-}
-
-
-message GetDeliverySquadAddressRequest {
-    string filterParams = 1;
-    … other value types
-}
-
-message DeliverySquadAddressRequest {
-    DeliverySquadAddress deliverySquadAddress = 1;
-    … other value types
-}
-
-message DeactivateDeliverySquadAddressRequest {
-    string deliverySquadAddressId = 1;
-    … other value types
-}
-
-message DeliverySquadAddressResponse {
-    repeated DeliverySquadAddress deliverySquadAddress = 1;
-    … other value types
-}
-
 message DeliverySquadAddress {
-    string id = 1;
-    string deliverySquadId = 2;
+    string name = 1;
+    string delivery_squad_id = 2;
     string line = 3;
     int pincode = 4;
     bool status = 5;
