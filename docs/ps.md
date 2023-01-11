@@ -161,7 +161,7 @@ service CustomerService {
 
     rpc GetCustomer (GetCustomerRequest) returns (Customer) {
         option (google.api.http) = {
-            get: "/v1/customer/*"
+            get: "/v1/{name=customer/*}"
         };
     };
 
@@ -189,7 +189,7 @@ service CustomerService {
 
     rpc GetCustomerAddress(GetCustomerAddressRequest) returns (CustomerAddress) {
         option (google.api.http) = {
-            get: "/v1/{parent=customer/*}/address/*"
+            get: "/v1/{name=customer/*/address/*}"
         };
     };
 
@@ -204,7 +204,7 @@ service CustomerService {
     rpc UpdateCustomerAddress(UpdateCustomerAddressRequest) returns (CustomerAddress)
     {
         option (google.api.http) = {
-        patch: "/v1/{parent=customer/*}/address/*"
+        patch: "/v1/{customer_address.name=customer/*/address/*}"
         body: "customer_address"
         };
     };
@@ -222,7 +222,7 @@ message ListCustomerResponse {
 }
 
 message GetCustomerRequest {
-    string id = 1;
+    string name = 1;
     … other value types
 }
 
@@ -250,35 +250,34 @@ message ListCustomerAddressResponse {
 }
 
 message GetCustomerAddressRequest {
-    string parent = 1;
-    string id = 2;
+    string name = 1;
     … other value types
 }
 
 message CreateCustomerAddressRequest {
-    CustomerAddress customer_address = 1;
+    string name = 1;
+    CustomerAddress customer_address = 2;
     … other value types
 }
 
 message UpdateCustomerAddressRequest {
-    string parent = 1;
-    CustomerAddress customer_address = 2;
-    FieldMask update_mask = 3;
+    CustomerAddress customer_address = 1;
+    FieldMask update_mask = 2;
     … other value types
 }
 
 message Customer {
-    string id = 1;
-    string realmId = 2;
-    string firstname = 3;
-    string lastname = 4;
+    string name = 1;
+    string realm_id = 2;
+    string first_name = 3;
+    string last_name = 4;
     bool status = 5;
     … other value types
 }
 
 message CustomerAddress {
-    string id = 1;
-    string customerId = 2;
+    string name = 1;
+    string customer_id = 2;
     string line = 3;
     int pincode = 4;
     bool status = 5;
