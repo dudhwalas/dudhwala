@@ -13,47 +13,128 @@
 [filename](diagram/product_erd.drawio ':include :type=code')
 
 #### API - Service
-|Service|Operation|Service Endpoint|
-|:--|:--|:--|
-|**{{app_name}}.v1.brand**|AddBrand|/{{app_name}}.v1.brand/addbrand|
-||GetAllBrand|/{{app_name}}.v1.brand/getbrand|
-||ModifyBrand|/{{app_name}}.v1.brand/modifybrand|
-||DeactivateBrand|/{{app_name}}.v1.brand/deactivatebrand|
-|**{{app_name}}.v1.product**|AddProduct|/{{app_name}}.v1.product/addproduct|
-||GetAllProduct|/{{app_name}}.v1.product/getproduct|
-||ModifyProduct|/{{app_name}}.v1.product/modifyproduct|
-||DeactivateProduct|/{{app_name}}.v1.product/deactivateproduct|
+|Service|Operation|Service Endpoint|HTTP Method|
+|:--|:--|:--|:--|
+|**api.{{app_name}}.com/v1/brand**|CreateBrand|/v1/brand|POST|
+||ListBrand|/v1/brand|GET|
+||GetBrand|/v1/brand/*|GET|
+||UpdateBrand|/v1/{brand.name=brand/*}|PATCH|
+|**api.{{app_name}}.com/v1/{parent=brand/\*}/product**|AddProduct|/v1/{parent=brand/*}/product|POST|
+||ListProduct|/v1/{parent=brand/\*}/product|GET|
+||GetProduct|/v1/{name=brand/\*/product/*}|GET|
+||UpdateProduct|/v1/{product.name=brand/\*/product/*}|PATCH|
 
 ```
 syntax = "proto3";
 
-service BrandService {
-    rpc GetBrand (GetBrandRequest) returns (BrandResponse);
+service Catalog {
+    rpc GetBrand (GetBrandRequest) returns (Brand) {
+        option (google.api.http) = {
+            get: "/v1/{name=brand/*}"
+        };
+    };
 
-    rpc AddBrand(BrandRequest) returns (StatusResponse);
+    rpc ListBrand(ListBrandRequest) returns (ListBrandResponse) {
+        option (google.api.http) = {
+            get: "/v1/brand"
+        };
+    };
 
-    rpc ModifyBrand(BrandRequest) returns (StatusResponse);
+    rpc CreateBrand(CreateBrandRequest) returns (Brand) {
+        option (googe.api.http) = {
+            post: "/v1/brand"
+            body: brand
+        };
+    };
 
-    rpc DeactivateBrand(DeactivateBrandRequest) returns (StatusResponse);
+    rpc UpdateBrand(UpdateBrandRequest) returns (Brand) {
+        option (google.api.http) = {
+            patch: "v1/{brand.name=brand/*}"
+            body: brand
+        };
+    };
+
+    rpc GetProduct (GetProductRequest) returns (Product) {
+        option (google.api.http) = {
+            get: "/v1/{name=brand/*/product/*}"
+        };
+    };
+
+    rpc ListProduct(ListProductRequest) returns (ListProductResponse) {
+        option (google.api.http) = {
+            get: "/v1/{parent=brand/*}/product"
+        };
+    };
+
+    rpc CreateProduct(CreateProductRequest) returns (Product) {
+        option (googe.api.http) = {
+            post: "/v1/{parent=brand/*}/product}"
+            body: product
+        };
+    };
+
+    rpc UpdateProduct(UpdateProductRequest) returns (Product) {
+        option (google.api.http) = {
+            patch: "v1/{product.name=brand/*/product/*}"
+            body: product
+        }
+    };
+}
+
+
+message ListBrandRequest {
+    int32 page_size = 1;
+    string page_token = 2;
+    string filter = 3;
+}
+
+message ListBrandResponse {
+    repeated Brand brand = 1;
+    string next_page_token = 2;
 }
 
 message GetBrandRequest {
-    string filterParams = 1;
+    string name = 1;
     … other value types
 }
 
-message BrandRequest {
+message CreateBrandRequest {
     Brand brand = 1;
     … other value types
 }
 
-message DeactivateBrandRequest {
-    string brandId = 1;
+message UpdateBrandRequest {
+    Brand brand = 1;
+    FieldMask update_mask = 2;
     … other value types
 }
 
-message BrandResponse {
-    repeated Brand brand = 1;
+message ListProductRequest {
+    string parent = 1;
+    int32 page_size = 2;
+    string page_token = 3;
+    string filter = 4;
+}
+
+message ListProductAddressResponse {
+    repeated Product product = 1;
+    string next_page_token = 2;
+}
+
+message GetProductRequest {
+    string name = 1;
+    … other value types
+}
+
+message CreateProductRequest {
+    string parent = 1;
+    Product product = 2;
+    … other value types
+}
+
+message UpdateProductRequest {
+    Product product = 1;
+    FieldMask update_mask = 2;
     … other value types
 }
 
@@ -63,46 +144,6 @@ message Brand {
     string name = 3;
     string image = 4;
     bool status = 5;
-    … other value types
-}
-
-message StatusResponse {
-    bool success = 1;
-    string message = 2;
-    … other value types
-}
-```
-
-```
-syntax = "proto3";
-
-service ProductService {
-    rpc GetProduct (GetProductRequest) returns (ProductResponse);
-
-    rpc AddProduct(ProductRequest) returns (StatusResponse);
-
-    rpc ModifyProduct(ProductRequest) returns (StatusResponse);
-
-    rpc DeactivateProduct(DeactivateProductRequest) returns (StatusResponse);
-}
-
-message GetProductRequest {
-    string filterParams = 1;
-    … other value types
-}
-
-message ProductRequest {
-    Product product = 1;
-    … other value types
-}
-
-message DeactivateProductRequest {
-    string productId = 1;
-    … other value types
-}
-
-message ProductResponse {
-    repeated Product product = 1;
     … other value types
 }
 
@@ -118,11 +159,6 @@ message Product {
     … other value types
 }
 
-message StatusResponse {
-    bool success = 1;
-    string message = 2;
-    … other value types
-}
 ```
 
 2.  ### Customer Service
@@ -140,14 +176,12 @@ message StatusResponse {
 |:--|:--|:--|:--|
 |**api.{{app_name}}.com/v1/customer**|CreateCustomer|/v1/customer}|POST|
 ||ListCustomer|/v1/customer|GET|
-||GetCustomer|/v1/customer/*|GET|
-||UpdateCustomer|/v1/customer/*|PATCH|
-||DeactivateCustomer|/v1/customer/*|PATCH|
-||AddCustomerAddress|/v1/{parent=customer/*}/address|POST|
+||GetCustomer|/v1/{name=customer/*}|GET|
+||UpdateCustomer|/v1/{name=customer/*}|PATCH|
+|**api.{{app_name}}.com/v1/{parent=customer/\*}/address**|AddCustomerAddress|/v1/{parent=customer/*}/address|POST|
 ||ListCustomerAddress|/v1/{parent=customer/*}/address|GET|
-||GetCustomerAddress|/v1/{parent=customer/\*}/address/*|GET|
-||ModifyCustomerAddress|/v1/{parent=customer/\*}/address/*|PATCH|
-||DeactivateCustomerAddress|/v1/{parent=customer/\*}/address/*|PATCH|
+||GetCustomerAddress|/v1/{name=customer/\*/address/*}|GET|
+||UpdateCustomerAddress|/v1/{customer_address.name=customer/\*/address/*}|PATCH|
 
 ```
 syntax = "proto3";
@@ -168,16 +202,16 @@ service CustomerService {
     rpc CreateCustomer(CreateCustomerRequest) returns (Customer)
     {
         option (google.api.http) = {
-        post: "/v1/customer"
-        body: "customer"
+            post: "/v1/customer"
+            body: "customer"
         };
     };
 
     rpc UpdateCustomer(UpdateCustomerRequest) returns (Customer)
     {
         option (google.api.http) = {
-        patch: "/v1/{customer.name=customer/*}"
-        body: "customer"
+            patch: "/v1/{customer.name=customer/*}"
+            body: "customer"
         };
     };
 
@@ -196,16 +230,16 @@ service CustomerService {
     rpc CreateCustomerAddress(CreateCustomerAddressRequest) returns (CustomerAddress)
     {
         option (google.api.http) = {
-        post: "/v1/{parent=customer/*}/address"
-        body: "customer_address"
+            post: "/v1/{parent=customer/*}/address"
+            body: "customer_address"
         };
     };
 
     rpc UpdateCustomerAddress(UpdateCustomerAddressRequest) returns (CustomerAddress)
     {
         option (google.api.http) = {
-        patch: "/v1/{customer_address.name=customer/*/address/*}"
-        body: "customer_address"
+            patch: "/v1/{customer_address.name=customer/*/address/*}"
+            body: "customer_address"
         };
     };
 }
@@ -255,7 +289,7 @@ message GetCustomerAddressRequest {
 }
 
 message CreateCustomerAddressRequest {
-    string name = 1;
+    string parent = 1;
     CustomerAddress customer_address = 2;
     … other value types
 }
