@@ -705,8 +705,9 @@ message Delivery {
 |Service|Operation|Service Endpoint|HTTP Method|
 |:--|:--|:--|:--|
 |**api.{{app_name}}.com/v1/invoice**|CreateInvoice|/v1/invoice|POST|
+||GetInvoice|/v1/{name=invoice/*}|GET|
+||ListInvoices|/v1/invoice}|GET|
 ||ShareInvoice|/v1/{name=invoice/*}:share|POST|
-
 
 ```
 syntax = "proto3";
