@@ -54,11 +54,11 @@ Keep security and compliance requirements in mind:
 #### Log levels:
 |Level|Description|
 |:-|:-|
+|**DEBUG**|Used for debugging. The messaging targets specifically the app’s developers.|
 |**INFO**|Informational messages that do not indicate any fault or error.|
 |**WARN**|Indicates that there is a potential problem, but with no user experience impact.|
 |**ERROR**|Indicates a serious problem, with some user experience impact.|
 |**FATAL**|Indicates fatal errors, user experience is majorly impacted.|
-|**DEBUG**|Used for debugging. The messaging targets specifically the app’s developers.|
 
 #### Structured Log Format
 Example
