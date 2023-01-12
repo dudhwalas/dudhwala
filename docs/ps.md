@@ -494,77 +494,113 @@ message DeliverySquadAddress {
 [filename](diagram/subscription_erd.drawio ':include :type=code')
 
 #### API - Service
-|Service|Operation|Service Endpoint|
-|:--|:--|:--|
-|**{{app_name}}.v1.Subscription**|AddSubscription|/{{app_name}}.v1.subscription/addsubscription|
-||GetSubscription|/{{app_name}}.v1.subscription/getsubscription|
-||ModifySubscription|/{{app_name}}.v1.subscription/modifysubscription|
-||RemoveSubscription|/{{app_name}}.v1.subscription/removesubscription|
+|Service|Operation|Service Endpoint|HTTP Method|
+|:--|:--|:--|:--|
+|**api.{{app_name}}.com/v1/subscription**|CreateSubscription|/v1/subscription|POST|
+||GetSubscription|/v1/{name=subscription/*}|GET|
+||ListSubscriptions|/v1/subscription}|GET|
+||UpdateSubscription|/v1/{subscription.name=subscription/*}|PATCH|
+||DeleteSubscription|/v1/{name=subscription/*}|DELETE|
 
 ```
 syntax = "proto3";
 
-service SubscriptionService {
-    rpc GetSubscription(GetSubscriptionRequest) returns (SubscriptionResponse);
+service Subscription {
+    rpc GetSubscription(GetSubscriptionRequest) returns (Subscription) {
+        option(google.api.http) = {
+            get: "/v1/{name=subscription/*}"
+        };
+    };
 
-    rpc AddSubscription(SubscriptionRequest) returns (StatusResponse);
+    rpc ListSubscriptions(ListSubscriptionsRequest) returns (ListSubscriptionsResponse) {
+        option(google.api.http) = {
+            get: "/v1/subscription"
+        };
+    };
 
-    rpc ModifySubscription(SubscriptionRequest) returns (StatusResponse);
+    rpc CreateSubscription(AddSubscriptionRequest) returns (Subscription) {
+        option(google.api.http) = {
+            post: "v1/subscription"
+            body: "subscription"
+        };
+    };
 
-    rpc RemoveSubscription(RemoveSubscriptionRequest) returns (StatusResponse);
+    rpc UpdateSubscription(UpdateSubscriptionRequest) returns (Subscription)
+    {
+        option (google.api.http) = {
+            patch: "/v1/{subscription.name=subscription/*}"
+            body: "subscription"
+        };
+    };
+
+    rpc DeleteSubscription(DeleteSubscriptionRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            delete: "/v1/{name=subscription/*}"
+        };
+    };
+}
+
+message ListSubscriptionsRequest {
+    int32 page_size = 1;
+    string page_token = 2;
+    string filter = 3;
+}
+
+message ListSubscriptionsResponse {
+    repeated Subscription subscription = 1;
+    string next_page_token = 2;
 }
 
 message GetSubscriptionRequest {
-    string filterParams = 1;
+    string name = 1;
     … other value types
 }
 
-message SubscriptionRequest {
+message CreateSubscriptionRequest {
     Subscription subscription = 1;
     … other value types
 }
 
-message RemoveSubscriptionRequest {
-    string subscriptionId = 1;
+message UpdateSubscriptionRequest {
+    Subscription subscription = 1;
+    FieldMask update_mask = 2;
     … other value types
 }
 
-message SubscriptionResponse {
-    repeated Subscription subscription = 1;
+message DeleteSubscriptionRequest {
+    string name = 1;
     … other value types
 }
 
 message Subscription {
-    string id = 1;
-    string realmId = 2;
-    string deliveryTime = 3;
+    string name = 1;
+    string realm_id = 2;
+    string delivery_time = 3;
     Customer customer = 4;
-    DelvierySquad deliverySquad = 5;
+    DelvierySquad delivery_squad = 5;
     repeated Product product = 6;
     bool status = 7;
     … other value types
 }
 
-message StatusResponse {
-    bool success = 1;
-    string message = 2;
-    … other value types
-}
 ```
 
 5.  ### Delivery Service
+
 [filename](diagram/delivery_service_domain_model.drawio ':include :type=code')
 
 #### Sequence View
+
 [filename](diagram/delivery_sequence_view.drawio ':include :type=code')
 
 #### Data Model
+
 [filename](diagram/delivery_erd.drawio ':include :type=code')
 
 #### API - Service
-|Service|Operation|Service Endpoint|
-|:--|:--|:--|
-|**{{app_name}}.v1.Delivery**|Deliver|/{{app_name}}.v1.delivery/deliver|
+|Service|Operation|Service Endpoint|HTTP Method|
+|:--|:--|:--|:--|
+|**api.{{app_name}}.com/v1/delivery**|CreateDelivery|/{{app_name}}.v1.delivery/deliver|
 ||GetDelivery|/{{app_name}}.v1.delivery/getdelivery|
 ||ModifyDelivery|/{{app_name}}.v1.delivery/modifydelivery|
 
