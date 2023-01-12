@@ -799,6 +799,7 @@ message Invoice {
 |:--|:--|:--|:--|
 |**api.{{app_name}}.com/v1/payment**|ListPayments|/v1/payment|GET|
 ||GetPayment|/v1/{name=payment/*}|GET|
+||ListPayments|/v1/payment|GET|
 ||CreatePayment|/v1/payment|POST|
 
 ```
