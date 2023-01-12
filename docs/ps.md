@@ -89,7 +89,7 @@ message ListBrandsRequest {
 }
 
 message ListBrandsResponse {
-    repeated Brand brand = 1;
+    repeated Brand brands = 1;
     string next_page_token = 2;
 }
 
@@ -117,7 +117,7 @@ message ListProductsRequest {
 }
 
 message ListProductsResponse {
-    repeated Product product = 1;
+    repeated Product products = 1;
     string next_page_token = 2;
 }
 
@@ -253,7 +253,7 @@ message ListCustomersRequest {
 }
 
 message ListCustomersResponse {
-    repeated Customer customer = 1;
+    repeated Customer customers = 1;
     string next_page_token = 2;
 }
 
@@ -547,7 +547,7 @@ message ListSubscriptionsRequest {
 }
 
 message ListSubscriptionsResponse {
-    repeated Subscription subscription = 1;
+    repeated Subscription subscriptions = 1;
     string next_page_token = 2;
 }
 
@@ -600,177 +600,261 @@ message Subscription {
 #### API - Service
 |Service|Operation|Service Endpoint|HTTP Method|
 |:--|:--|:--|:--|
-|**api.{{app_name}}.com/v1/delivery**|CreateDelivery|/{{app_name}}.v1.delivery/deliver|
-||GetDelivery|/{{app_name}}.v1.delivery/getdelivery|
-||ModifyDelivery|/{{app_name}}.v1.delivery/modifydelivery|
+|**api.{{app_name}}.com/v1/delivery**|CreateDelivery|/v1/delivery|POST|
+||ListDeliveries|/v1/delivery|GET|
+||GetDelivery|/v1/{name=delivery/*}|GET|
+||UpdateDelivery|/v1/{delivery.name=delivery/*}|PATCH|
+||DeleteDelivery|/v1/{name=delivery/*}|DELETE|
 
 ```
 syntax = "proto3";
 
-service DeliveryService {
-    rpc GetDelivery(GetDeliveryRequest) returns (DeliveryResponse);
+service Delivery {
+    rpc GetDelivery(GetDeliveryRequest) returns (Delivery) {
+        option(google.api.http) = {
+            get: "/v1/{name=delivery/*}"
+        };
+    };
 
-    rpc Deliver(DeliveryRequest) returns (StatusResponse);
+    rpc ListDeliveries(ListDeliveriesRequest) returns (ListDeliveriesResponse) {
+        option(google.api.http) = {
+            get: "/v1/delivery"
+        };
+    };
 
-    rpc ModifyDelivery(DeliveryRequest) returns (StatusResponse);
+    rpc CreateDelivery(AddDeliveryRequest) returns (Delivery) {
+        option(google.api.http) = {
+            post: "v1/delivery"
+            body: "delivery"
+        };
+    };
+
+    rpc UpdateDelivery(UpdateDeliveryRequest) returns (Delivery)
+    {
+        option (google.api.http) = {
+            patch: "/v1/{delivery.name=delivery/*}"
+            body: "delivery"
+        };
+    };
+
+    rpc DeleteDelivery(DeleteDeliveryRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            delete: "/v1/{name=delivery/*}"
+        };
+    };
+}
+
+message ListDeliveriesRequest {
+    int32 page_size = 1;
+    string page_token = 2;
+    string filter = 3;
+}
+
+message ListDeliveriesResponse {
+    repeated Delivery deliveries = 1;
+    string next_page_token = 2;
 }
 
 message GetDeliveryRequest {
-    string filterParams = 1;
+    string name = 1;
     … other value types
 }
 
-message DeliveryRequest {
+message CreateDeliveryRequest {
     Delivery delivery = 1;
     … other value types
 }
 
-message DeliveryResponse {
-    repeated Delivery delivery = 1;
+message UpdateDeliveryRequest {
+    Delivery delivery = 1;
+    FieldMask update_mask = 2;
+    … other value types
+}
+
+message DeleteDeliveryRequest {
+    string name = 1;
     … other value types
 }
 
 message Delivery {
-    string id = 1;
-    string realmId = 2;
-    string deliveryTime = 3;
+    string name = 1;
+    string realm_id = 2;
+    string delivery_time = 3;
     Customer customer = 4;
-    DelvierySquad deliverySquad = 5;
+    DelvierySquad delivery_squad = 5;
     repeated Product product = 6;
     bool status = 7;
     string comment = 8;
     … other value types
 }
-
-message StatusResponse {
-    bool success = 1;
-    string message = 2;
-    … other value types
-}
 ```
 
 6.  ### Invoice Service
+
 [filename](diagram/invoice_service_domain_model.drawio ':include :type=code')
 
 #### Sequence View
+
 [filename](diagram/invoice_sequence_view.drawio ':include :type=code')
 
 #### Data Model
+
 [filename](diagram/invoice_erd.drawio ':include :type=code')
 
 #### API - Service
-|Service|Operation|Service Endpoint|
-|:--|:--|:--|
-|**{{app_name}}.v1.Invoice**|PrepareInvoice|/{{app_name}}.v1.invoice/prepareinvoice|
-||ShareInvoice|/{{app_name}}.v1.invoice/shareinvoice|
+|Service|Operation|Service Endpoint|HTTP Method|
+|:--|:--|:--|:--|
+|**api.{{app_name}}.com/v1/invoice**|CreateInvoice|/v1/invoice|POST|
+||ShareInvoice|/v1/{name=invoice/*}:share|POST|
+
 
 ```
 syntax = "proto3";
 
-service InvoiceService {
-    rpc GetInvoice(GetInvoiceRequest) returns (InvoiceResponse);
+service Invoice {
 
-    rpc PrepareInvoice(PrepareInvoiceRequest) returns (StatusResponse);
+    rpc GetInvoice(GetPaymentRequest) returns (Invoice) {
+        option(google.api.http) = {
+            get= "/v1/{name=invoice/*}"
+        }
+    };
 
-    rpc ShareInvoice(ShareInvoiceRequest) returns (StatusResponse);
+    rpc ListInvoices(ListInvoicesRequest) returns (ListInvoicesResponse) {
+        option(google.api.http) = {
+            get= "/v1/invoice"
+        }
+    };
+
+    rpc CreateInvoice(CreateInvoiceRequest) returns (Invoice){
+        option(google.api.http) = {
+            post= "v1/invoice"
+            body= "invoice"
+        };
+    };
+
+    rpc ShareInvoice(ShareInvoiceRequest) returns (google.protobuf.Empty) {
+        option(google.api.http) = {
+            post= "v1/{name=invoice/*}:share"
+            body= "*"
+        };
+    };
 }
 
 message GetInvoiceRequest {
-    string filterParams = 1;
+    string name = 1;
     … other value types
 }
 
-message PrepareInvoiceRequest {
-    string customerId = 1;
-    google.protobuf.Timestamp startDate = 2;
-    google.protobuf.Timestamp endDate = 3;
+message ListInvoicesRequest {
+    int32 page_size = 1;
+    string page_token = 2;
+    string filter = 3;
+    … other value types
+}
+
+message ListInvoicesResponse {
+    repeated Invoice invoices = 1;
+    … other value types
+}
+
+message CreateInvoiceRequest {
+    Invoice invoice = 1;
     … other value types
 }
 
 message ShareInvoiceRequest {
-    string invoiceId = 1;
-    … other value types
-}
-
-message InvoiceResponse {
-    repeated Invoice invoice = 1;
+    string name = 1;
     … other value types
 }
 
 message Invoice {
-    string id = 1;
-    string realmId = 2;
-    string invoiceTime = 3;
+    string name = 1;
+    string realm_id = 2;
+    string invoice_time = 3;
     Customer customer = 4;
     repeated Product product = 5;
-    string startDate = 6;
-    string endDate = 7;
+    string start_date = 6;
+    string end_date = 7;
     bool status = 8;
     string amount = 9;
-    … other value types
-}
-
-message StatusResponse {
-    bool success = 1;
-    string message = 2;
     … other value types
 }
 ```
 
 7.  ### Payment Service
+
 [filename](diagram/payment_service_domain_model.drawio ':include :type=code')
 
 #### Sequence View
+
 [filename](diagram/payment_sequence_view.drawio ':include :type=code')
 
 #### Data Model
+
 [filename](diagram/payment_erd.drawio ':include :type=code')
 
 #### API - Service
-|Service|Operation|Service Endpoint|
-|:--|:--|:--|
-|**{{app_name}}.v1.Payment**|GetPayment|/{{app_name}}.v1.payment/getpayment|
-||RecordPayment|/{{app_name}}.v1.payment/recordpayment|
+|Service|Operation|Service Endpoint|HTTP Method|
+|:--|:--|:--|:--|
+|**api.{{app_name}}.com/v1/payment**|ListPayments|/v1/payment|GET|
+||GetPayment|/v1/{name=payment/*}|GET|
+||CreatePayment|/v1/payment|POST|
 
 ```
 syntax = "proto3";
 
-service PaymentService {
-    rpc GetPayment(GetPaymentRequest) returns (PaymentResponse);
+service Payment {
+    rpc GetPayment(GetPaymentRequest) returns (Payment) {
+        option(google.api.http) = {
+            get= "/v1/{name=payment/*}"
+        }
+    };
 
-    rpc RecordPayment(RecordPaymentRequest) returns (StatusResponse);
+    rpc ListPayments(ListPaymentsRequest) returns (ListPaymentsResponse) {
+        option(google.api.http) = {
+            get= "/v1/payment"
+        }
+    };
+
+    rpc CreatePayment(CreatePaymentRequest) returns (Payment) {
+        option(google.api.http) = {
+            post= "/v1/payment"
+            body= "payment"
+        }
+    };
 }
 
 message GetPaymentRequest {
-    string filterParams = 1;
+    string name = 1;
     … other value types
 }
 
-message RecordPaymentRequest {
+message ListPaymentsRequest {
+    int32 page_size = 1;
+    string page_token = 2;
+    string filter = 3;
+    … other value types
+}
+
+message ListPaymentsResponse {
+    repeated Payment payments = 1;
+    … other value types
+}
+
+message CreatePaymentRequest {
     Payment payment = 1;
     … other value types
 }
 
-message PaymentResponse {
-    repeated Payment payment = 1;
-    … other value types
-}
-
 message Payment {
-    string id = 1;
-    string realmId = 2;
+    string name = 1;
+    string realm_id = 2;
     string date = 3;
     string amount = 4;
     repeated Invoice invoice = 5;
     string comment = 6;
     bool status = 7;
     Customer customer = 8;
-    … other value types
-}
-
-message StatusResponse {
-    bool success = 1;
-    string message = 2;
     … other value types
 }
 ```
