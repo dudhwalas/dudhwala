@@ -16,11 +16,11 @@
 |Service|Operation|Service Endpoint|HTTP Method|
 |:--|:--|:--|:--|
 |**api.{{app_name}}.com/v1/brand**|CreateBrand|/v1/brand|POST|
-||ListBrand|/v1/brand|GET|
+||ListBrands|/v1/brand|GET|
 ||GetBrand|/v1/brand/*|GET|
 ||UpdateBrand|/v1/{brand.name=brand/*}|PATCH|
 |**api.{{app_name}}.com/v1/{parent=brand/\*}/product**|AddProduct|/v1/{parent=brand/*}/product|POST|
-||ListProduct|/v1/{parent=brand/\*}/product|GET|
+||ListProducts|/v1/{parent=brand/\*}/product|GET|
 ||GetProduct|/v1/{name=brand/\*/product/*}|GET|
 ||UpdateProduct|/v1/{product.name=brand/\*/product/*}|PATCH|
 
@@ -34,7 +34,7 @@ service Catalog {
         };
     };
 
-    rpc ListBrand(ListBrandRequest) returns (ListBrandResponse) {
+    rpc ListBrands(ListBrandsRequest) returns (ListBrandsResponse) {
         option (google.api.http) = {
             get: "/v1/brand"
         };
@@ -54,13 +54,13 @@ service Catalog {
         };
     };
 
-    rpc GetProduct (GetProductRequest) returns (Product) {
+    rpc GetProduct(GetProductRequest) returns (Product) {
         option (google.api.http) = {
             get: "/v1/{name=brand/*/product/*}"
         };
     };
 
-    rpc ListProduct(ListProductRequest) returns (ListProductResponse) {
+    rpc ListProducts(ListProductsRequest) returns (ListProductsResponse) {
         option (google.api.http) = {
             get: "/v1/{parent=brand/*}/product"
         };
@@ -82,13 +82,13 @@ service Catalog {
 }
 
 
-message ListBrandRequest {
+message ListBrandsRequest {
     int32 page_size = 1;
     string page_token = 2;
     string filter = 3;
 }
 
-message ListBrandResponse {
+message ListBrandsResponse {
     repeated Brand brand = 1;
     string next_page_token = 2;
 }
@@ -109,14 +109,14 @@ message UpdateBrandRequest {
     … other value types
 }
 
-message ListProductRequest {
+message ListProductsRequest {
     string parent = 1;
     int32 page_size = 2;
     string page_token = 3;
     string filter = 4;
 }
 
-message ListProductAddressResponse {
+message ListProductsResponse {
     repeated Product product = 1;
     string next_page_token = 2;
 }
@@ -166,16 +166,18 @@ message Product {
 [filename](diagram/customer_service_domain_model.drawio ':include :type=code')
 
 #### Sequence View
+
 [filename](diagram/customer_sequence_view.drawio ':include :type=code')
 
 #### Data Model
+
 [filename](diagram/customers_erd.drawio ':include :type=code')
 
 #### API - Service
 |Service|Operation|Service Endpoint|HTTP Method|
 |:--|:--|:--|:--|
 |**api.{{app_name}}.com/v1/customer**|CreateCustomer|/v1/customer}|POST|
-||ListCustomer|/v1/customer|GET|
+||ListCustomers|/v1/customer|GET|
 ||GetCustomer|/v1/{name=customer/*}|GET|
 ||UpdateCustomer|/v1/{name=customer/*}|PATCH|
 |**api.{{app_name}}.com/v1/{parent=customer/\*}/address**|AddCustomerAddress|/v1/{parent=customer/*}/address|POST|
@@ -186,8 +188,8 @@ message Product {
 ```
 syntax = "proto3";
 
-service CustomerService {
-    rpc ListCustomer(ListCustomerRequest) returns (ListCustomerResponse) {
+service Customer {
+    rpc ListCustomers(ListCustomersRequest) returns (ListCustomersResponse) {
         option (google.api.http) = {
             get: "/v1/customer"
         };
@@ -244,13 +246,13 @@ service CustomerService {
     };
 }
 
-message ListCustomerRequest {
+message ListCustomersRequest {
     int32 page_size = 1;
     string page_token = 2;
     string filter = 3;
 }
 
-message ListCustomerResponse {
+message ListCustomersResponse {
     repeated Customer customer = 1;
     string next_page_token = 2;
 }
@@ -320,12 +322,15 @@ message CustomerAddress {
 ```
 
 3.  ### Delivery Squad Service
+
 [filename](diagram/deliverysquad_service_domain_model.drawio ':include :type=code')
 
 #### Sequence View
+
 [filename](diagram/delivery_squad_sequence_view.drawio ':include :type=code')
 
 #### Data Model
+
 [filename](diagram/deliverysquad_erd.drawio ':include :type=code')
 
 #### API - Service
@@ -343,7 +348,7 @@ message CustomerAddress {
 ```
 syntax = "proto3";
 
-service DeliverySquadService {
+service DeliverySquad {
     rpc ListDeliverySquad(ListDeliverySquadRequest) returns (ListDeliverySquadResponse) {
         option (google.api.http) = {
             get: "/v1/delivery_squad"
@@ -477,12 +482,15 @@ message DeliverySquadAddress {
 ```
 
 4.  ### Subscription Service
+
 [filename](diagram/subscription_service_domain_model.drawio ':include :type=code')
 
 #### Sequence View
+
 [filename](diagram/subscription_sequence_view.drawio ':include :type=code')
 
 #### Data Model
+
 [filename](diagram/subscription_erd.drawio ':include :type=code')
 
 #### API - Service
