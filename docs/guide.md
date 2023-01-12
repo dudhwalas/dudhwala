@@ -3629,6 +3629,9 @@ When writing your unit tests avoid manual string concatenation and logical condi
 
 When you introduce logic into your test suite, the chance of introducing a bug into it increases dramatically. The last place that you want to find a bug is within your test suite. You should have a high level of confidence that your tests work, otherwise, you will not trust them. Tests that you do not trust, do not provide any value. When a test fails, you want to have a sense that something is actually wrong with your code and that it cannot be ignored.
 
+### Logging
+Refer Logging Guide <u> [here](/bf?id=logging-service-unified-logging) </u>
+
 ### Development Specification 
 The microservices must have the following artefacts before implementation.
 #### Design Sign Off
