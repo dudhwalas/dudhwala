@@ -797,10 +797,9 @@ message Invoice {
 #### API - Service
 |Service|Operation|Service Endpoint|HTTP Method|
 |:--|:--|:--|:--|
-|**api.{{app_name}}.com/v1/payment**|ListPayments|/v1/payment|GET|
+|**api.{{app_name}}.com/v1/payment**|CreatePayment|/v1/payment|POST|
 ||GetPayment|/v1/{name=payment/*}|GET|
 ||ListPayments|/v1/payment|GET|
-||CreatePayment|/v1/payment|POST|
 
 ```
 syntax = "proto3";
