@@ -507,19 +507,19 @@ syntax = "proto3";
 
 service Subscription {
     rpc GetSubscription(GetSubscriptionRequest) returns (Subscription) {
-        option(google.api.http) = {
+        option (google.api.http) = {
             get: "/v1/{name=subscription/*}"
         };
     };
 
     rpc ListSubscriptions(ListSubscriptionsRequest) returns (ListSubscriptionsResponse) {
-        option(google.api.http) = {
+        option (google.api.http) = {
             get: "/v1/subscription"
         };
     };
 
     rpc CreateSubscription(AddSubscriptionRequest) returns (Subscription) {
-        option(google.api.http) = {
+        option (google.api.http) = {
             post: "v1/subscription"
             body: "subscription"
         };
@@ -611,19 +611,19 @@ syntax = "proto3";
 
 service Delivery {
     rpc GetDelivery(GetDeliveryRequest) returns (Delivery) {
-        option(google.api.http) = {
+        option (google.api.http) = {
             get: "/v1/{name=delivery/*}"
         };
     };
 
     rpc ListDeliveries(ListDeliveriesRequest) returns (ListDeliveriesResponse) {
-        option(google.api.http) = {
+        option (google.api.http) = {
             get: "/v1/delivery"
         };
     };
 
     rpc CreateDelivery(AddDeliveryRequest) returns (Delivery) {
-        option(google.api.http) = {
+        option (google.api.http) = {
             post: "v1/delivery"
             body: "delivery"
         };
@@ -715,26 +715,26 @@ syntax = "proto3";
 service Invoice {
 
     rpc GetInvoice(GetPaymentRequest) returns (Invoice) {
-        option(google.api.http) = {
+        option (google.api.http) = {
             get= "/v1/{name=invoice/*}"
         }
     };
 
     rpc ListInvoices(ListInvoicesRequest) returns (ListInvoicesResponse) {
-        option(google.api.http) = {
+        option (google.api.http) = {
             get= "/v1/invoice"
         }
     };
 
     rpc CreateInvoice(CreateInvoiceRequest) returns (Invoice){
-        option(google.api.http) = {
+        option (google.api.http) = {
             post= "v1/invoice"
             body= "invoice"
         };
     };
 
     rpc ShareInvoice(ShareInvoiceRequest) returns (google.protobuf.Empty) {
-        option(google.api.http) = {
+        option (google.api.http) = {
             post= "v1/{name=invoice/*}:share"
             body= "*"
         };
@@ -806,19 +806,19 @@ syntax = "proto3";
 
 service Payment {
     rpc GetPayment(GetPaymentRequest) returns (Payment) {
-        option(google.api.http) = {
+        option (google.api.http) = {
             get= "/v1/{name=payment/*}"
         }
     };
 
     rpc ListPayments(ListPaymentsRequest) returns (ListPaymentsResponse) {
-        option(google.api.http) = {
+        option (google.api.http) = {
             get= "/v1/payment"
         }
     };
 
     rpc CreatePayment(CreatePaymentRequest) returns (Payment) {
-        option(google.api.http) = {
+        option (google.api.http) = {
             post= "/v1/payment"
             body= "payment"
         }
