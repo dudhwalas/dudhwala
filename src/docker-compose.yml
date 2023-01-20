@@ -81,7 +81,7 @@ services:
                 tag: application.keycloak
 
     catalog.api:
-        build: catalog.api/
+        build: catalog/Catalog.Api/
         image: catalog.api:1.1
         container_name: catalog.api
         ports:

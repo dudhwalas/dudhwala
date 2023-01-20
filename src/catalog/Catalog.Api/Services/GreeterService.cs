@@ -1,7 +1,7 @@
 ﻿using Grpc.Core;
-using catalog.api;
+using Catalog.Api;
 
-namespace catalog.api.Services;
+namespace Catalog.Api.Services;
 
 public class GreeterService : Greeter.GreeterBase
 {

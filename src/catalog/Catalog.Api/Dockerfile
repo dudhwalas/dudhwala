@@ -6,15 +6,15 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY "catalog.api.csproj" .
-RUN dotnet restore "catalog.api.csproj"
+COPY "Catalog.Api.csproj" .
+RUN dotnet restore "Catalog.Api.csproj"
 COPY . .
-RUN dotnet build "catalog.api.csproj" -c Release -o /app/build
+RUN dotnet build "Catalog.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "catalog.api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Catalog.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "catalog.api.dll"]
+ENTRYPOINT ["dotnet", "Catalog.Api.dll"]

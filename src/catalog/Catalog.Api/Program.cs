@@ -1,4 +1,4 @@
-﻿using catalog.api.Services;
+﻿using Catalog.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
