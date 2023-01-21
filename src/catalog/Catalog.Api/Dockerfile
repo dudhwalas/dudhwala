@@ -6,9 +6,13 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY "Catalog.Api.csproj" .
-RUN dotnet restore "Catalog.Api.csproj"
+COPY ["catalog/Catalog.Api/Catalog.Api.csproj", "catalog/Catalog.Api/"]
+COPY ["catalog/Catalog.Application/Catalog.Application.csproj", "catalog/Catalog.Application/"]
+COPY ["catalog/Catalog.Infrastructure/Catalog.Infrastructure.csproj", "catalog/Catalog.Infrastructure/"]
+COPY ["catalog/Catalog.Domain/Catalog.Domain.csproj", "catalog/Catalog.Domain/"]
+RUN dotnet restore "catalog/Catalog.Api/Catalog.Api.csproj"
 COPY . .
+WORKDIR "/src/catalog/Catalog.Api"
 RUN dotnet build "Catalog.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
