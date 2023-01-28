@@ -19,7 +19,7 @@ namespace Catalog.Domain.SeedWork
         /// <summary>
         /// Unique Id of entity.
         /// </summary>
-		public Guid Id { get => _id; protected set => _id = value; }
+		public Guid Id { get => _id; set => _id = value; }
 
         /// <summary>
         /// Checks if entity is fully qualified object.

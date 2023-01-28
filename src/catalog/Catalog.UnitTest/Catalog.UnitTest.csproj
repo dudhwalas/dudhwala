@@ -26,4 +26,12 @@
     <ProjectReference Include="..\Catalog.Domain\Catalog.Domain.csproj" />
     <ProjectReference Include="..\Catalog.Infrastructure\Catalog.Infrastructure.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Domain\" />
+    <None Remove="Domain\Seedwork\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Domain\" />
+    <Folder Include="Domain\Seedwork\" />
+  </ItemGroup>
 </Project>
