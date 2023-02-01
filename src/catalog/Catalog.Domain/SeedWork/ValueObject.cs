@@ -80,6 +80,28 @@ namespace Catalog.Domain.SeedWork
         {
             return this.MemberwiseClone() as ValueObject;
         }
+
+        /// <summary>
+        /// Compare and checks if value object is same object as other value object.
+        /// </summary>
+        /// <param name="left">Left operand value object to compare.</param>
+        /// <param name="right">Right operand value object to compare.</param>
+        /// <returns>True - If both value objects are same.</returns>
+        public static bool operator == (ValueObject left, ValueObject right)
+        {
+            return EqualOperator(left, right);
+        }
+
+        /// <summary>
+        /// Compare and checks if value object is not same object as other value object.
+        /// </summary>
+        /// <param name="left">Left operand value object to compare.</param>
+        /// <param name="right">Right operand value object to compare.</param>
+        /// <returns>True - If both value objects are not same.</returns>
+        public static bool operator != (ValueObject left, ValueObject right)
+        {
+            return NotEqualOperator(left, right);
+        }
     }
 }
 

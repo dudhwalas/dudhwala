@@ -139,7 +139,7 @@ namespace Catalog.UnitTest.Domain.Seedwork
         }
 
         [Fact]
-        public void WhenEntityComparedWithOtherType_EqualsShouldReturnFalse()
+        public void WhenEntityComparedWithOtherEntityType_EqualsShouldReturnFalse()
         {
             //Arrange
             var _mockEntity1 = new MockEntity1();
@@ -201,7 +201,7 @@ namespace Catalog.UnitTest.Domain.Seedwork
         }
 
         [Fact]
-        public void WhenEntityHavingEmptyIdComparedWithOtherEntityHavingEmptyId_EqualsShouldReturnFalse()
+        public void WhenEntityHavingEmptyIdComparedWithOtherEntityOfSameTypeHavingEmptyId_EqualsShouldReturnFalse()
         {
             //Arrange
             var _mockEntity1 = new MockEntity1();
@@ -252,7 +252,7 @@ namespace Catalog.UnitTest.Domain.Seedwork
         }
 
         [Fact]
-        public void WhenEntityHavingIdComparedWithOtherEntityHavingSameId_EqualsShouldReturnTrue()
+        public void WhenEntityHavingIdComparedWithOtherEntityOfSameTypeHavingSameId_EqualsShouldReturnTrue()
         {
             //Arrange
             var _mockEntity1 = new MockEntity1();
