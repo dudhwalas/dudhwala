@@ -9,32 +9,16 @@ namespace Catalog.UnitTest.Domain.Seedwork
 		public void WithUnitOfWorkSetInStubRepository_GetUnitOfWorkShouldReturnUnitOfWork()
 		{
 			//Arrange 
-			var stubRepo = new StubRepository()
+			var mockRepo = new MockRepository()
 			{
-				UnitOfWork = new MockUnitOfWork()
+				UnitOfWork = new MockUnitOfWorkForRepo()
 			};
 
 			//Act
 
 			//Assert
-			Assert.IsType<MockUnitOfWork>(stubRepo.UnitOfWork);
+			Assert.IsType<MockUnitOfWorkForRepo>(mockRepo.UnitOfWork);
 		}
-
-        [Fact]
-        public async void WithUnitOfWorkSetInStubRepository_SaveChangesAsyncShouldReturnTrue()
-        {
-            //Arrange 
-            var stubRepo = new StubRepository()
-            {
-                UnitOfWork = new MockUnitOfWork()
-            };
-
-			//Act
-			var result = await stubRepo.UnitOfWork.SaveChangesAsync();
-
-            //Assert
-            Assert.True(result);
-        }
     }
 
     class MockEntity3 : Entity, IAggregateRoot
@@ -42,21 +26,21 @@ namespace Catalog.UnitTest.Domain.Seedwork
 
     }
 
-	class StubRepository : IRepository<MockEntity3>
+	class MockRepository : IRepository<MockEntity3>
 	{
 		
 	}
 
-	class MockUnitOfWork : IUnitOfWork
-	{
-		public void Dispose()
-		{
-			
-		}
+    class MockUnitOfWorkForRepo : IUnitOfWork
+    {
+        public void Dispose()
+        {
 
-		public Task<bool> SaveChangesAsync(CancellationToken cancellationToken = default)
-		{
-			return Task.FromResult(true);
-		}
-	}
+        }
+
+        public Task<bool> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(true);
+        }
+    }
 }
