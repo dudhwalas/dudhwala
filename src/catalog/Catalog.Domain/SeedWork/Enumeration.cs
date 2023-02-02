@@ -131,6 +131,6 @@ namespace Catalog.Domain.SeedWork
         /// </summary>
         /// <param name="other">enum to compare with.</param>
         /// <returns>0 - If both enums are same.</returns>
-        public int CompareTo(object? other) => other == null ? 0 : Id.CompareTo(((Enumeration)other).Id);
+        public int CompareTo(object? other) => other == null ? 1 : Id.CompareTo(((Enumeration)other).Id);
     }
 }
