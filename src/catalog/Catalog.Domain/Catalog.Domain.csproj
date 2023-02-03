@@ -8,8 +8,10 @@
 
   <ItemGroup>
     <None Remove="SeedWork\" />
+    <None Remove="AggregateModel\BrandAggregate\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SeedWork\" />
+    <Folder Include="AggregateModel\BrandAggregate\" />
   </ItemGroup>
 </Project>
