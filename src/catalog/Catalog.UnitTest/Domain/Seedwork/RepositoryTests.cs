@@ -8,11 +8,8 @@ namespace Catalog.UnitTest.Domain.Seedwork
 		[Fact]
 		public void WithUnitOfWorkSetInStubRepository_GetUnitOfWorkShouldReturnUnitOfWork()
 		{
-			//Arrange 
-			var mockRepo = new MockRepository()
-			{
-				UnitOfWork = new MockUnitOfWorkForRepo()
-			};
+            //Arrange 
+            var mockRepo = new MockRepository();
 
 			//Act
 
@@ -26,10 +23,10 @@ namespace Catalog.UnitTest.Domain.Seedwork
 
     }
 
-	class MockRepository : IRepository<MockEntity3>
-	{
-		
-	}
+    class MockRepository : IRepository<MockEntity3>
+    {
+        public IUnitOfWork UnitOfWork => new MockUnitOfWorkForRepo();
+    }
 
     class MockUnitOfWorkForRepo : IUnitOfWork
     {

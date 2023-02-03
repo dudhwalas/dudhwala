@@ -1,5 +1,4 @@
-﻿
-using Catalog.Domain.SeedWork;
+﻿using Catalog.Domain.SeedWork;
 using Moq;
 
 namespace Catalog.UnitTest.Domain.Seedwork
