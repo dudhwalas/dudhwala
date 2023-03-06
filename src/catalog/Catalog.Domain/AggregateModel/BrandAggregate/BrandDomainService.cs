@@ -16,6 +16,9 @@ namespace Catalog.Domain.AggregateModel.BrandAggregate
 
         public Task<BrandEntity> AddBrand(BrandEntity brand)
         {
+            if (brand == null)
+                throw new ArgumentNullException();
+
             return Repository.AddBrand(brand);
         }
     }

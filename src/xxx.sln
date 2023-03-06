@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Api", "catalog\Cata
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.UnitTest", "catalog\Catalog.UnitTest\Catalog.UnitTest.csproj", "{DB6F16F3-7E79-4F0F-908C-11E46F59A270}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Domain.Shared", "catalog\Catalog.Domain.Shared\Catalog.Domain.Shared.csproj", "{4B2078A5-D37C-435C-BBB5-601261085792}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{DB6F16F3-7E79-4F0F-908C-11E46F59A270}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB6F16F3-7E79-4F0F-908C-11E46F59A270}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB6F16F3-7E79-4F0F-908C-11E46F59A270}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B2078A5-D37C-435C-BBB5-601261085792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B2078A5-D37C-435C-BBB5-601261085792}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B2078A5-D37C-435C-BBB5-601261085792}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B2078A5-D37C-435C-BBB5-601261085792}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,5 +60,6 @@ Global
 		{E38D3039-3578-481C-AE06-F664EDA8A824} = {4673C84A-D949-43FB-9AE2-FD6F49AE6444}
 		{24562A16-AB50-451B-BADB-8D53F517ED64} = {4673C84A-D949-43FB-9AE2-FD6F49AE6444}
 		{DB6F16F3-7E79-4F0F-908C-11E46F59A270} = {4673C84A-D949-43FB-9AE2-FD6F49AE6444}
+		{4B2078A5-D37C-435C-BBB5-601261085792} = {4673C84A-D949-43FB-9AE2-FD6F49AE6444}
 	EndGlobalSection
 EndGlobal

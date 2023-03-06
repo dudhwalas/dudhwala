@@ -9,9 +9,13 @@
   <ItemGroup>
     <None Remove="SeedWork\" />
     <None Remove="AggregateModel\BrandAggregate\" />
+    <None Remove="Volo.Abp.Ddd.Domain" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SeedWork\" />
     <Folder Include="AggregateModel\BrandAggregate\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="7.0.1" />
   </ItemGroup>
 </Project>
