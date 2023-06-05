@@ -11,7 +11,5 @@ namespace Catalog.Domain
 		)]
 	public class CatalogDomainModule : AbpModule
 	{
-		
 	}
 }
-

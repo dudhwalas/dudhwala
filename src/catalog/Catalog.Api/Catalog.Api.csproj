@@ -28,6 +28,9 @@
     <ProjectReference Include="..\Catalog.Application\Catalog.Application.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\Catalog.Database\Catalog.Database.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Remove="Volo.Abp.AspNetCore.Mvc" />

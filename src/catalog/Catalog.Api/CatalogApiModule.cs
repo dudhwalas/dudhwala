@@ -1,6 +1,7 @@
 ﻿using System;
 using Catalog.Api.Services;
 using Catalog.Application;
+using Catalog.PostgreSql;
 using Volo.Abp;
 using Volo.Abp.AspNetCore;
 using Volo.Abp.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ namespace Catalog.Api
 	[DependsOn(
         typeof(AbpAspNetCoreMvcModule),
         typeof(AbpAutofacModule),
+        typeof(CatalogDatabaseModule),
         typeof(CatalogApplicationModule))]
 	public class CatalogApiModule : AbpModule
 	{
