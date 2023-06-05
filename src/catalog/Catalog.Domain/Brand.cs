@@ -3,30 +3,59 @@ using Catalog.Domain.Shared;
 using JetBrains.Annotations;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Catalog.Domain
 {
-	public class Brand : Entity<Guid>
+	public class Brand : AuditedEntity<Guid>
 	{
-		public string? Name { get; private set; }
+        [NotNull]
+        public string? Name { get; private set; }
+        [NotNull]
+        public string? Image { get; private set; }
+        [NotNull]
+        public EnumStatus? Status { get; private set; }
+        [NotNull]
+        public Guid RealmId { get; private set; }
 
-		private Brand()
+
+        private Brand()
 		{
 		}
 
-		public Brand(Guid _uid, [NotNull]string _name)
+		public Brand(Guid uid, [NotNull]string name, [NotNull] string image, [NotNull] EnumStatus status, [NotNull] Guid realmId)
 		{
-			Id = _uid;
-			SetName(_name);
-			
+			Id = uid;
+			SetName(name);
+            SetImage(image);
+            SetStatus(status);
+            SetRealmId(realmId);
 		}
 
-		public Brand SetName(string _name)
+		public Brand SetName([NotNull]string name)
 		{
-			if(string.IsNullOrEmpty(_name))
-				throw new BusinessException(CatalogErrorCodes.BrandNameMissing);
+			Name = Check.NotNullOrWhiteSpace(name,nameof(Name));
 			return this;
 		}
-	}
-}
 
+        public Brand SetImage([NotNull]string image)
+        {
+            Image = Check.NotNullOrWhiteSpace(image, nameof(Image));
+            return this;
+        }
+
+        public Brand SetStatus([NotNull]EnumStatus status)
+        {
+            Status = Check.NotNull(status, nameof(Status));
+            return this;
+        }
+
+        public Brand SetRealmId([NotNull] Guid realmId)
+        {
+            RealmId = Check.NotNull(realmId, nameof(RealmId));
+            if (RealmId == Guid.Empty)
+                throw new ArgumentException("Guid cannot be empty", nameof(RealmId));
+            return this;
+        }
+    }
+}

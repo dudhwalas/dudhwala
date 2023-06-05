@@ -24,7 +24,7 @@ namespace Catalog.Domain.Shared
                 options.Resources
                     .Add<CatalogResource>("en")
                     .AddBaseTypes(typeof(AbpValidationResource))
-                    .AddVirtualJson("/Localization/Catalog");
+                    .AddVirtualJson("/Localization");
             });
 
             Configure<AbpExceptionLocalizationOptions>(options =>

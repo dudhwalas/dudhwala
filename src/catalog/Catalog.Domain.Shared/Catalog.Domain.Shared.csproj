@@ -4,19 +4,22 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace />
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Volo.Abp.Validation" />
     <None Remove="Volo.Abp.Core" />
     <None Remove="Localization\" />
-    <None Remove="Localization\Catalog\" />
+    <None Remove="Localization\*.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Validation" Version="7.2.2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Localization\" />
-    <Folder Include="Localization\Catalog\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\*.json" />
   </ItemGroup>
 </Project>

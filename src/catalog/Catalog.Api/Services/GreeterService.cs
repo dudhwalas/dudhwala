@@ -1,5 +1,7 @@
 ﻿using Grpc.Core;
 using Catalog.Api;
+using Catalog.Domain.Shared.Localization;
+using Microsoft.Extensions.Localization;
 
 namespace Catalog.Api.Services;
 
