@@ -1,5 +1,6 @@
 ﻿using System;
 using Catalog.Domain;
+using Catalog.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
@@ -21,7 +22,7 @@ namespace Catalog.PostgreSql
             modelBuilder.Entity<Brand>(b =>
             {
                 b.ConfigureByConvention();
-                b.ToTable<Brand>("Brand", "Catalog");
+                b.ToTable<Brand>(CatalogDatabaseConstants.TABLE_BRAND, CatalogDatabaseConstants.DB_SCHEMA);
                 b.Property(brand => brand.Name).IsRequired().HasMaxLength(100);
                 b.Property(brand => brand.Image).IsRequired(false);
                 b.Property(brand => brand.RealmId).IsRequired();

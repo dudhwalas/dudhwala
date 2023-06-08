@@ -8,9 +8,19 @@
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Ddd.Application" Version="7.2.2" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.53.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Catalog.Domain\Catalog.Domain.csproj" />
     <ProjectReference Include="..\Catalog.Application.Contract\Catalog.Application.Contract.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="Protos\brand.proto" GrpcServices="Server" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>

@@ -67,7 +67,7 @@ services:
             - KC_DB_URL_HOST=postgres
             - KC_DB_URL_DATABASE=application
             - KC_DB_USERNAME=appadmin
-            - KC_DB_SCHEMA=catalog
+            - KC_DB_SCHEMA=Auth
             - KC_DB_PASSWORD=appadmin!@#$%
             - KC_HEALTH_ENABLED=true
             - KC_METRICS_ENABLED=true
@@ -87,7 +87,7 @@ services:
         image: catalog.api:1.1
         container_name: catalog.api
         ports:
-            - 5006:80
+            - 5006:5086
         links:
             - postgres
         logging:

@@ -1,0 +1,26 @@
+﻿syntax = "proto3";
+import "google/protobuf/http.proto";
+
+option csharp_namespace = "Catalog.Application";
+
+package brand;
+
+service BrandService {
+	rpc GetBrand(GetBrandRequest) returns (Brand) {
+		option (google.api.http) = {
+            get: "/v1/{name=brand/*}"
+        };
+	};
+}
+
+message GetBrandRequest {
+	string name = 1;
+}
+
+message Brand {
+	string id = 1;
+	string name = 2;
+	string image = 3;
+	int32 status = 4;
+	string ream_id = 5;
+}
