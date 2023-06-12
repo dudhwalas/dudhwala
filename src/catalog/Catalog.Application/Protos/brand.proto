@@ -1,5 +1,5 @@
 ﻿syntax = "proto3";
-import "google/protobuf/http.proto";
+import "google/api/annotations.proto";
 
 option csharp_namespace = "Catalog.Application";
 

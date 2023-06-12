@@ -1,5 +1,4 @@
 ﻿using System;
-using Catalog.Api.Services;
 using Catalog.Application;
 using Catalog.PostgreSql;
 using Volo.Abp;
@@ -21,7 +20,7 @@ namespace Catalog.Api
         {
             context.Services.AddGrpc((opt) => {
                 opt.EnableDetailedErrors = true;
-            });
+            }).AddJsonTranscoding();
         }
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -30,7 +29,7 @@ namespace Catalog.Api
             app.UseRouting();
             app.UseConfiguredEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<Catalog.Application.Services.BrandService>();
             });
         }
     }

@@ -1,5 +1,4 @@
 ﻿using Catalog.Api;
-using Catalog.Api.Services;
 using Volo.Abp;
 
 var builder = WebApplication.CreateBuilder(args);

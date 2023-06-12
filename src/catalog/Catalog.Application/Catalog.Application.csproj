@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Ddd.Application" Version="7.2.2" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.53.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="7.0.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Catalog.Domain\Catalog.Domain.csproj" />
@@ -16,11 +17,31 @@
   </ItemGroup>
   <ItemGroup>
     <Protobuf Include="Protos\brand.proto" GrpcServices="Server" />
+    <Protobuf Include="google\api\annotations.proto" GrpcServices="">
+      <Access></Access>
+      <ProtoCompile></ProtoCompile>
+      <CompileOutputs></CompileOutputs>
+      <OutputDir></OutputDir>
+      <Generator></Generator>
+    </Protobuf>
+    <Protobuf Include="google\api\http.proto" GrpcServices="">
+      <Access></Access>
+      <ProtoCompile></ProtoCompile>
+      <CompileOutputs></CompileOutputs>
+      <OutputDir></OutputDir>
+      <Generator></Generator>
+    </Protobuf>
   </ItemGroup>
   <ItemGroup>
     <None Remove="Services\" />
+    <None Remove="google\" />
+    <None Remove="google\api\" />
+    <None Remove="google\api\annotations.proto" />
+    <None Remove="google\api\http.proto" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="google\" />
+    <Folder Include="google\api\" />
   </ItemGroup>
 </Project>
