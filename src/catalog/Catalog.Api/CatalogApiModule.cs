@@ -18,9 +18,7 @@ namespace Catalog.Api
 	{
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddGrpc((opt) => {
-                opt.EnableDetailedErrors = true;
-            }).AddJsonTranscoding();
+            
         }
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)

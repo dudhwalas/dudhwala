@@ -12,9 +12,8 @@ namespace Catalog.Application.Services
 
         public override Task<Brand> GetBrand(GetBrandRequest request, ServerCallContext context)
         {
-            return base.GetBrand(request, context);
+            return Task.FromResult(new Brand { Id = request.Id });
         }
-
     }
 }
 
