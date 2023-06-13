@@ -6,7 +6,7 @@ option csharp_namespace = "Catalog.Application";
 package brand;
 
 service BrandService {
-	rpc GetBrand(GetBrandRequest) returns (Brand) {
+	rpc GetBrand(GetBrandRequest) returns (BrandDto) {
 		option (google.api.http) = {
             get: "/v1/brand/{id}"
         };
@@ -17,7 +17,7 @@ message GetBrandRequest {
 	string id = 1;
 }
 
-message Brand {
+message BrandDto {
 	string id = 1;
 	string name = 2;
 	string image = 3;

@@ -7,6 +7,6 @@ namespace Catalog.PostgreSql
 {
 	public interface ICatalogDbContext : IEfCoreDbContext
 	{
-		DbSet<Brand> BrandDb { get; set; }
+		public DbSet<Brand> BrandDb { get; set; }
 	}
 }

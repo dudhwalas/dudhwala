@@ -27,12 +27,13 @@ public class CatalogDatabaseModule : AbpModule
         });
 
         context.Services.AddAbpDbContext<CatalogDbContext>(opt => {
-            opt.AddDefaultRepositories();
+            opt.AddDefaultRepositories(true);
         });
     }
 
     public override async Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
     {
+        await base.OnApplicationInitializationAsync(context);
         var dbContext = context.ServiceProvider.GetRequiredService<CatalogDbContext>();
 
         var pendingMigrations = await dbContext
@@ -43,7 +44,6 @@ public class CatalogDatabaseModule : AbpModule
         {
             await dbContext.Database.MigrateAsync();
         }
-        await base.OnApplicationInitializationAsync(context);
     }
 
 }

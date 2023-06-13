@@ -28,11 +28,11 @@
 syntax = "proto3";
 
 service Catalog {
-    rpc GetBrand (GetBrandRequest) returns (Brand) {
-        option (google.api.http) = {
-            get: "/v1/{name=brand/*}"
+    rpc GetBrand(GetBrandRequest) returns (Brand) {
+		option (google.api.http) = {
+            get: "/v1/brand/{id}"
         };
-    };
+	};
 
     rpc ListBrands(ListBrandsRequest) returns (ListBrandsResponse) {
         option (google.api.http) = {
@@ -94,7 +94,7 @@ message ListBrandsResponse {
 }
 
 message GetBrandRequest {
-    string name = 1;
+    string id = 1;
     … other value types
 }
 
@@ -139,11 +139,11 @@ message UpdateProductRequest {
 }
 
 message Brand {
-    string name = 1;
-    string realm_id = 2;
-    string display_name = 3;
-    string image = 4;
-    bool status = 5;
+    string id = 1;
+	string name = 2;
+	string image = 3;
+	int32 status = 4;
+	string ream_id = 5;
     … other value types
 }
 

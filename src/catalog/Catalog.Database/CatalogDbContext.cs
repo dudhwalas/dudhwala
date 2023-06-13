@@ -9,12 +9,12 @@ namespace Catalog.PostgreSql
 {
     public class CatalogDbContext :  AbpDbContext<CatalogDbContext>, ICatalogDbContext
     {
+        public DbSet<Brand> BrandDb { get; set; }
+
         public CatalogDbContext(DbContextOptions<CatalogDbContext> options) : base(options)
         {
         }
-
-        public DbSet<Brand> BrandDb { get; set; }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
