@@ -28,5 +28,5 @@ message BrandDto {
 	string name = 2;
 	string image = 3;
 	int32 status = 4;
-	string reamId = 5;
+	string realm_Id = 5;
 }
