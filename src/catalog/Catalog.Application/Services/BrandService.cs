@@ -1,5 +1,4 @@
-﻿using System;
-using Catalog.Domain;
+﻿using Catalog.Domain;
 using Catalog.Domain.Shared;
 using Grpc.Core;
 using Volo.Abp.DependencyInjection;
@@ -13,24 +12,22 @@ namespace Catalog.Application.Services
 {
 	public class BrandService : BrandServiceBase, ITransientDependency
     {
-        private readonly IRepository<Brand, Guid> _brandRepo;
+        private readonly IRepository<Brand,Guid> _brandRepo;
         private readonly IObjectMapper _objMapper;
         private readonly BrandManager _brandManager;
         private readonly IGuidGenerator _guidGenerator;
 
-        public BrandService(IRepository<Brand, Guid> brandRepo, IObjectMapper objMapper, BrandManager brandManager)
+        public BrandService(IRepository<Brand,Guid> brandRepo, IObjectMapper objMapper, BrandManager brandManager)
 		{
             _brandRepo = brandRepo;
             _objMapper = objMapper;
             _brandManager = brandManager;
             _guidGenerator = _brandManager.LazyServiceProvider.LazyGetService<IGuidGenerator>();
-
         }
 
         public override async Task<BrandDto> GetBrand(GetBrandRequest request, ServerCallContext context)
         {
-            var brandDto = _objMapper.Map<Brand, BrandDto>(await _brandRepo.GetAsync(Guid.Parse(request.Id)));
-
+            var brandDto = _objMapper.Map<Brand,BrandDto>(await _brandRepo.GetAsync(Guid.Parse(request.Id)));
             return brandDto;
         }
 
@@ -42,4 +39,3 @@ namespace Catalog.Application.Services
         }
     }
 }
-

@@ -26,4 +26,7 @@
   <ItemGroup>
     <Folder Include="Domain\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Catalog.Domain\Catalog.Domain.csproj" />
+  </ItemGroup>
 </Project>

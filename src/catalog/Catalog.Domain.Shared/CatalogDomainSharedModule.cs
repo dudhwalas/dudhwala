@@ -29,7 +29,7 @@ namespace Catalog.Domain.Shared
 
             Configure<AbpExceptionLocalizationOptions>(options =>
             {
-                options.MapCodeNamespace("Catalog", typeof(CatalogResource));
+                options.MapCodeNamespace("Brand", typeof(CatalogResource));
             });
         }
     }
