@@ -11,6 +11,12 @@ service BrandService {
             get: "/v1/brand/{id}"
         };
 	};
+
+	rpc AddBrand(BrandDto) returns (BrandDto) {
+		option (google.api.http) = {
+            post: "/v1/brand"
+        };
+	};
 }
 
 message GetBrandRequest {

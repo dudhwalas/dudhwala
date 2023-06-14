@@ -28,7 +28,7 @@
 syntax = "proto3";
 
 service Catalog {
-    rpc GetBrand(GetBrandRequest) returns (Brand) {
+    rpc GetBrand(GetBrandRequest) returns (BrandDto) {
 		option (google.api.http) = {
             get: "/v1/brand/{id}"
         };
@@ -40,12 +40,11 @@ service Catalog {
         };
     };
 
-    rpc CreateBrand(CreateBrandRequest) returns (Brand) {
-        option (googe.api.http) = {
+    rpc AddBrand(BrandDto) returns (BrandDto) {
+		option (google.api.http) = {
             post: "/v1/brand"
-            body: brand
         };
-    };
+	};
 
     rpc UpdateBrand(UpdateBrandRequest) returns (Brand) {
         option (google.api.http) = {
@@ -138,13 +137,12 @@ message UpdateProductRequest {
     … other value types
 }
 
-message Brand {
-    string id = 1;
+message BrandDto {
+	string id = 1;
 	string name = 2;
 	string image = 3;
 	int32 status = 4;
 	string ream_id = 5;
-    … other value types
 }
 
 message Product {
