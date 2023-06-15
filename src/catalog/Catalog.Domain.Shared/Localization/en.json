@@ -1,10 +1,7 @@
 ﻿{
   "culture": "en",
   "texts": {
-    "MyAccount": "My account",
-    "SamplePageMessage": "A sample page for the OrderingService module",
-    "Brand:00001": "Brand name cannot be empty",
-    "Brand:00002": "Brand already exists",
+    "Brand:00001": "Brand already exists",
     "Ordering:00001": "Possible values for Order status: {OrderStatus}",
     "Ordering:00002": "Invalid number of units",
     "Ordering:00003": "Invalid discount",

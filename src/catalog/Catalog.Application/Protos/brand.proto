@@ -19,8 +19,15 @@ service BrandService {
 	};
 }
 
-message GetBrandRequest {
+message GetBrandRequestDto {
 	string id = 1;
+}
+
+message CreateBrandRequestDto {
+	string name = 1;
+	string image = 2;
+	int32 status = 3;
+	string realm_Id = 4;
 }
 
 message BrandDto {

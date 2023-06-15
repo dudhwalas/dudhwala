@@ -2,6 +2,7 @@
 using Catalog.Domain.Shared;
 using Grpc.Core;
 using Volo.Abp.DependencyInjection;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Guids;
 using Volo.Abp.ObjectMapping;
@@ -27,8 +28,19 @@ namespace Catalog.Application.Services
 
         public override async Task<BrandDto> GetBrand(GetBrandRequest request, ServerCallContext context)
         {
-            var brandDto = _objMapper.Map<Brand,BrandDto>(await _brandRepo.GetAsync(Guid.Parse(request.Id)));
-            return brandDto;
+            try
+            {
+                var brandDto = _objMapper.Map<Brand, BrandDto>(await _brandRepo.GetAsync(Guid.Parse(request.Id)));
+                return brandDto;
+            }
+            catch (EntityNotFoundException ex)
+            {
+                throw new RpcException(new Status(StatusCode.NotFound, ex.Message));
+            }
+            catch (FormatException ex)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
+            }
         }
 
         [UnitOfWork]
