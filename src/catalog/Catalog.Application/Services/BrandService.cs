@@ -1,6 +1,9 @@
 ﻿using Catalog.Domain;
 using Catalog.Domain.Shared;
+using Catalog.Domain.Shared.Localization;
 using Grpc.Core;
+using Microsoft.Extensions.Localization;
+using Volo.Abp;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
@@ -16,12 +19,14 @@ namespace Catalog.Application.Services
         private readonly IRepository<Brand,Guid> _brandRepo;
         private readonly IObjectMapper _objMapper;
         private readonly BrandManager _brandManager;
+        private readonly IStringLocalizer<CatalogResource> _localizer;
 
-        public BrandService(IRepository<Brand,Guid> brandRepo, IObjectMapper objMapper, BrandManager brandManager)
+        public BrandService(IRepository<Brand,Guid> brandRepo, IObjectMapper objMapper, IStringLocalizer<CatalogResource> localizer, BrandManager brandManager)
 		{
             _brandRepo = brandRepo;
             _objMapper = objMapper;
             _brandManager = brandManager;
+            _localizer = localizer;
         }
 
         public override async Task<BrandDto> GetBrand(GetBrandRequestDto request, ServerCallContext context)
@@ -46,8 +51,7 @@ namespace Catalog.Application.Services
         {
             try
             {
-                var realmId = Guid.Parse(request.RealmId);
-                var createdBrand = await _brandManager.CreateAsync(request.Name, request.Image, (EnumStatus)request.Status, realmId);
+                var createdBrand = await _brandManager.CreateAsync(request.Name, request.Image, (EnumStatus)request.Status, Guid.Parse(request.RealmId));
                 return _objMapper.Map<Brand, BrandDto>(createdBrand);
             }
             catch (FormatException ex)
@@ -56,6 +60,13 @@ namespace Catalog.Application.Services
             }
             catch (ArgumentException ex)
             {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
+            }
+            catch (BusinessException ex)
+            {
+                if(ex.Code == CatalogErrorCodes.BrandAlreadyExist)
+                    throw new RpcException(new Status(StatusCode.AlreadyExists, _localizer[ex.Code]));
+
                 throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
             }
         }
