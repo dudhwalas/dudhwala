@@ -3,7 +3,7 @@ using Catalog.Domain;
 using Catalog.Domain.Shared;
 using Volo.Abp;
 
-namespace Catalog.UnitTest.Domain
+namespace Catalog.Domain.Test
 {
 	public class BrandTest
 	{
