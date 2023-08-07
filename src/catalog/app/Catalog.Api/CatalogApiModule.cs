@@ -1,5 +1,5 @@
 ﻿using Catalog.Application;
-using Catalog.PostgreSql;
+using Catalog.Database;
 using Microsoft.OpenApi.Models;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;

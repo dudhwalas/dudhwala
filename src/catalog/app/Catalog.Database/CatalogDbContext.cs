@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
-namespace Catalog.PostgreSql
+namespace Catalog.Database
 {
     public class CatalogDbContext :  AbpDbContext<CatalogDbContext>, ICatalogDbContext
     {

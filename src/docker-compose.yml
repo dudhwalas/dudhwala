@@ -83,7 +83,7 @@ services:
     catalog.api:
         build:
             context: .
-            dockerfile: ./catalog/Catalog.Api/Dockerfile
+            dockerfile: ./catalog/app/Catalog.Api/Dockerfile
         image: catalog.api:1.1
         container_name: catalog.api
         ports:

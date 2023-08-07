@@ -6,13 +6,15 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["catalog/Catalog.Api/Catalog.Api.csproj", "catalog/Catalog.Api/"]
-COPY ["catalog/Catalog.Application/Catalog.Application.csproj", "catalog/Catalog.Application/"]
-COPY ["catalog/Catalog.Infrastructure/Catalog.Infrastructure.csproj", "catalog/Catalog.Infrastructure/"]
-COPY ["catalog/Catalog.Domain/Catalog.Domain.csproj", "catalog/Catalog.Domain/"]
-RUN dotnet restore "catalog/Catalog.Api/Catalog.Api.csproj"
+COPY ["catalog/app/Catalog.Api/Catalog.Api.csproj", "catalog/app/Catalog.Api/"]
+COPY ["catalog/app/Catalog.Application/Catalog.Application.csproj", "catalog/app/Catalog.Application/"]
+COPY ["catalog/app/Catalog.Database/Catalog.Database.csproj", "catalog/app/Catalog.Database/"]
+COPY ["catalog/app/Catalog.Domain/Catalog.Domain.csproj", "catalog/app/Catalog.Domain/"]
+COPY ["catalog/app/Catalog.Domain.Shared/Catalog.Domain.Shared.csproj", "catalog/app/Catalog.Domain.Shared/"]
+
+RUN dotnet restore "catalog/app/Catalog.Api/Catalog.Api.csproj"
 COPY . .
-WORKDIR "/src/catalog/Catalog.Api"
+WORKDIR "/src/catalog/app/Catalog.Api"
 RUN dotnet build "Catalog.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish

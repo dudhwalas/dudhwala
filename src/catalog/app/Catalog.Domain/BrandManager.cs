@@ -10,21 +10,21 @@ namespace Catalog.Domain
 {
 	public class BrandManager : DomainService
 	{
-        private readonly IRepository<Brand, Guid> _brandRepository;
+        private readonly IBrandRepository<Brand,Guid> _brandRepository;
 
-        public BrandManager(IRepository<Brand, Guid> brandRepository)
+        public BrandManager(IBrandRepository<Brand, Guid> brandRepository)
 		{
             _brandRepository = brandRepository;
         }
 
         public async Task<Brand> CreateAsync([NotNull] string name, [NotNull] string image, EnumStatus status,Guid realmId)
         {
-            var brand = await _brandRepository.FirstOrDefaultAsync(b => b.Name == name);
+            var brand = await _brandRepository.GetBrandByNameAsync(name);
             if (brand is not null)
             {
                 throw new BusinessException(CatalogErrorCodes.BrandAlreadyExist);
             }
-            return await _brandRepository.InsertAsync(new Brand(GuidGenerator.Create(), name, image, status, realmId),true);
+            return await _brandRepository.CreateAsync(new Brand(GuidGenerator.Create(), name, image, status, realmId));
         }
 	}
 }

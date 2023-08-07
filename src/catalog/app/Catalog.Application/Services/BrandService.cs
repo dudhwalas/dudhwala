@@ -16,12 +16,12 @@ namespace Catalog.Application.Services
 {
 	public class BrandService : BrandServiceBase, ITransientDependency
     {
-        private readonly IRepository<Brand,Guid> _brandRepo;
+        private readonly IBrandRepository<Brand,Guid> _brandRepo;
         private readonly IObjectMapper _objMapper;
         private readonly BrandManager _brandManager;
         private readonly IStringLocalizer<CatalogResource> _localizer;
 
-        public BrandService(IRepository<Brand,Guid> brandRepo, IObjectMapper objMapper, IStringLocalizer<CatalogResource> localizer, BrandManager brandManager)
+        public BrandService(IBrandRepository<Brand, Guid> brandRepo, IObjectMapper objMapper, IStringLocalizer<CatalogResource> localizer, BrandManager brandManager)
 		{
             _brandRepo = brandRepo;
             _objMapper = objMapper;
@@ -33,7 +33,7 @@ namespace Catalog.Application.Services
         {
             try
             {
-                var brandDto = _objMapper.Map<Brand, BrandDto>(await _brandRepo.GetAsync(Guid.Parse(request.Id)));
+                var brandDto = _objMapper.Map<Brand, BrandDto>(await _brandRepo.GetBrandByIdAsync(Guid.Parse(request.Id)));
                 return brandDto;
             }
             catch (EntityNotFoundException ex)

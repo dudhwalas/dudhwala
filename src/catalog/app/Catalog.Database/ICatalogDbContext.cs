@@ -3,7 +3,7 @@ using Catalog.Domain;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace Catalog.PostgreSql
+namespace Catalog.Database
 {
 	public interface ICatalogDbContext : IEfCoreDbContext
 	{
