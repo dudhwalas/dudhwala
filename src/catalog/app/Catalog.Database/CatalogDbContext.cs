@@ -1,5 +1,4 @@
-﻿using System;
-using Catalog.Domain;
+﻿using Catalog.Domain;
 using Catalog.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;

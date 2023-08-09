@@ -1,11 +1,8 @@
-﻿using System;
-using Catalog.Domain;
-using Catalog.Domain.Shared;
-using Volo.Abp;
+﻿using Catalog.Domain.Shared;
 
 namespace Catalog.Domain.Test
 {
-	public class BrandTest
+    public class BrandTest
 	{
 		[Fact]
 		public void Should_Throw_Argument_Exception_For_Empty_Brand_Name()

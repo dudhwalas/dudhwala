@@ -8,7 +8,7 @@ using Volo.Abp.Modularity;
 
 namespace Catalog.Api
 {
-	[DependsOn(
+    [DependsOn(
         typeof(AbpAspNetCoreMvcModule),
         typeof(AbpAutofacModule),
         typeof(CatalogDatabaseModule),

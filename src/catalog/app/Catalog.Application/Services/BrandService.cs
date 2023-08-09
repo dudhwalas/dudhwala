@@ -6,15 +6,13 @@ using Microsoft.Extensions.Localization;
 using Volo.Abp;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Entities;
-using Volo.Abp.Domain.Repositories;
-using Volo.Abp.Guids;
 using Volo.Abp.ObjectMapping;
 using Volo.Abp.Uow;
 using static Catalog.Application.BrandService;
 
 namespace Catalog.Application.Services
 {
-	public class BrandService : BrandServiceBase, ITransientDependency
+    public class BrandService : BrandServiceBase, ITransientDependency
     {
         private readonly IBrandRepository<Brand,Guid> _brandRepo;
         private readonly IObjectMapper _objMapper;

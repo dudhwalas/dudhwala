@@ -1,13 +1,12 @@
 ﻿using Catalog.Application.Contract;
 using Catalog.Domain;
-using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Application;
-using Volo.Abp.Modularity;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.Modularity;
 
 namespace Catalog.Application
 {
-	[DependsOn(
+    [DependsOn(
 		typeof(AbpDddApplicationModule),
         typeof(AbpAutoMapperModule),
 		typeof(CatalogDomainModule),

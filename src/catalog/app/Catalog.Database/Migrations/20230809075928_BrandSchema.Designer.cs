@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Catalog.Database.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20230807150457_AddedBrandTable")]
-    partial class AddedBrandTable
+    [Migration("20230809075928_BrandSchema")]
+    partial class BrandSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,7 +22,7 @@ namespace Catalog.Database.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("_Abp_DatabaseProvider", EfCoreDatabaseProvider.PostgreSql)
-                .HasAnnotation("ProductVersion", "7.0.9")
+                .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);

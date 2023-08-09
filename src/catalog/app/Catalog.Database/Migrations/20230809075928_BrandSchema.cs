@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Catalog.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedBrandTable : Migration
+    public partial class BrandSchema : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
