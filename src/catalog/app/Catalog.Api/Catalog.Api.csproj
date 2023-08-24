@@ -15,7 +15,7 @@
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Autofac" Version="7.3.2" />
     <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="7.3.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.3.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.3.10" />
   </ItemGroup>
 
   <ItemGroup>

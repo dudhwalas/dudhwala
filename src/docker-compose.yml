@@ -67,7 +67,7 @@ services:
             - KC_DB_URL_HOST=postgres
             - KC_DB_URL_DATABASE=application
             - KC_DB_USERNAME=appadmin
-            - KC_DB_SCHEMA=Auth
+            - KC_DB_SCHEMA=auth
             - KC_DB_PASSWORD=appadmin!@#$%
             - KC_HEALTH_ENABLED=true
             - KC_METRICS_ENABLED=true

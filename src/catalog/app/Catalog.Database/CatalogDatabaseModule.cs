@@ -28,7 +28,6 @@ public class CatalogDatabaseModule : AbpModule
 
         context.Services.AddAbpDbContext<CatalogDbContext>(opt => {
             opt.AddDefaultRepositories(true);
-            //Replaces IRepository<Book, Guid>
             opt.AddRepository<Brand, BrandRepository>();
         });
     }
