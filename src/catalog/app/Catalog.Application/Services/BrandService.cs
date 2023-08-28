@@ -14,12 +14,12 @@ namespace Catalog.Application.Services
 {
     public class BrandService : BrandServiceBase, ITransientDependency
     {
-        private readonly IBrandRepository<Brand,Guid> _brandRepo;
+        private readonly IRepository<Brand,Guid> _brandRepo;
         private readonly IObjectMapper _objMapper;
         private readonly BrandManager _brandManager;
         private readonly IStringLocalizer<CatalogResource> _localizer;
 
-        public BrandService(IBrandRepository<Brand, Guid> brandRepo, IObjectMapper objMapper, IStringLocalizer<CatalogResource> localizer, BrandManager brandManager)
+        public BrandService(IRepository<Brand, Guid> brandRepo, IObjectMapper objMapper, IStringLocalizer<CatalogResource> localizer, BrandManager brandManager)
 		{
             _brandRepo = brandRepo;
             _objMapper = objMapper;
@@ -31,7 +31,7 @@ namespace Catalog.Application.Services
         {
             try
             {
-                var brandDto = _objMapper.Map<Brand, BrandDto>(await _brandRepo.GetBrandByIdAsync(Guid.Parse(request.Id)));
+                var brandDto = _objMapper.Map<Brand, BrandDto>(await _brandRepo.GetByIdAsync(Guid.Parse(request.Id)));
                 return brandDto;
             }
             catch (EntityNotFoundException ex)
@@ -49,7 +49,8 @@ namespace Catalog.Application.Services
         {
             try
             {
-                var createdBrand = await _brandManager.CreateAsync(request.Name, request.Image, (EnumStatus)request.Status, Guid.Parse(request.RealmId));
+                var brandToCreate = _objMapper.Map<CreateBrandRequestDto, Brand>(request);
+                var createdBrand = await _brandManager.CreateAsync(brandToCreate);
                 return _objMapper.Map<Brand, BrandDto>(createdBrand);
             }
             catch (FormatException ex)
@@ -63,7 +64,7 @@ namespace Catalog.Application.Services
             catch (BusinessException ex)
             {
                 if(ex.Code == CatalogErrorCodes.BrandAlreadyExist)
-                    throw new RpcException(new Status(StatusCode.AlreadyExists, _localizer[ex.Code]));
+                    throw new RpcException(new Status(StatusCode.AlreadyExists, _localizer[ex.Code,request.Name]));
 
                 throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
             }

@@ -1,7 +1,7 @@
 ﻿{
   "culture": "en",
   "texts": {
-    "Brand:00001": "Brand already exists",
+    "Brand:00001": "Brand with name '{0}' already exists.",
     "Ordering:00001": "Possible values for Order status: {OrderStatus}",
     "Ordering:00002": "Invalid number of units",
     "Ordering:00003": "Invalid discount",

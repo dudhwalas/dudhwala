@@ -32,7 +32,13 @@ namespace Catalog.Domain
             SetRealmId(realmId);
 		}
 
-		public Brand SetName([NotNull]string name)
+        public Brand SetId([NotNull] Guid id)
+        {
+            Id = Check.NotNull(id, nameof(Id));
+            return this;
+        }
+
+        public Brand SetName([NotNull]string name)
 		{
 			Name = Check.NotNullOrWhiteSpace(name,nameof(Name));
 			return this;

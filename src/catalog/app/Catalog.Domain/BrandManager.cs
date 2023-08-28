@@ -1,30 +1,31 @@
-﻿using System;
-using Catalog.Domain.Shared;
+﻿using Catalog.Domain.Shared;
 using JetBrains.Annotations;
 using Volo.Abp;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
-using Volo.Abp.Uow;
+using Volo.Abp.Guids;
 
 namespace Catalog.Domain
 {
-	public class BrandManager : DomainService
+    public class BrandManager : DomainService
 	{
-        private readonly IBrandRepository<Brand,Guid> _brandRepository;
+        private readonly IRepository<Brand,Guid> _brandRepository;
+        private readonly IGuidGenerator _guidGenerator;
 
-        public BrandManager(IBrandRepository<Brand, Guid> brandRepository)
+        public BrandManager(IRepository<Brand, Guid> brandRepository,IGuidGenerator guidGenerator)
 		{
             _brandRepository = brandRepository;
+            _guidGenerator = guidGenerator;
         }
 
-        public async Task<Brand> CreateAsync([NotNull] string name, [NotNull] string image, EnumStatus status,Guid realmId)
+        public async Task<Brand> CreateAsync([NotNull] Brand brandToCreate)
         {
-            var brand = await _brandRepository.GetBrandByNameAsync(name);
+            var brand = await _brandRepository.GetByNameAsync(brandToCreate.Name ?? "");
             if (brand is not null)
             {
                 throw new BusinessException(CatalogErrorCodes.BrandAlreadyExist);
             }
-            return await _brandRepository.CreateAsync(new Brand(GuidGenerator.Create(), name, image, status, realmId));
+            brandToCreate.SetId(_guidGenerator.Create());
+            return await _brandRepository.CreateAsync(brandToCreate);
         }
 	}
 }

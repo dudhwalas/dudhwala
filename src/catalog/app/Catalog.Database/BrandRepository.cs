@@ -5,7 +5,7 @@ using Volo.Abp.EntityFrameworkCore;
 
 namespace Catalog.Database
 {
-    public class BrandRepository : EfCoreRepository<CatalogDbContext, Brand, Guid>, IBrandRepository<Brand, Guid>
+    public class BrandRepository : EfCoreRepository<CatalogDbContext, Brand, Guid>, IRepository<Brand, Guid>
     {
         public BrandRepository(IDbContextProvider<CatalogDbContext> dbContextProvider) : base(dbContextProvider)
         {
@@ -19,13 +19,13 @@ namespace Catalog.Database
             return insertedEntity;
         }
 
-        public async Task<Brand> GetBrandByIdAsync([NotNull] Guid _id)
+        public async Task<Brand> GetByIdAsync([NotNull] Guid _id)
         {
             var dbcontext = await GetDbContextAsync();
             return dbcontext.BrandDb.FirstOrDefault((br) => br.Id == _id);
         }
 
-        public async Task<Brand> GetBrandByNameAsync([NotNull] string _brandName)
+        public async Task<Brand> GetByNameAsync([NotNull] string _brandName)
         {
             var dbcontext = await GetDbContextAsync();
             return dbcontext.BrandDb.FirstOrDefault(brand => brand.Name == _brandName);
