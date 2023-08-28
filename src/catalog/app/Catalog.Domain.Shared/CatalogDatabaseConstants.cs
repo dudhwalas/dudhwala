@@ -1,10 +1,8 @@
-﻿using System;
-namespace Catalog.Domain.Shared
+﻿namespace Catalog.Domain.Shared
 {
-	public static class CatalogDatabaseConstants
+    public static class CatalogDatabaseConstants
 	{
-		public const string DB_SCHEMA = "Catalog";
-		public const string TABLE_BRAND = "Brand";
+		public const string DB_SCHEMA = "catalog";
+		public const string TABLE_BRAND = "brand";
 	}
 }
-

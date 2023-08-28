@@ -87,7 +87,8 @@ services:
         image: catalog.api:1.1
         container_name: catalog.api
         ports:
-            - 5006:5086
+            - 5006:5006
+            - 5007:5007
         links:
             - postgres
         logging:
