@@ -17,15 +17,14 @@ namespace Catalog.Domain
             _guidGenerator = guidGenerator;
         }
 
-        public async Task<Brand> CreateAsync([NotNull] Brand brandToCreate)
+        public async Task<Brand> CreateAsync([NotNull] string name, [NotNull] string image, EnumStatus status,Guid realmId)
         {
-            var brand = await _brandRepository.GetByNameAsync(brandToCreate.Name ?? "");
+            var brand = await _brandRepository.GetByNameAsync(name);
             if (brand is not null)
             {
                 throw new BusinessException(CatalogErrorCodes.BrandAlreadyExist);
             }
-            brandToCreate.SetId(_guidGenerator.Create());
-            return await _brandRepository.CreateAsync(brandToCreate);
+            return await _brandRepository.CreateAsync(new Brand(_guidGenerator.Create(), name, image, status, realmId));
         }
 	}
 }

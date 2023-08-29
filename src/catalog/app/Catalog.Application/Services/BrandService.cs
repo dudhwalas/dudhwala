@@ -49,8 +49,7 @@ namespace Catalog.Application.Services
         {
             try
             {
-                var brandToCreate = _objMapper.Map<CreateBrandRequestDto, Brand>(request);
-                var createdBrand = await _brandManager.CreateAsync(brandToCreate);
+                var createdBrand = await _brandManager.CreateAsync(request.Name, request.Image, (EnumStatus)request.Status, Guid.Parse(request.RealmId));
                 return _objMapper.Map<Brand, BrandDto>(createdBrand);
             }
             catch (FormatException ex)

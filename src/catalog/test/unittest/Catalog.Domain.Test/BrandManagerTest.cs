@@ -22,13 +22,13 @@ namespace Catalog.Domain.Test
 			var brandToCreate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
 			var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
             mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName))
-                .Returns(Task.FromResult(default(Brand)));
-            mockBrandRepo.Setup(repo => repo.CreateAsync(brandToCreate)).Returns(Task.FromResult(brandToCreate));
+                .ReturnsAsync(default(Brand));
+            mockBrandRepo.Setup(repo => repo.CreateAsync(It.IsAny<Brand>())).ReturnsAsync(brandToCreate);
 			var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
 			var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
 
 			//Act
-			var createdBrand = await brandManager.CreateAsync(brandToCreate);
+			var createdBrand = await brandManager.CreateAsync(brandName,brandImage,brandStatus,realmId);
 
 			//Assert
 			Assert.Equal(brandName, createdBrand.Name);
@@ -51,7 +51,7 @@ namespace Catalog.Domain.Test
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
 
             //Assert
-            await Assert.ThrowsAsync<BusinessException>(() => brandManager.CreateAsync(brandToCreate));
+            await Assert.ThrowsAsync<BusinessException>(() => brandManager.CreateAsync(brandName, brandImage, brandStatus, realmId));
         }
 
     }

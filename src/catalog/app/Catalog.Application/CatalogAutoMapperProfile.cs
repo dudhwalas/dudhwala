@@ -8,7 +8,6 @@ namespace Catalog.Application
 		public CatalogAutoMapperProfile()
 		{
 			CreateMap<Brand, BrandDto>();
-            CreateMap<CreateBrandRequestDto,Brand>();
         }
 	}
 }
