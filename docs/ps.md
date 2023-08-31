@@ -16,7 +16,8 @@
 |Service|Operation|Service Endpoint|HTTP Method|
 |:--|:--|:--|:--|
 |**api.{{app_name}}.com/v1/brand**|CreateBrand|/v1/brand|POST|
-||ListBrands|/v1/brand|GET|
+||ListBrands|/v1/brand|GET
+|||*TODO*/v1/brand?filter={query} Add-Filter-Search-Query|GET|
 ||GetBrand|/v1/brand/*|GET|
 ||UpdateBrand|/v1/{brand.name=brand/*}|PATCH|
 |**api.{{app_name}}.com/v1/{parent=brand/\*}/product**|AddProduct|/v1/{parent=brand/*}/product|POST|
