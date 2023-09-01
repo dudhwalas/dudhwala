@@ -1258,7 +1258,7 @@ Ref : <u> https://cloud.google.com/apis/design </u>
     |display_name	|string	|The display name of an entity.|
     |title	|string	|The official name of an entity, such as company name. It should be treated as the formal version of display_name.|
     |description	|string	|One or more paragraphs of text description of an entity.|
-    |filter	|string	|The standard filter parameter for List methods. See AIP-160.|
+    |filter	|string	|The standard filter parameter for List methods. See [AIP-160](https://google.aip.dev/160).|
     |query	|string	|The same as filter if being applied to a search method (ie :search)|
     |page_token	|string	|The pagination token in the List request.|
     |page_size	|int32	|The pagination size in the List request.|
