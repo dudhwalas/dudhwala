@@ -44,6 +44,27 @@ namespace Catalog.Application.Services
             }
         }
 
+        public override async Task<ListBrandResponseDto> ListBrand(ListBrandRequestDto request, ServerCallContext context)
+        {
+            if (request.PageToken <= 0)
+                throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.NoRecordExist]));
+
+            var brandDto = _objMapper.Map<List<Brand>, List<BrandDto>>(await _brandRepo.GetAsync(request.PageToken-1,request.PageSize));
+
+            if (!brandDto.Any())
+                throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.NoRecordExist]));
+
+            var totalCount = await _brandRepo.GetTotalAsync();
+
+            var response = new ListBrandResponseDto
+            {
+                TotalSize = totalCount,
+                NextPageToken = request.PageToken * request.PageSize >= totalCount? 1 : request.PageToken + 1,
+            };
+            response.Brands.AddRange(brandDto);
+            return response;
+        }
+
         [UnitOfWork]
         public override async Task<BrandDto> AddBrand(CreateBrandRequestDto request, ServerCallContext context)
         {

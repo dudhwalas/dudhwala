@@ -30,6 +30,18 @@ namespace Catalog.Database
             var dbcontext = await GetDbContextAsync();
             return dbcontext.BrandDb.FirstOrDefault(brand => brand.Name == _brandName);
         }
+
+        public async Task<List<Brand>> GetAsync([NotNull] int pageToken, [NotNull] int pageSize)
+        {
+            var dbcontext = await GetDbContextAsync();
+            var result = dbcontext.BrandDb.Skip(pageToken * pageSize).Take(pageSize);
+            return result.ToList();
+        }
+
+        public async Task<int> GetTotalAsync()
+        {
+            var dbcontext = await GetDbContextAsync();
+            return dbcontext.BrandDb.Count();
+        }
     }
 }
-
