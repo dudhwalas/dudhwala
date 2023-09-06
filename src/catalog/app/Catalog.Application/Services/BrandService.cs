@@ -66,11 +66,11 @@ namespace Catalog.Application.Services
         }
 
         [UnitOfWork]
-        public override async Task<BrandDto> AddBrand(CreateBrandRequestDto request, ServerCallContext context)
+        public override async Task<BrandDto> UpdateBrand(CreateBrandRequestDto request, ServerCallContext context)
         {
             try
             {
-                var createdBrand = await _brandManager.CreateAsync(request.Name, request.Image, (EnumStatus)request.Status, Guid.Parse(request.RealmId));
+                var createdBrand = await _brandManager.CreateAsync(string.IsNullOrEmpty(request.Id)?Guid.Empty:Guid.Parse(request.Id), request.Name, request.Image, (EnumStatus)request.Status, string.IsNullOrEmpty(request.RealmId) ? Guid.Empty : Guid.Parse(request.RealmId));
                 return _objMapper.Map<Brand, BrandDto>(createdBrand);
             }
             catch (FormatException ex)
@@ -83,8 +83,8 @@ namespace Catalog.Application.Services
             }
             catch (BusinessException ex)
             {
-                if(ex.Code == CatalogErrorCodes.BrandAlreadyExist)
-                    throw new RpcException(new Status(StatusCode.AlreadyExists, _localizer[ex.Code,request.Name]));
+                if (ex.Code == CatalogErrorCodes.BrandAlreadyExist)
+                    throw new RpcException(new Status(StatusCode.AlreadyExists, _localizer[ex.Code, request.Name]));
 
                 throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
             }

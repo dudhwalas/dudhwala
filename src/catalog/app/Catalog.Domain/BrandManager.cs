@@ -17,8 +17,16 @@ namespace Catalog.Domain
             _guidGenerator = guidGenerator;
         }
 
-        public async Task<Brand> CreateAsync([NotNull] string name, [NotNull] string image, EnumStatus status,Guid realmId)
+        public async Task<Brand> CreateAsync([NotNull] Guid id,[NotNull] string name, [NotNull] string image, EnumStatus status,Guid realmId)
         {
+            if (id != Guid.Empty)
+            {
+                var existingBrand = await _brandRepository.GetByIdAsync(id);
+
+                if (existingBrand is not null)
+                    return await _brandRepository.UpdateAsync(new Brand(id, name, image, status, realmId));
+            }
+            
             var brand = await _brandRepository.GetByNameAsync(name);
             if (brand is not null)
             {

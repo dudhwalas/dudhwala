@@ -12,16 +12,15 @@ service BrandService {
         };
 	};
 
-
 	rpc GetBrand(GetBrandRequestDto) returns (BrandDto) {
 		option (google.api.http) = {
             get: "/v1/brand/{id}"
         };
 	};
 
-	rpc AddBrand(CreateBrandRequestDto) returns (BrandDto) {
+	rpc UpdateBrand(CreateBrandRequestDto) returns (BrandDto) {
 		option (google.api.http) = {
-            post: "/v1/brand"
+            put: "/v1/brand"
         };
 	};
 }
@@ -40,6 +39,7 @@ message CreateBrandRequestDto {
 	string image = 2;
 	int32 status = 3;
 	string realm_Id = 4;
+	string id = 5;
 }
 
 message BrandDto {

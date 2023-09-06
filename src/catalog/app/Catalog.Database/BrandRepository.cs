@@ -19,6 +19,21 @@ namespace Catalog.Database
             return insertedEntity;
         }
 
+        public async Task<Brand> UpdateAsync([NotNull] Brand _entity)
+        {
+            var dbcontext = await GetDbContextAsync();
+            var brandToUpdate = dbcontext.BrandDb.FirstOrDefault( x => x.Id == _entity.Id);
+            if (brandToUpdate != null)
+            {
+                brandToUpdate.SetName(_entity.Name);
+                brandToUpdate.SetImage(_entity.Image);
+                brandToUpdate.SetRealmId(_entity.RealmId);
+                brandToUpdate.SetStatus(_entity.Status.Value);
+                await dbcontext.SaveChangesAsync();
+            }
+            return brandToUpdate;
+        }
+
         public async Task<Brand> GetByIdAsync([NotNull] Guid _id)
         {
             var dbcontext = await GetDbContextAsync();
