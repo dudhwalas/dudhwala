@@ -35,6 +35,169 @@ namespace Catalog.Domain.Test
         }
 
         [Fact]
+        public async Task Should_Create_Brand_Throw_Aleardy_Exist_Business_Exception_Async()
+        {
+            //Arrange
+            var brandName = "xHamster";
+            var brandImage = "/xHamster.png";
+            var realmId = Guid.NewGuid();
+            var brandId = Guid.NewGuid();
+            var brandStatus = EnumStatus.ACTIVE;
+            var brandToCreate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
+            var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
+            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName))
+                .ReturnsAsync(brandToCreate);
+            var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+            var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
+
+            //Assert
+            var ex = await Assert.ThrowsAsync<BusinessException>(() => brandManager.CreateAsync(brandId,brandName, brandImage, brandStatus, realmId));
+            Assert.Equal(CatalogErrorCodes.BrandAlreadyExist, ex.Code);
+
+        }
+
+        [Fact]
+        public async Task Should_Create_Brand_Throw_Create_Failed_Business_Exception_Async()
+        {
+            //Arrange
+            var brandName = "xHamster";
+            var brandImage = "/xHamster.png";
+            var realmId = Guid.NewGuid();
+            var brandId = Guid.NewGuid();
+            var brandStatus = EnumStatus.ACTIVE;
+            var brandToCreate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
+            var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
+            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName))
+                .ReturnsAsync(default(Brand));
+            mockBrandRepo.Setup(repo => repo.CreateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
+            var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+            var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
+
+            //Assert
+            var ex = await Assert.ThrowsAsync<BusinessException>(() => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+            Assert.Equal(CatalogErrorCodes.CreateBrandFailed, ex.Code);
+        }
+
+        [Fact]
+        public void Should_Create_Brand_Throw_Empty_Brand_Name_Argument_Exception_Async()
+        {
+            //Arrange
+            var brandName = "";
+            var brandImage = "/xHamster.png";
+            var realmId = Guid.NewGuid();
+            var brandId = Guid.Empty;
+            var brandStatus = EnumStatus.ACTIVE;
+            var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
+            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+            var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
+            //Assert
+            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Name), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+        }
+
+        [Fact]
+        public void Should_Create_Brand_Throw_Null_Brand_Name_Argument_Exception_Async()
+        {
+            //Arrange
+            string? brandName = null;
+            var brandImage = "/xHamster.png";
+            var realmId = Guid.NewGuid();
+            var brandId = Guid.Empty;
+            var brandStatus = EnumStatus.ACTIVE;
+            var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
+            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+            var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
+            //Act
+            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Name), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+        }
+
+        [Fact]
+        public void Should_Create_Brand_Throw_Whitespace_Brand_Name_Argument_Exception_Async()
+        {
+            //Arrange
+            var brandName = " ";
+            var brandImage = "/xHamster.png";
+            var realmId = Guid.NewGuid();
+            var brandId = Guid.Empty;
+            var brandStatus = EnumStatus.ACTIVE;
+            var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
+            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+            var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
+            //Assert
+            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Name), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+        }
+ 
+        [Fact]
+        public void Should_Create_Brand_Throw_Empty_Brand_Image_Argument_Exception_Async()
+        {
+            //Arrange
+            var brandName = "xhamster";
+            var brandImage = "";
+            var realmId = Guid.NewGuid();
+            var brandId = Guid.Empty;
+            var brandStatus = EnumStatus.ACTIVE;
+            var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
+            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+            var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
+            //Assert
+            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Image), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+        }
+
+        [Fact]
+        public void Should_Create_Brand_Throw_Null_Brand_Image_Argument_Exception_Async()
+        {
+            //Arrange
+            var brandName = "xhamster";
+            string? brandImage = null;
+            var realmId = Guid.NewGuid();
+            var brandId = Guid.Empty;
+            var brandStatus = EnumStatus.ACTIVE;
+            var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
+            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+            var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
+            //Assert
+            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Image), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+        }
+
+        [Fact]
+        public void Should_Create_Brand_Throw_Whitespace_Brand_Image_Argument_Exception_Async()
+        {
+            //Arrange
+            var brandName = "xhamster";
+            string? brandImage = " ";
+            var realmId = Guid.NewGuid();
+            var brandId = Guid.Empty;
+            var brandStatus = EnumStatus.ACTIVE;
+            var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
+            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+            var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
+            //Assert
+            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Image), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+        }
+
+        [Fact]
+        public void Should_Create_Brand_Throw_Empty_RealmId_Argument_Exception_Async()
+        {
+            //Arrange
+            var brandName = "xhamster";
+            var brandImage = "/xHamster.png";
+            var realmId = Guid.NewGuid();
+            var brandId = Guid.Empty;
+            var brandStatus = EnumStatus.ACTIVE;
+            var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
+            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+            var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
+            //Assert
+            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.RealmId), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+        }
+
+        [Fact]
         public async Task Should_Update_Brand_Async()
         {
             //Arrange
@@ -60,7 +223,7 @@ namespace Catalog.Domain.Test
         }
 
         [Fact]
-        public async Task Should_Create_Brand_Throw_Business_Exception_Async()
+        public async Task Should_Update_Brand_Throw_Update_Failed_Business_Exception_Async()
         {
             //Arrange
             var brandName = "xHamster";
@@ -68,127 +231,158 @@ namespace Catalog.Domain.Test
             var realmId = Guid.NewGuid();
             var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
-            var brandToCreate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
+            var brandNameToUpdate = "xnxx";
+            var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
             var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
-            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName))
-                .Returns(Task.FromResult(brandToCreate));
+            mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
+            brandToUpdate.SetName(brandNameToUpdate);
+            mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
 
             //Assert
-            await Assert.ThrowsAsync<BusinessException>(() => brandManager.CreateAsync(brandId,brandName, brandImage, brandStatus, realmId));
+            var ex = await Assert.ThrowsAsync<BusinessException>(() => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+            Assert.Equal(CatalogErrorCodes.UpdateBrandFailed, ex.Code);
         }
 
         [Fact]
-        public void Should_Create_Throw_Argument_Exception_For_Empty_Brand_Name()
+        public void Should_Update_Brand_Throw_Empty_Brand_Name_Argument_Exception_Async()
         {
-            var brandName = "";
+            //Arrange
+            var brandName = "xhamster";
+            var brandNameToUpdate = "";
             var brandImage = "/xHamster.png";
             var realmId = Guid.NewGuid();
-            var brandId = Guid.Empty;
+            var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
             var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
-            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
+            mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
+            mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
-
-            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Name), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+            //Assert
+            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Name), () => brandManager.CreateAsync(brandId, brandNameToUpdate, brandImage, brandStatus, realmId));
         }
 
         [Fact]
-        public void Should_Create_Throw_Argument_Exception_For_Null_Brand_Name()
+        public void Should_Update_Brand_Throw_Null_Brand_Name_Argument_Exception_Async()
         {
-            string? brandName = null;
+            //Arrange
+            var brandName = "xhamster";
+            string? brandNameToUpdate = null;
             var brandImage = "/xHamster.png";
             var realmId = Guid.NewGuid();
-            var brandId = Guid.Empty;
+            var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
             var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
-            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
+            mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
+            mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
-
-            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Name), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+            //Assert
+            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Name), () => brandManager.CreateAsync(brandId, brandNameToUpdate, brandImage, brandStatus, realmId));
         }
 
         [Fact]
-        public void Should_Create_Throw_Argument_Exception_For_Whitespace_Brand_Name()
+        public void Should_Update_Brand_Throw_Whitespace_Brand_Name_Argument_Exception_Async()
         {
-            var brandName = " ";
+            //Arrange
+            var brandName = "xhamster";
+            var brandNameToUpdate = " ";
             var brandImage = "/xHamster.png";
             var realmId = Guid.NewGuid();
-            var brandId = Guid.Empty;
+            var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
             var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
-            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
+            mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
+            mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
-
-            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Name), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+            //Assert
+            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Name), () => brandManager.CreateAsync(brandId, brandNameToUpdate, brandImage, brandStatus, realmId));
         }
- 
+
         [Fact]
-        public void Should_Create_Throw_Argument_Exception_For_Empty_Brand_Image()
+        public void Should_Update_Brand_Throw_Empty_Brand_Image_Argument_Exception_Async()
         {
+            //Arrange
             var brandName = "xhamster";
-            var brandImage = "";
+            var brandImage = "/xHamster.png";
+            var brandImageToUpdate = "";
             var realmId = Guid.NewGuid();
-            var brandId = Guid.Empty;
+            var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
             var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
-            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
+            mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
+            mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
-
-            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Image), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+            //Assert
+            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Image), () => brandManager.CreateAsync(brandId, brandName, brandImageToUpdate, brandStatus, realmId));
         }
 
         [Fact]
-        public void Should_Create_Throw_Argument_Exception_For_Null_Brand_Image()
+        public void Should_Update_Brand_Throw_Null_Brand_Image_Argument_Exception_Async()
         {
+            //Arrange
             var brandName = "xhamster";
-            string? brandImage = null;
+            var brandImage = "/xHamster.png";
+            string? brandImageToUpdate = null;
             var realmId = Guid.NewGuid();
-            var brandId = Guid.Empty;
+            var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
             var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
-            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
+            mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
+            mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
-
-            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Image), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+            //Assert
+            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Image), () => brandManager.CreateAsync(brandId, brandName, brandImageToUpdate, brandStatus, realmId));
         }
 
         [Fact]
-        public void Should_Create_Throw_Argument_Exception_For_Whitespace_Brand_Image()
+        public void Should_Update_Brand_Throw_Whitespace_Brand_Image_Argument_Exception_Async()
         {
+            //Arrange
             var brandName = "xhamster";
-            string? brandImage = " ";
+            var brandImage = "/xHamster.png";
+            string? brandImageToUpdate = " ";
             var realmId = Guid.NewGuid();
-            var brandId = Guid.Empty;
+            var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
             var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
-            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
+            mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
+            mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
-
-            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Image), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+            //Assert
+            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Image), () => brandManager.CreateAsync(brandId, brandName, brandImageToUpdate, brandStatus, realmId));
         }
 
         [Fact]
-        public void Should_Create_Throw_Argument_Exception_For_Empty_RealmId()
+        public void Should_Update_Brand_Throw_Empty_RealmId_Argument_Exception_Async()
         {
+            //Arrange
             var brandName = "xhamster";
             var brandImage = "/xHamster.png";
             var realmId = Guid.NewGuid();
-            var brandId = Guid.Empty;
+            var realmIdToUpdate = Guid.Empty;
+            var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
             var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
-            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
+            mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
+            mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
-
-            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.RealmId), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmId));
+            //Assert
+            Assert.ThrowsAsync<ArgumentException>(nameof(Brand.Image), () => brandManager.CreateAsync(brandId, brandName, brandImage, brandStatus, realmIdToUpdate));
         }
     }
 }

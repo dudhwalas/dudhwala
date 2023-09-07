@@ -5,21 +5,21 @@ namespace Catalog.Domain.Test
     public class BrandTest
 	{
 		[Fact]
-		public void Should_Throw_Argument_Exception_For_Empty_Brand_Name()
+		public void Should_Create_Brand_Throw_Empty_Brand_Name_Argument_Exception_Async()
 		{
             var brandName = "";
             Assert.Throws<ArgumentException>(nameof(Brand.Name),() => new Brand(Guid.NewGuid(), brandName, "filepath", EnumStatus.ACTIVE, Guid.NewGuid()));
         }
 
         [Fact]
-        public void Should_Throw_Argument_Exception_For_Null_Brand_Name()
+        public void Should_Create_Brand_Throw_Null_Brand_Name_Argument_Exception_Async()
         {
             string? brandName = null;
             Assert.Throws<ArgumentException>(nameof(Brand.Name), () => new Brand(Guid.NewGuid(), brandName, "filepath", EnumStatus.ACTIVE, Guid.NewGuid()));
         }
 
         [Fact]
-        public void Should_Throw_Argument_Exception_For_Whitespace_Brand_Name()
+        public void Should_Create_Brand_Throw_Whitespace_Brand_Name_Argument_Exception_Async()
         {
             var brandName = " ";
             Assert.Throws<ArgumentException>(nameof(Brand.Name), () => new Brand(Guid.NewGuid(), brandName, "filepath", EnumStatus.ACTIVE, Guid.NewGuid()));
@@ -34,7 +34,7 @@ namespace Catalog.Domain.Test
         }
 
         [Fact]
-        public void Should_Throw_Argument_Exception_For_Set_Empty_Brand_Name()
+        public void Should_Set_Empty_Brand_Name_Throw_Argument_Exception_Async()
         {
             var brandName = "Brand 1";
             var brand = new Brand(Guid.NewGuid(), brandName, "filepath", EnumStatus.ACTIVE, Guid.NewGuid());
@@ -43,7 +43,7 @@ namespace Catalog.Domain.Test
         }
 
         [Fact]
-        public void Should_Throw_Argument_Exception_For_Set_Null_Brand_Name()
+        public void Should_Set_Null_Brand_Name_Throw_Argument_Exception_Async()
         {
             var brandName = "Brand 1";
             var brand = new Brand(Guid.NewGuid(), brandName, "filepath", EnumStatus.ACTIVE, Guid.NewGuid());
@@ -52,7 +52,7 @@ namespace Catalog.Domain.Test
         }
 
         [Fact]
-        public void Should_Throw_Argument_Exception_For_Set_Whitespace_Brand_Name()
+        public void Should_Set_Whitespace_Brand_Name_Throw_Argument_Exception_Async()
         {
             var brandName = "Brand 1";
             var brand = new Brand(Guid.NewGuid(), brandName, "filepath", EnumStatus.ACTIVE, Guid.NewGuid());
@@ -71,21 +71,21 @@ namespace Catalog.Domain.Test
         }
 
         [Fact]
-        public void Should_Throw_Argument_Exception_For_Empty_Brand_Image()
+        public void Should_Create_Brand_Throw_Empty_Brand_Image_Argument_Exception_Async()
         {
             var imagePath = "";
             Assert.Throws<ArgumentException>(nameof(Brand.Image), () => new Brand(Guid.NewGuid(), "Brand 1", imagePath, EnumStatus.ACTIVE, Guid.NewGuid()));
         }
 
         [Fact]
-        public void Should_Throw_Argument_Exception_For_Null_Brand_Image()
+        public void Should_Create_Brand_Throw_Null_Brand_Image_Argument_Exception_Async()
         {
             string? imagePath = null;
             Assert.Throws<ArgumentException>(nameof(Brand.Image), () => new Brand(Guid.NewGuid(), "Brand 1", imagePath, EnumStatus.ACTIVE, Guid.NewGuid()));
         }
 
         [Fact]
-        public void Should_Throw_Argument_Exception_For_Whitespace_Brand_Image()
+        public void Should_Create_Brand_Throw_Whitespace_Brand_Image_Argument_Exception_Async()
         {
             string? imagePath = " ";
             Assert.Throws<ArgumentException>(nameof(Brand.Image), () => new Brand(Guid.NewGuid(), "Brand 1", imagePath, EnumStatus.ACTIVE, Guid.NewGuid()));
@@ -100,7 +100,7 @@ namespace Catalog.Domain.Test
         }
 
         [Fact]
-        public void Should_Throw_Argument_Exception_For_Set_Empty_Brand_Image()
+        public void Should_Set_Empty_Brand_Image_Throw_Argument_Exception_Async()
         {
             var imagePath = "filepath";
             var brand = new Brand(Guid.NewGuid(), "Brand 1", imagePath, EnumStatus.ACTIVE, Guid.NewGuid());
@@ -109,7 +109,7 @@ namespace Catalog.Domain.Test
         }
 
         [Fact]
-        public void Should_Throw_Argument_Exception_For_Set_Null_Brand_Image()
+        public void Should_Set_Null_Brand_Image_Throw_Argument_Exception_Async()
         {
             var imagePath = "filepath";
             var brand = new Brand(Guid.NewGuid(), "Brand 1", imagePath, EnumStatus.ACTIVE, Guid.NewGuid());
@@ -118,7 +118,7 @@ namespace Catalog.Domain.Test
         }
 
         [Fact]
-        public void Should_Throw_Argument_Exception_For_Set_Whitespace_Brand_Image()
+        public void Should_Set_Whitespace_Brand_Image_Throw_Argument_Exception_Async()
         {
             var imagePath = "filepath";
             var brand = new Brand(Guid.NewGuid(), "Brand 1", imagePath, EnumStatus.ACTIVE, Guid.NewGuid());
@@ -155,7 +155,7 @@ namespace Catalog.Domain.Test
         }
 
         [Fact]
-        public void Should_Throw_Argument_Exception_For_Empty_RealmId()
+        public void Should_Create_Brand_Throw_Empty_RealmId_Argument_Exception_Async()
         {
             Guid realmId = Guid.Empty;
             Assert.Throws<ArgumentException>(nameof(Brand.RealmId), () => new Brand(Guid.NewGuid(), "Brand 1", "filepath", EnumStatus.ACTIVE, realmId));

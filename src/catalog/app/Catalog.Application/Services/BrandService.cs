@@ -47,12 +47,12 @@ namespace Catalog.Application.Services
         public override async Task<ListBrandResponseDto> ListBrand(ListBrandRequestDto request, ServerCallContext context)
         {
             if (request.PageToken <= 0)
-                throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.NoRecordExist]));
+                throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.NoBrandExist]));
 
             var brandDto = _objMapper.Map<List<Brand>, List<BrandDto>>(await _brandRepo.GetAsync(request.PageToken-1,request.PageSize));
 
             if (!brandDto.Any())
-                throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.NoRecordExist]));
+                throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.NoBrandExist]));
 
             var totalCount = await _brandRepo.GetTotalAsync();
 
@@ -70,7 +70,7 @@ namespace Catalog.Application.Services
         {
             try
             {
-                var createdBrand = await _brandManager.CreateAsync(string.IsNullOrEmpty(request.Id)?Guid.Empty:Guid.Parse(request.Id), request.Name, request.Image, (EnumStatus)request.Status, string.IsNullOrEmpty(request.RealmId) ? Guid.Empty : Guid.Parse(request.RealmId));
+                var createdBrand = await _brandManager.CreateAsync(string.IsNullOrEmpty(request.Id) ? Guid.Empty : Guid.Parse(request.Id), request.Name, request.Image, (EnumStatus)request.Status, string.IsNullOrEmpty(request.RealmId) ? Guid.Empty : Guid.Parse(request.RealmId));
                 return _objMapper.Map<Brand, BrandDto>(createdBrand);
             }
             catch (FormatException ex)
@@ -85,6 +85,12 @@ namespace Catalog.Application.Services
             {
                 if (ex.Code == CatalogErrorCodes.BrandAlreadyExist)
                     throw new RpcException(new Status(StatusCode.AlreadyExists, _localizer[ex.Code, request.Name]));
+
+                if (ex.Code == CatalogErrorCodes.UpdateBrandFailed)
+                    throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[ex.Code, request.Id]));
+
+                if (ex.Code == CatalogErrorCodes.CreateBrandFailed)
+                    throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[ex.Code]));
 
                 throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
             }
