@@ -223,6 +223,29 @@ namespace Catalog.Domain.Test
         }
 
         [Fact]
+        public async Task Should_Update_Brand_Throw_Aleardy_Exist_Business_Exception_Async()
+        {
+            //Arrange
+            var brandName = "xHamster";
+            var brandImage = "/xHamster.png";
+            var realmId = Guid.NewGuid();
+            var brandId = Guid.NewGuid();
+            var brandStatus = EnumStatus.ACTIVE;
+            var brandNameToUpdate = "xnxx";
+            var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
+            var mockBrandRepo = new Mock<IRepository<Brand, Guid>>();
+            mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
+            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandNameToUpdate)).ReturnsAsync(brandToUpdate);
+            var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+            var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
+
+            //Assert
+            var ex = await Assert.ThrowsAsync<BusinessException>(() => brandManager.CreateAsync(brandId, brandNameToUpdate, brandImage, brandStatus, realmId));
+            Assert.Equal(CatalogErrorCodes.BrandAlreadyExist, ex.Code);
+
+        }
+
+        [Fact]
         public async Task Should_Update_Brand_Throw_Update_Failed_Business_Exception_Async()
         {
             //Arrange

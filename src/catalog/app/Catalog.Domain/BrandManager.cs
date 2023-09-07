@@ -25,6 +25,10 @@ namespace Catalog.Domain
 
                 if (existingBrand is not null)
                 {
+                    var brandNameToCheck = await _brandRepository.GetByNameAsync(name);
+                    if (brandNameToCheck is not null)
+                        throw new BusinessException(CatalogErrorCodes.BrandAlreadyExist);
+
                     var updatedBrand = await _brandRepository.UpdateAsync(new Brand(id, name, image, status, realmId));
 
                     if (updatedBrand == null)
