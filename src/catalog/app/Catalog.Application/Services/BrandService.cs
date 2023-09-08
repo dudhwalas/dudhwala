@@ -108,6 +108,10 @@ namespace Catalog.Application.Services
             }
         }
 
-        
+        //Todo : Implement Patch Update
+        public override Task<BrandDto> PatchBrand(UpdateBrandRequestDto request, ServerCallContext context)
+        {
+            return base.PatchBrand(request, context);
+        }
     }
 }
