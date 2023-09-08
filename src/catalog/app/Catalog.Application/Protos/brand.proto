@@ -1,5 +1,6 @@
 ﻿syntax = "proto3";
 import "google/api/annotations.proto";
+import "google/protobuf/field_mask.proto";
 
 option csharp_namespace = "Catalog.Application";
 
@@ -18,9 +19,17 @@ service BrandService {
         };
 	};
 
-	rpc UpdateBrand(CreateBrandRequestDto) returns (BrandDto) {
+	rpc UpdateBrand(BrandDto) returns (BrandDto) {
 		option (google.api.http) = {
-            put: "/v1/brand"
+            put: "/v1/brand",
+			body: "*"
+        };
+	};
+
+	rpc PatchBrand(UpdateBrandRequestDto) returns (BrandDto) {
+		option (google.api.http) = {
+            patch: "/v1/brand/{brand.id}"
+			body: "brand"
         };
 	};
 }
@@ -32,14 +41,6 @@ message ListBrandRequestDto {
 
 message GetBrandRequestDto {
 	string id = 1;
-}
-
-message CreateBrandRequestDto {
-	string name = 1;
-	string image = 2;
-	int32 status = 3;
-	string realm_Id = 4;
-	string id = 5;
 }
 
 message BrandDto {
@@ -54,4 +55,9 @@ message ListBrandResponseDto {
 	repeated BrandDto brands = 1;
 	int32 next_page_token = 2;
 	int32 total_size = 3;
+}
+
+message UpdateBrandRequestDto {
+	BrandDto brand = 1;
+	google.protobuf.FieldMask field_to_update = 2;
 }

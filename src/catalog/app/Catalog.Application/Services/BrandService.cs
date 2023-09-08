@@ -1,6 +1,7 @@
 ﻿using Catalog.Domain;
 using Catalog.Domain.Shared;
 using Catalog.Domain.Shared.Localization;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Extensions.Localization;
 using Volo.Abp;
@@ -31,8 +32,13 @@ namespace Catalog.Application.Services
         {
             try
             {
-                var brandDto = _objMapper.Map<Brand, BrandDto>(await _brandRepo.GetByIdAsync(Guid.Parse(request.Id)));
-                return brandDto;
+                request.Id = Check.NotNullOrEmpty(request.Id, nameof(request.Id));
+                var brand = await _brandRepo.GetByIdAsync(Guid.Parse(request.Id));
+
+                if(brand is null)
+                    throw new RpcException(new Status(StatusCode.NotFound, _localizer[CatalogErrorCodes.NoBrandExist]));
+
+                return _objMapper.Map<Brand, BrandDto>(brand);
             }
             catch (EntityNotFoundException ex)
             {
@@ -46,13 +52,13 @@ namespace Catalog.Application.Services
 
         public override async Task<ListBrandResponseDto> ListBrand(ListBrandRequestDto request, ServerCallContext context)
         {
-            if (request.PageToken <= 0)
-                throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.NoBrandExist]));
+            if (request.PageToken <= 0 || request.PageSize <= 0)
+                throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.InvalidPageTokenPageSize]));
 
             var brandDto = _objMapper.Map<List<Brand>, List<BrandDto>>(await _brandRepo.GetAsync(request.PageToken-1,request.PageSize));
 
             if (!brandDto.Any())
-                throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.NoBrandExist]));
+                throw new RpcException(new Status(StatusCode.NotFound, _localizer[CatalogErrorCodes.NoBrandExist]));
 
             var totalCount = await _brandRepo.GetTotalAsync();
 
@@ -66,10 +72,16 @@ namespace Catalog.Application.Services
         }
 
         [UnitOfWork]
-        public override async Task<BrandDto> UpdateBrand(CreateBrandRequestDto request, ServerCallContext context)
+        public override async Task<BrandDto> UpdateBrand(BrandDto request, ServerCallContext context)
         {
             try
             {
+
+                request.Name = Check.NotNullOrEmpty(request.Name, nameof(request.Name));
+                request.Image = Check.NotNullOrEmpty(request.Image, nameof(request.Image));
+                request.Status = Check.NotNull(request.Status, nameof(request.Status));
+                request.RealmId = Check.NotNullOrEmpty(request.RealmId, nameof(request.RealmId));
+
                 var createdBrand = await _brandManager.UpdateAsync(string.IsNullOrEmpty(request.Id) ? Guid.Empty : Guid.Parse(request.Id), request.Name, request.Image, (EnumStatus)request.Status, string.IsNullOrEmpty(request.RealmId) ? Guid.Empty : Guid.Parse(request.RealmId));
                 return _objMapper.Map<Brand, BrandDto>(createdBrand);
             }
@@ -95,5 +107,7 @@ namespace Catalog.Application.Services
                 throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
             }
         }
+
+        
     }
 }
