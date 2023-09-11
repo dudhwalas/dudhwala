@@ -15,12 +15,12 @@ namespace Catalog.Application.Services
 {
     public class BrandService : BrandServiceBase, ITransientDependency
     {
-        private readonly IRepository<Brand,Guid> _brandRepo;
+        private readonly IBrandRepository _brandRepo;
         private readonly IObjectMapper _objMapper;
         private readonly BrandManager _brandManager;
         private readonly IStringLocalizer<CatalogResource> _localizer;
 
-        public BrandService(IRepository<Brand, Guid> brandRepo, IObjectMapper objMapper, IStringLocalizer<CatalogResource> localizer, BrandManager brandManager)
+        public BrandService(IBrandRepository brandRepo, IObjectMapper objMapper, IStringLocalizer<CatalogResource> localizer, BrandManager brandManager)
 		{
             _brandRepo = brandRepo;
             _objMapper = objMapper;
@@ -108,10 +108,38 @@ namespace Catalog.Application.Services
             }
         }
 
-        //Todo : Implement Patch Update
-        public override Task<BrandDto> PatchBrand(UpdateBrandRequestDto request, ServerCallContext context)
+        public override async Task<BrandDto> PatchBrand(UpdateBrandRequestDto request, ServerCallContext context)
         {
-            return base.PatchBrand(request, context);
+            try
+            {
+                request.Brand = Check.NotNull(request.Brand, nameof(request.Brand));
+
+                request.Brand.Id = Check.NotNullOrEmpty(request.Brand.Id, nameof(request.Brand.Id));
+
+                if (request.FieldToUpdate == null)
+                    throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.PatchMissingBrandFields]));
+
+                var brandToPatch = new BrandDto();
+
+                request.FieldToUpdate.Merge(request.Brand, brandToPatch);
+
+                var patchedBrand = await _brandManager.PatchAsync(Guid.Parse(request.Brand.Id), brandToPatch.Name, brandToPatch.Image, request.FieldToUpdate.Paths.Contains(nameof(brandToPatch.Status)) ? (EnumStatus)brandToPatch.Status : null, string.IsNullOrEmpty(brandToPatch.RealmId) ? null : Guid.Parse(brandToPatch.RealmId));
+                return _objMapper.Map<Brand, BrandDto>(patchedBrand);
+            }
+            catch (FormatException ex)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
+            }
+            catch (BusinessException ex)
+            {
+                if (ex.Code == CatalogErrorCodes.UpdateBrandFailed)
+                    throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[ex.Code, request.Brand.Id]));
+
+                if (ex.Code == CatalogErrorCodes.BrandAlreadyExist)
+                    throw new RpcException(new Status(StatusCode.AlreadyExists, _localizer[ex.Code, request.Brand.Name]));
+
+                throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
+            }
         }
     }
 }

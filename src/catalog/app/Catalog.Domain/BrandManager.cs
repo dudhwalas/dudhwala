@@ -8,10 +8,10 @@ namespace Catalog.Domain
 {
     public class BrandManager : DomainService
 	{
-        private readonly IRepository<Brand,Guid> _brandRepository;
+        private readonly IBrandRepository _brandRepository;
         private readonly IGuidGenerator _guidGenerator;
 
-        public BrandManager(IRepository<Brand, Guid> brandRepository,IGuidGenerator guidGenerator)
+        public BrandManager(IBrandRepository brandRepository,IGuidGenerator guidGenerator)
 		{
             _brandRepository = brandRepository;
             _guidGenerator = guidGenerator;
@@ -46,6 +46,42 @@ namespace Catalog.Domain
             if(createdBrand is null)
                 throw new BusinessException(CatalogErrorCodes.CreateBrandFailed);
             return createdBrand;
+        }
+
+        public async Task<Brand> PatchAsync(Guid id, string? name, string? image, EnumStatus? status, Guid? realmId)
+        {
+            if (id != Guid.Empty)
+            {
+                var existingBrand = await _brandRepository.GetByIdAsync(id);
+
+                if (existingBrand is not null)
+                {
+                    if (!name.IsNullOrEmpty())
+                    {
+                        var brandNameToCheck = await _brandRepository.GetByNameAsync(name);
+                        if (brandNameToCheck is not null)
+                            throw new BusinessException(CatalogErrorCodes.BrandAlreadyExist);
+                        existingBrand.SetName(name);
+                    }
+
+                    if (!image.IsNullOrEmpty())
+                        existingBrand.SetImage(image);
+
+                    if (status != null)
+                        existingBrand.SetStatus(status.Value);
+
+                    if (realmId != null)
+                        existingBrand.SetRealmId(realmId.Value);
+
+                    var updatedBrand = await _brandRepository.UpdateAsync(existingBrand);
+
+                    if (updatedBrand == null)
+                        throw new BusinessException(CatalogErrorCodes.UpdateBrandFailed);
+
+                    return updatedBrand;
+                }
+            }
+            throw new BusinessException(CatalogErrorCodes.UpdateBrandFailed);
         }
     }
 }

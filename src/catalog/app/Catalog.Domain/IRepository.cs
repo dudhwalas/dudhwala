@@ -1,20 +1,22 @@
-﻿using JetBrains.Annotations;
+﻿using System.Security.Cryptography;
+using JetBrains.Annotations;
+using Volo.Abp.Domain.Repositories;
 
 namespace Catalog.Domain
 {
-    public interface IRepository<TEntity,TId>
-	{
-        public Task<TEntity?> GetByNameAsync([NotNull] string brandName);
+    public interface IBrandRepository: IRepository<Brand, Guid>
+    {
+        public Task<Brand?> GetByNameAsync([NotNull] string brandName);
 
-        public Task<TEntity?> GetByIdAsync([NotNull] TId id);
+        public Task<Brand?> GetByIdAsync([NotNull] Guid id);
 
-        public Task<TEntity?> CreateAsync([NotNull] TEntity _entity);
+        public Task<Brand?> CreateAsync([NotNull] Brand _entity);
 
-        public Task<TEntity?> UpdateAsync([NotNull] TEntity _entity);
+        public Task<Brand?> UpdateAsync([NotNull] Brand _entity);
 
-        public Task<List<TEntity>> GetAsync([NotNull] int pageToken, [NotNull]int pageSize);
+        public Task<List<Brand>> GetAsync([NotNull] int pageToken, [NotNull]int pageSize);
 
-        public Task<int> GetTotalAsync();
+        public Task<long> GetTotalAsync();
     }
 }
 

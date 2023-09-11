@@ -28,7 +28,7 @@ service BrandService {
 
 	rpc PatchBrand(UpdateBrandRequestDto) returns (BrandDto) {
 		option (google.api.http) = {
-            patch: "/v1/brand/{brand.id}"
+            patch: "/v1/brand"
 			body: "brand"
         };
 	};
@@ -54,7 +54,7 @@ message BrandDto {
 message ListBrandResponseDto {
 	repeated BrandDto brands = 1;
 	int32 next_page_token = 2;
-	int32 total_size = 3;
+	int64 total_size = 3;
 }
 
 message UpdateBrandRequestDto {
