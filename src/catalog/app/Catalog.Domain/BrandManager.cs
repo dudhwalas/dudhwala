@@ -27,7 +27,7 @@ namespace Catalog.Domain
                 {
                     var brandNameToCheck = await _brandRepository.GetByNameAsync(name);
                     if (brandNameToCheck is not null)
-                        throw new BusinessException(CatalogErrorCodes.BrandAlreadyExist);
+                        throw new BusinessException(CatalogErrorCodes.BrandNameAlreadyExist);
 
                     var updatedBrand = await _brandRepository.UpdateAsync(new Brand(id, name, image, status, realmId));
 
@@ -39,7 +39,7 @@ namespace Catalog.Domain
             }
             var brandToCheck = await _brandRepository.GetByNameAsync(name);
             if (brandToCheck is not null)
-                throw new BusinessException(CatalogErrorCodes.BrandAlreadyExist);
+                throw new BusinessException(CatalogErrorCodes.BrandNameAlreadyExist);
             
             var createdBrand = await _brandRepository.CreateAsync(new Brand(_guidGenerator.Create(), name, image, status, realmId));
 
@@ -56,15 +56,15 @@ namespace Catalog.Domain
 
                 if (existingBrand is not null)
                 {
-                    if (!name.IsNullOrEmpty())
+                    if (!name.IsNullOrWhiteSpace())
                     {
                         var brandNameToCheck = await _brandRepository.GetByNameAsync(name);
                         if (brandNameToCheck is not null)
-                            throw new BusinessException(CatalogErrorCodes.BrandAlreadyExist);
+                            throw new BusinessException(CatalogErrorCodes.BrandNameAlreadyExist);
                         existingBrand.SetName(name);
                     }
 
-                    if (!image.IsNullOrEmpty())
+                    if (!image.IsNullOrWhiteSpace())
                         existingBrand.SetImage(image);
 
                     if (status != null)

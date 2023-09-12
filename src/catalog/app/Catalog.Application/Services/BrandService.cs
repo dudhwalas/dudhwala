@@ -36,7 +36,7 @@ namespace Catalog.Application.Services
                 var brand = await _brandRepo.GetByIdAsync(Guid.Parse(request.Id));
 
                 if(brand is null)
-                    throw new RpcException(new Status(StatusCode.NotFound, _localizer[CatalogErrorCodes.NoBrandExist]));
+                    throw new RpcException(new Status(StatusCode.NotFound, _localizer[CatalogErrorCodes.NoBrandAvailable]));
 
                 return _objMapper.Map<Brand, BrandDto>(brand);
             }
@@ -58,7 +58,7 @@ namespace Catalog.Application.Services
             var brandDto = _objMapper.Map<List<Brand>, List<BrandDto>>(await _brandRepo.GetAsync(request.PageToken-1,request.PageSize));
 
             if (!brandDto.Any())
-                throw new RpcException(new Status(StatusCode.NotFound, _localizer[CatalogErrorCodes.NoBrandExist]));
+                throw new RpcException(new Status(StatusCode.NotFound, _localizer[CatalogErrorCodes.NoBrandAvailable]));
 
             var totalCount = await _brandRepo.GetTotalAsync();
 
@@ -95,7 +95,7 @@ namespace Catalog.Application.Services
             }
             catch (BusinessException ex)
             {
-                if (ex.Code == CatalogErrorCodes.BrandAlreadyExist)
+                if (ex.Code == CatalogErrorCodes.BrandNameAlreadyExist)
                     throw new RpcException(new Status(StatusCode.AlreadyExists, _localizer[ex.Code, request.Name]));
 
                 if (ex.Code == CatalogErrorCodes.UpdateBrandFailed)
@@ -117,7 +117,7 @@ namespace Catalog.Application.Services
                 request.Brand.Id = Check.NotNullOrEmpty(request.Brand.Id, nameof(request.Brand.Id));
 
                 if (request.FieldToUpdate == null)
-                    throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.PatchMissingBrandFields]));
+                    throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.UpdateMissingBrandFields]));
 
                 var brandToPatch = new BrandDto();
 
@@ -135,7 +135,7 @@ namespace Catalog.Application.Services
                 if (ex.Code == CatalogErrorCodes.UpdateBrandFailed)
                     throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[ex.Code, request.Brand.Id]));
 
-                if (ex.Code == CatalogErrorCodes.BrandAlreadyExist)
+                if (ex.Code == CatalogErrorCodes.BrandNameAlreadyExist)
                     throw new RpcException(new Status(StatusCode.AlreadyExists, _localizer[ex.Code, request.Brand.Name]));
 
                 throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
