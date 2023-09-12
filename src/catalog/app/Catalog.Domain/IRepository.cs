@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Volo.Abp.Domain.Repositories;
 
 namespace Catalog.Domain
@@ -19,4 +18,3 @@ namespace Catalog.Domain
         public Task<long> GetTotalAsync();
     }
 }
-

@@ -1,14 +1,12 @@
 ﻿using Catalog.Domain;
 using Catalog.Domain.Shared;
 using Catalog.Domain.Shared.Localization;
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Extensions.Localization;
 using Volo.Abp;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.ObjectMapping;
-using Volo.Abp.Uow;
 using static Catalog.Application.BrandService;
 
 namespace Catalog.Application.Services
@@ -71,12 +69,10 @@ namespace Catalog.Application.Services
             return response;
         }
 
-        [UnitOfWork]
         public override async Task<BrandDto> UpdateBrand(BrandDto request, ServerCallContext context)
         {
             try
             {
-
                 request.Name = Check.NotNullOrEmpty(request.Name, nameof(request.Name));
                 request.Image = Check.NotNullOrEmpty(request.Image, nameof(request.Image));
                 request.Status = Check.NotNull(request.Status, nameof(request.Status));

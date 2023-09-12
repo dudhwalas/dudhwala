@@ -1,9 +1,7 @@
-﻿using System;
-namespace Catalog.Domain.Shared
+﻿namespace Catalog.Domain.Shared
 {
-	public enum EnumStatus
+    public enum EnumStatus
 	{
 		ACTIVE,INACTIVE
 	}
 }
-

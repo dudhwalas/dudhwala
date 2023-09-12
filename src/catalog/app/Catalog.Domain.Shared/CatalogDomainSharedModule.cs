@@ -1,5 +1,4 @@
-﻿using System;
-using Catalog.Domain.Shared.Localization;
+﻿using Catalog.Domain.Shared.Localization;
 using Volo.Abp.Localization;
 using Volo.Abp.Localization.ExceptionHandling;
 using Volo.Abp.Modularity;
@@ -9,7 +8,7 @@ using Volo.Abp.VirtualFileSystem;
 
 namespace Catalog.Domain.Shared
 {
-	[DependsOn(typeof(AbpValidationModule))]
+    [DependsOn(typeof(AbpValidationModule))]
 	public class CatalogDomainSharedModule : AbpModule
 	{
 	    public override void ConfigureServices(ServiceConfigurationContext context)
