@@ -20,7 +20,7 @@ namespace Catalog.Domain.Test
 			var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
 			var brandToCreate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
-			var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+			var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName))
                 .ReturnsAsync(default(Brand));
             mockBrandRepo.Setup(repo => repo.CreateAsync(It.IsAny<Brand>())).ReturnsAsync(brandToCreate);
@@ -44,7 +44,7 @@ namespace Catalog.Domain.Test
             var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
             var brandToCreate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName))
                 .ReturnsAsync(brandToCreate);
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
@@ -66,7 +66,7 @@ namespace Catalog.Domain.Test
             var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
             var brandToCreate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName))
                 .ReturnsAsync(default(Brand));
             mockBrandRepo.Setup(repo => repo.CreateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
@@ -87,7 +87,7 @@ namespace Catalog.Domain.Test
             var realmId = Guid.NewGuid();
             var brandId = Guid.Empty;
             var brandStatus = EnumStatus.ACTIVE;
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
@@ -104,7 +104,7 @@ namespace Catalog.Domain.Test
             var realmId = Guid.NewGuid();
             var brandId = Guid.Empty;
             var brandStatus = EnumStatus.ACTIVE;
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
@@ -121,7 +121,7 @@ namespace Catalog.Domain.Test
             var realmId = Guid.NewGuid();
             var brandId = Guid.Empty;
             var brandStatus = EnumStatus.ACTIVE;
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
@@ -138,7 +138,7 @@ namespace Catalog.Domain.Test
             var realmId = Guid.NewGuid();
             var brandId = Guid.Empty;
             var brandStatus = EnumStatus.ACTIVE;
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
@@ -155,7 +155,7 @@ namespace Catalog.Domain.Test
             var realmId = Guid.NewGuid();
             var brandId = Guid.Empty;
             var brandStatus = EnumStatus.ACTIVE;
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
@@ -172,7 +172,7 @@ namespace Catalog.Domain.Test
             var realmId = Guid.NewGuid();
             var brandId = Guid.Empty;
             var brandStatus = EnumStatus.ACTIVE;
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
@@ -189,7 +189,7 @@ namespace Catalog.Domain.Test
             var realmId = Guid.NewGuid();
             var brandId = Guid.Empty;
             var brandStatus = EnumStatus.ACTIVE;
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
@@ -208,7 +208,7 @@ namespace Catalog.Domain.Test
             var brandStatus = EnumStatus.ACTIVE;
             var brandNameToUpdate = "xnxx";
             var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
             brandToUpdate.SetName(brandNameToUpdate);
             mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(brandToUpdate);
@@ -233,7 +233,7 @@ namespace Catalog.Domain.Test
             var brandStatus = EnumStatus.ACTIVE;
             var brandNameToUpdate = "xnxx";
             var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
             mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandNameToUpdate)).ReturnsAsync(brandToUpdate);
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
@@ -256,7 +256,7 @@ namespace Catalog.Domain.Test
             var brandStatus = EnumStatus.ACTIVE;
             var brandNameToUpdate = "xnxx";
             var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
             brandToUpdate.SetName(brandNameToUpdate);
             mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
@@ -278,7 +278,7 @@ namespace Catalog.Domain.Test
             var realmId = Guid.NewGuid();
             var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
             mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
             mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
@@ -298,7 +298,7 @@ namespace Catalog.Domain.Test
             var realmId = Guid.NewGuid();
             var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
             mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
             mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
@@ -318,7 +318,7 @@ namespace Catalog.Domain.Test
             var realmId = Guid.NewGuid();
             var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
             mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
             mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
@@ -338,7 +338,7 @@ namespace Catalog.Domain.Test
             var realmId = Guid.NewGuid();
             var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
             mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
             mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
@@ -358,7 +358,7 @@ namespace Catalog.Domain.Test
             var realmId = Guid.NewGuid();
             var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
             mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
             mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
@@ -378,7 +378,7 @@ namespace Catalog.Domain.Test
             var realmId = Guid.NewGuid();
             var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
             mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
             mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
@@ -398,7 +398,7 @@ namespace Catalog.Domain.Test
             var realmIdToUpdate = Guid.Empty;
             var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             var brandToUpdate = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
             mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId)).ReturnsAsync(brandToUpdate);
             mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(default(Brand));
@@ -419,7 +419,7 @@ namespace Catalog.Domain.Test
             var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
             var existingBrand = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(x => x.GetByIdAsync(brandId)).ReturnsAsync(existingBrand);
             mockBrandRepo.Setup(x => x.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(existingBrand);
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
@@ -441,7 +441,7 @@ namespace Catalog.Domain.Test
             var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
             var existingBrand = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(x => x.GetByIdAsync(brandId)).ReturnsAsync(existingBrand);
             mockBrandRepo.Setup(x => x.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(existingBrand);
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
@@ -463,7 +463,7 @@ namespace Catalog.Domain.Test
             var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
             var existingBrand = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(x => x.GetByIdAsync(brandId)).ReturnsAsync(existingBrand);
             mockBrandRepo.Setup(x => x.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(existingBrand);
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
@@ -485,7 +485,7 @@ namespace Catalog.Domain.Test
             var brandId = Guid.NewGuid();
             var brandStatus = EnumStatus.ACTIVE;
             var existingBrand = new Brand(brandId, brandName, brandImage, brandStatus, realmId);
-            var mockBrandRepo = new Mock<IBrandRepository<Brand, Guid>>();
+            var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(x => x.GetByIdAsync(brandId)).ReturnsAsync(existingBrand);
             mockBrandRepo.Setup(x => x.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(existingBrand);
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
