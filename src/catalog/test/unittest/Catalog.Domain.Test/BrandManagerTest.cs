@@ -226,10 +226,8 @@ namespace Catalog.Domain.Test
             mockBrandRepo.Setup(repo => repo.UpdateAsync(It.IsAny<Brand>())).ReturnsAsync(brandToUpdate);
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
-
             //Act
             var updatedBrand = await brandManager.UpdateAsync(brandId, brandNameToUpdate, brandImage, brandStatus, realmId);
-
             //Assert
             Assert.Equal(brandNameToUpdate, updatedBrand.Name);
         }
@@ -254,7 +252,6 @@ namespace Catalog.Domain.Test
             var ex = await Assert.ThrowsAsync<BusinessException>(() => brandManager.UpdateAsync(brandId, brandNameToUpdate, brandImage, brandStatus, realmId));
             //Assert
             Assert.Equal(CatalogErrorCodes.BrandNameAlreadyExist, ex.Code);
-
         }
 
         [Fact]
