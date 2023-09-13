@@ -50,7 +50,7 @@ namespace Catalog.Domain.Test
             //Act
             var ex = await Assert.ThrowsAsync<BusinessException>(() => brandManager.UpdateAsync(brandId, brandName, brandImage, brandStatus, realmId));
             //Assert
-            Assert.Equal(CatalogErrorCodes.BrandNameAlreadyExist, ex.Code);
+            Assert.Equal(CatalogErrorCodes.Brand_NameAlreadyExist, ex.Code);
 
         }
 
@@ -73,7 +73,7 @@ namespace Catalog.Domain.Test
             //Act
             var ex = await Assert.ThrowsAsync<BusinessException>(() => brandManager.UpdateAsync(brandId, brandName, brandImage, brandStatus, realmId));
             //Assert
-            Assert.Equal(CatalogErrorCodes.CreateBrandFailed, ex.Code);
+            Assert.Equal(CatalogErrorCodes.Brand_CreateFailed, ex.Code);
         }
 
         [Fact]
@@ -251,7 +251,7 @@ namespace Catalog.Domain.Test
             //Act
             var ex = await Assert.ThrowsAsync<BusinessException>(() => brandManager.UpdateAsync(brandId, brandNameToUpdate, brandImage, brandStatus, realmId));
             //Assert
-            Assert.Equal(CatalogErrorCodes.BrandNameAlreadyExist, ex.Code);
+            Assert.Equal(CatalogErrorCodes.Brand_NameAlreadyExist, ex.Code);
         }
 
         [Fact]
@@ -274,7 +274,7 @@ namespace Catalog.Domain.Test
             //Act
             var ex = await Assert.ThrowsAsync<BusinessException>(() => brandManager.UpdateAsync(brandId, brandName, brandImage, brandStatus, realmId));
             //Assert
-            Assert.Equal(CatalogErrorCodes.UpdateBrandFailed, ex.Code);
+            Assert.Equal(CatalogErrorCodes.Brand_UpdateFailed, ex.Code);
         }
 
         [Fact]
@@ -534,7 +534,7 @@ namespace Catalog.Domain.Test
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
             var ex = await Assert.ThrowsAsync<BusinessException>(() => brandManager.PatchAsync(brandId, brandName, brandImage, brandStatus, realmId));
             //Assert
-            Assert.Equal(CatalogErrorCodes.UpdateBrandFailed, ex.Code);
+            Assert.Equal(CatalogErrorCodes.Brand_UpdateFailed, ex.Code);
         }
 
         [Fact]
@@ -553,7 +553,7 @@ namespace Catalog.Domain.Test
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
             var ex = await Assert.ThrowsAsync<BusinessException>(() => brandManager.PatchAsync(brandId, brandName, brandImage, brandStatus, realmId));
             //Assert
-            Assert.Equal(CatalogErrorCodes.UpdateBrandFailed, ex.Code);
+            Assert.Equal(CatalogErrorCodes.Brand_UpdateFailed, ex.Code);
         }
 
         [Fact]
@@ -574,7 +574,7 @@ namespace Catalog.Domain.Test
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
             var ex = await Assert.ThrowsAsync<BusinessException>(() => brandManager.PatchAsync(brandId, brandName, brandImage, brandStatus, realmId));
             //Assert
-            Assert.Equal(CatalogErrorCodes.BrandNameAlreadyExist, ex.Code);
+            Assert.Equal(CatalogErrorCodes.Brand_NameAlreadyExist, ex.Code);
         }
 
         [Fact]
@@ -596,7 +596,7 @@ namespace Catalog.Domain.Test
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
             var ex = await Assert.ThrowsAsync<BusinessException>(() => brandManager.PatchAsync(brandId, brandName, brandImage, brandStatus, realmId));
             //Assert
-            Assert.Equal(CatalogErrorCodes.UpdateBrandFailed, ex.Code);
+            Assert.Equal(CatalogErrorCodes.Brand_UpdateFailed, ex.Code);
         }
     }
 }

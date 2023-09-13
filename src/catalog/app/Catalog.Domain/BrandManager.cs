@@ -27,24 +27,24 @@ namespace Catalog.Domain
                 {
                     var brandNameToCheck = await _brandRepository.GetByNameAsync(name);
                     if (brandNameToCheck is not null)
-                        throw new BusinessException(CatalogErrorCodes.BrandNameAlreadyExist);
+                        throw new BusinessException(CatalogErrorCodes.Brand_NameAlreadyExist);
 
                     var updatedBrand = await _brandRepository.UpdateAsync(new Brand(id, name, image, status, realmId));
 
                     if (updatedBrand == null)
-                        throw new BusinessException(CatalogErrorCodes.UpdateBrandFailed);
+                        throw new BusinessException(CatalogErrorCodes.Brand_UpdateFailed);
 
                     return updatedBrand;
                 }
             }
             var brandToCheck = await _brandRepository.GetByNameAsync(name);
             if (brandToCheck is not null)
-                throw new BusinessException(CatalogErrorCodes.BrandNameAlreadyExist);
+                throw new BusinessException(CatalogErrorCodes.Brand_NameAlreadyExist);
             
             var createdBrand = await _brandRepository.CreateAsync(new Brand(_guidGenerator.Create(), name, image, status, realmId));
 
             if(createdBrand is null)
-                throw new BusinessException(CatalogErrorCodes.CreateBrandFailed);
+                throw new BusinessException(CatalogErrorCodes.Brand_CreateFailed);
             return createdBrand;
         }
 
@@ -60,7 +60,7 @@ namespace Catalog.Domain
                     {
                         var brandNameToCheck = await _brandRepository.GetByNameAsync(name);
                         if (brandNameToCheck is not null)
-                            throw new BusinessException(CatalogErrorCodes.BrandNameAlreadyExist);
+                            throw new BusinessException(CatalogErrorCodes.Brand_NameAlreadyExist);
                         existingBrand.SetName(name);
                     }
 
@@ -76,12 +76,12 @@ namespace Catalog.Domain
                     var updatedBrand = await _brandRepository.UpdateAsync(existingBrand);
 
                     if (updatedBrand == null)
-                        throw new BusinessException(CatalogErrorCodes.UpdateBrandFailed);
+                        throw new BusinessException(CatalogErrorCodes.Brand_UpdateFailed);
 
                     return updatedBrand;
                 }
             }
-            throw new BusinessException(CatalogErrorCodes.UpdateBrandFailed);
+            throw new BusinessException(CatalogErrorCodes.Brand_UpdateFailed);
         }
     }
 }

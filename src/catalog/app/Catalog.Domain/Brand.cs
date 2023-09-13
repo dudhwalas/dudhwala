@@ -1,13 +1,11 @@
-﻿using System;
-using Catalog.Domain.Shared;
+﻿using Catalog.Domain.Shared;
 using JetBrains.Annotations;
 using Volo.Abp;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Catalog.Domain
 {
-	public class Brand : AuditedEntity<Guid>
+    public class Brand : AuditedEntity<Guid>
 	{
         [NotNull]
         public string? Name { get; private set; }

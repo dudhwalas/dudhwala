@@ -13,7 +13,7 @@ namespace Catalog.Domain
 
         public Task<Brand?> UpdateAsync([NotNull] Brand _entity);
 
-        public Task<List<Brand>> GetAsync([NotNull] int pageToken, [NotNull]int pageSize);
+        public Task<List<Brand>> GetAsync([NotNull] int pageToken, [NotNull]int pageSize,string? sorting);
 
         public Task<long> GetTotalAsync();
     }

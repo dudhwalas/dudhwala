@@ -38,15 +38,15 @@ namespace Catalog.Database
             return await FindAsync(brand => brand.Name == _brandName);
         }
 
-        public async Task<List<Brand>> GetAsync([NotNull] int pageToken, [NotNull] int pageSize)
-        {
-            var result = await GetPagedListAsync(pageToken * pageSize, pageSize, null);
-            return result;
-        }
-
         public async Task<long> GetTotalAsync()
         {
             return await GetCountAsync();
+        }
+
+        public async Task<List<Brand>> GetAsync([NotNull] int pageToken, [NotNull] int pageSize, string? sorting)
+        {
+            var result = await GetPagedListAsync(pageToken * pageSize, pageSize, sorting);
+            return result;
         }
     }
 }

@@ -6,6 +6,7 @@
     "Brand:00003": "Failed to update brand with id {0}.",
     "Brand:00004": "Failed to create brand.",
     "Brand:00005": "Page token or Page size cannot be less or equal to 0.",
-    "Brand:00006": "Missing brand fields to update."
+    "Brand:00006": "Missing brand fields to update.",
+    "Brand:00007": "Invalid sorting '{0}' applied on brand fields."
   }
 }

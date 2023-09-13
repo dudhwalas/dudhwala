@@ -1,17 +1,18 @@
-﻿using Catalog.Domain;
+﻿using System.Linq.Dynamic.Core.Exceptions;
+using Catalog.Domain;
 using Catalog.Domain.Shared;
 using Catalog.Domain.Shared.Localization;
 using Grpc.Core;
 using Microsoft.Extensions.Localization;
 using Volo.Abp;
-using Volo.Abp.DependencyInjection;
+using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.ObjectMapping;
 using static Catalog.Application.BrandService;
 
 namespace Catalog.Application.Services
 {
-    public class BrandService : BrandServiceBase, ITransientDependency
+    public class BrandService : BrandServiceBase, IApplicationService
     {
         private readonly IBrandRepository _brandRepo;
         private readonly IObjectMapper _objMapper;
@@ -19,7 +20,7 @@ namespace Catalog.Application.Services
         private readonly IStringLocalizer<CatalogResource> _localizer;
 
         public BrandService(IBrandRepository brandRepo, IObjectMapper objMapper, IStringLocalizer<CatalogResource> localizer, BrandManager brandManager)
-		{
+        {
             _brandRepo = brandRepo;
             _objMapper = objMapper;
             _brandManager = brandManager;
@@ -33,8 +34,8 @@ namespace Catalog.Application.Services
                 request.Id = Check.NotNullOrEmpty(request.Id, nameof(request.Id));
                 var brand = await _brandRepo.GetByIdAsync(Guid.Parse(request.Id));
 
-                if(brand is null)
-                    throw new RpcException(new Status(StatusCode.NotFound, _localizer[CatalogErrorCodes.NoBrandAvailable]));
+                if (brand is null)
+                    throw new RpcException(new Status(StatusCode.NotFound, _localizer[CatalogErrorCodes.Brand_NotAvailable]));
 
                 return _objMapper.Map<Brand, BrandDto>(brand);
             }
@@ -50,23 +51,31 @@ namespace Catalog.Application.Services
 
         public override async Task<ListBrandResponseDto> ListBrand(ListBrandRequestDto request, ServerCallContext context)
         {
-            if (request.PageToken <= 0 || request.PageSize <= 0)
-                throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.InvalidPageTokenPageSize]));
-
-            var brandDto = _objMapper.Map<List<Brand>, List<BrandDto>>(await _brandRepo.GetAsync(request.PageToken-1,request.PageSize));
-
-            if (!brandDto.Any())
-                throw new RpcException(new Status(StatusCode.NotFound, _localizer[CatalogErrorCodes.NoBrandAvailable]));
-
-            var totalCount = await _brandRepo.GetTotalAsync();
-
-            var response = new ListBrandResponseDto
+            try
             {
-                TotalSize = totalCount,
-                NextPageToken = request.PageToken * request.PageSize >= totalCount? 1 : request.PageToken + 1,
-            };
-            response.Brands.AddRange(brandDto);
-            return response;
+
+                if (request.PageToken <= 0 || request.PageSize <= 0)
+                    throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.Brand_InvalidPageTokenPageSize]));
+
+                var brandDto = _objMapper.Map<List<Brand>, List<BrandDto>>(await _brandRepo.GetAsync(request.PageToken - 1, request.PageSize, request.Sorting));
+
+                if (!brandDto.Any())
+                    throw new RpcException(new Status(StatusCode.NotFound, _localizer[CatalogErrorCodes.Brand_NotAvailable]));
+
+                var totalCount = await _brandRepo.GetTotalAsync();
+
+                var response = new ListBrandResponseDto
+                {
+                    TotalSize = totalCount,
+                    NextPageToken = request.PageToken * request.PageSize >= totalCount ? 1 : request.PageToken + 1,
+                };
+                response.Brands.AddRange(brandDto);
+                return response;
+            }
+            catch (ParseException)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.Brand_InvalidSortFields,request.Sorting]));
+            }
         }
 
         public override async Task<BrandDto> UpdateBrand(BrandDto request, ServerCallContext context)
@@ -91,13 +100,13 @@ namespace Catalog.Application.Services
             }
             catch (BusinessException ex)
             {
-                if (ex.Code == CatalogErrorCodes.BrandNameAlreadyExist)
+                if (ex.Code == CatalogErrorCodes.Brand_NameAlreadyExist)
                     throw new RpcException(new Status(StatusCode.AlreadyExists, _localizer[ex.Code, request.Name]));
 
-                if (ex.Code == CatalogErrorCodes.UpdateBrandFailed)
+                if (ex.Code == CatalogErrorCodes.Brand_UpdateFailed)
                     throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[ex.Code, request.Id]));
 
-                if (ex.Code == CatalogErrorCodes.CreateBrandFailed)
+                if (ex.Code == CatalogErrorCodes.Brand_CreateFailed)
                     throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[ex.Code]));
 
                 throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
@@ -113,13 +122,14 @@ namespace Catalog.Application.Services
                 request.Brand.Id = Check.NotNullOrEmpty(request.Brand.Id, nameof(request.Brand.Id));
 
                 if (request.FieldToUpdate == null)
-                    throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.UpdateMissingBrandFields]));
+                    throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.Brand_UpdateFailedMissingBrandFields]));
 
                 var brandToPatch = new BrandDto();
 
                 request.FieldToUpdate.Merge(request.Brand, brandToPatch);
 
                 var patchedBrand = await _brandManager.PatchAsync(Guid.Parse(request.Brand.Id), brandToPatch.Name, brandToPatch.Image, request.FieldToUpdate.Paths.Contains(nameof(brandToPatch.Status)) ? (EnumStatus)brandToPatch.Status : null, string.IsNullOrEmpty(brandToPatch.RealmId) ? null : Guid.Parse(brandToPatch.RealmId));
+
                 return _objMapper.Map<Brand, BrandDto>(patchedBrand);
             }
             catch (FormatException ex)
@@ -128,10 +138,10 @@ namespace Catalog.Application.Services
             }
             catch (BusinessException ex)
             {
-                if (ex.Code == CatalogErrorCodes.UpdateBrandFailed)
+                if (ex.Code == CatalogErrorCodes.Brand_UpdateFailed)
                     throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[ex.Code, request.Brand.Id]));
 
-                if (ex.Code == CatalogErrorCodes.BrandNameAlreadyExist)
+                if (ex.Code == CatalogErrorCodes.Brand_NameAlreadyExist)
                     throw new RpcException(new Status(StatusCode.AlreadyExists, _localizer[ex.Code, request.Brand.Name]));
 
                 throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
