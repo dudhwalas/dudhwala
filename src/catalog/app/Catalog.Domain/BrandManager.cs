@@ -58,14 +58,14 @@ namespace Catalog.Domain
                 {
                     if (!name.IsNullOrWhiteSpace())
                     {
-                        var brandNameToCheck = await _brandRepository.GetByNameAsync(name);
+                        var brandNameToCheck = await _brandRepository.GetByNameAsync(name??"");
                         if (brandNameToCheck is not null)
                             throw new BusinessException(CatalogErrorCodes.Brand_NameAlreadyExist);
-                        existingBrand.SetName(name);
+                        existingBrand.SetName(name??"");
                     }
 
                     if (!image.IsNullOrWhiteSpace())
-                        existingBrand.SetImage(image);
+                        existingBrand.SetImage(image??"");
 
                     if (status != null)
                         existingBrand.SetStatus(status.Value);

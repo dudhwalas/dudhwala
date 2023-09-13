@@ -11,9 +11,9 @@ namespace Catalog.Database
         {
         }
 
-        public async Task<Brand?> CreateAsync([NotNull] Brand _entity)
+        public Task<Brand> CreateAsync([NotNull] Brand _entity)
         {
-            return await InsertAsync(_entity);
+            return InsertAsync(_entity);
         }
 
         public async Task<Brand?> UpdateAsync([NotNull] Brand _entity)
@@ -28,25 +28,24 @@ namespace Catalog.Database
             return entityToUpdate;
         }
 
-        public async Task<Brand?> GetByIdAsync([NotNull] Guid _id)
+        public Task<Brand> GetByIdAsync([NotNull] Guid _id)
         {
-            return await FindAsync(_id);
+            return FindAsync(_id);
         }
 
-        public async Task<Brand?> GetByNameAsync([NotNull] string _brandName)
+        public Task<Brand> GetByNameAsync([NotNull] string _brandName)
         {
-            return await FindAsync(brand => brand.Name == _brandName);
+            return FindAsync(brand => brand.Name == _brandName);
         }
 
-        public async Task<long> GetTotalAsync()
+        public Task<long> GetTotalAsync()
         {
-            return await GetCountAsync();
+            return GetCountAsync();
         }
 
-        public async Task<List<Brand>> GetAsync([NotNull] int pageToken, [NotNull] int pageSize, string? sorting)
+        public Task<List<Brand>> GetAsync([NotNull] int pageToken, [NotNull] int pageSize, string? sorting)
         {
-            var result = await GetPagedListAsync(pageToken * pageSize, pageSize, sorting);
-            return result;
+            return GetPagedListAsync(pageToken * pageSize, pageSize, sorting);
         }
     }
 }
