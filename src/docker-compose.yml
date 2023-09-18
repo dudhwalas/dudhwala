@@ -1,36 +1,44 @@
 version: '3.4'
 services:
     elasticsearch:
-        image: elasticsearch:8.5.3
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.10.0
         container_name: elasticsearch
         ports:
             - 5001:9200
         environment:
             - discovery.type=single-node
+            - cluster.name=elasticsearch
+            - node.name=elasticsearch
+            - discovery.seed_hosts=elasticsearch
             - xpack.security.enabled=false
 
-    fluentd:
-        build: ./fluentd
-        image: fluentd:edge
-        container_name: fluentd
+    fluent-bit:
+        image: fluent/fluent-bit
+        volumes:
+            - ./fluent-bit/conf/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
+            - ./fluent-bit/conf/parsers.conf:/fluent-bit/etc/parsers.conf
+        environment:
+            - FLB_ES_HOST=elasticsearch
+            - FLB_ES_PORT=9200
         ports:
             - 24224:24224
             - 24224:24224/udp
-        links:
+        depends_on:
             - elasticsearch
 
     kibana:
-        image: kibana:8.5.3
+        image: docker.elastic.co/kibana/kibana:8.10.0
         container_name: kibana
         ports:
             - 5003:5601
-        links:
-            - elasticsearch
-            - fluentd
+        environment:
+            - ELASTICSEARCH_URL=http://elasticsearch:9200
+            - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+        depends_on:
+            - fluent-bit
         logging:
             driver: fluentd
             options:
-                fluentd-address: localhost:24224
                 tag: application.kibana
     
     postgres:
@@ -47,12 +55,11 @@ services:
         volumes:
             - postgres_data:/var/lib/postgresql/data
         command: postgres -c config_file=/etc/conf/postgresql.conf
-        links:
-            - fluentd
+        depends_on:
+            - fluent-bit
         logging:
             driver: fluentd
             options:
-                fluentd-address: localhost:24224
                 tag: application.postgres
         
     keycloak:
@@ -72,12 +79,12 @@ services:
             - KC_HEALTH_ENABLED=true
             - KC_METRICS_ENABLED=true
         command: start-dev --log=console  
-        links:
+        depends_on:
             - postgres
+            - fluent-bit
         logging:
             driver: fluentd
             options:
-                fluentd-address: localhost:24224
                 tag: application.keycloak
 
     catalog.api:
@@ -89,12 +96,12 @@ services:
         ports:
             - 5006:5006
             - 5007:5007
-        links:
+        depends_on:
             - postgres
+            - fluent-bit
         logging:
             driver: fluentd
             options:
-                fluentd-address: localhost:24224
                 tag: application.catalog.api
     
 volumes:
