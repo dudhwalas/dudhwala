@@ -40,6 +40,7 @@ namespace Catalog.Api
             app.UseConfiguredEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<Catalog.Application.Services.BrandService>();
+                endpoints.MapGrpcService<Catalog.Application.Services.FileService>();
             });
         }
     }

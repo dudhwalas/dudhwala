@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <Protobuf Include="Protos\brand.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\file.proto" GrpcServices="Server" />
     <Protobuf Include="google\api\annotations.proto" GrpcServices="">
       <Access></Access>
       <ProtoCompile></ProtoCompile>

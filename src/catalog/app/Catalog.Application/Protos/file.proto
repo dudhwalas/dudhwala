@@ -1,0 +1,29 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Catalog.Application";
+
+package file;
+
+service FileService {
+	rpc Upload(FileUploadRequest) returns (FileUploadResponse) {
+		
+	};
+}
+
+message MetaData {
+  string name = 1;
+  string type = 2;
+}
+
+message File {
+  bytes content = 1;
+}
+
+message FileUploadRequest {
+    MetaData metadata = 1;
+    File file = 2;
+}
+
+message FileUploadResponse {
+  string name = 1;
+}
