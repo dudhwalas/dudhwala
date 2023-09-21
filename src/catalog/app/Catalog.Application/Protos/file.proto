@@ -1,16 +1,20 @@
 ﻿syntax = "proto3";
-
+import "google/api/annotations.proto";
 option csharp_namespace = "Catalog.Application";
 
 package file;
 
 service FileService {
 	rpc Upload(FileUploadRequest) returns (FileUploadResponse) {
-		
+		option (google.api.http) = {
+            post: "/v1/file"
+        };
 	};
 
     rpc Download(FileDownloadRequest) returns (FileDownloadResponse) {
-		
+		option (google.api.http) = {
+            get: "/v1/file"
+        };
 	};
 }
 

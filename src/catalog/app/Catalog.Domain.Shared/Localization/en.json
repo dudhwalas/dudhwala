@@ -8,6 +8,7 @@
     "Brand:00005": "Page token or Page size cannot be less or equal to 0.",
     "Brand:00006": "Missing brand fields to update.",
     "Brand:00007": "Invalid sorting '{0}' applied on brand fields.",
-    "File:00001": "File with name {0} not found"
+    "File:00001": "File with name {0} not found",
+    "File:00002": "Invalid parameter {0} passed in request."
   }
 }

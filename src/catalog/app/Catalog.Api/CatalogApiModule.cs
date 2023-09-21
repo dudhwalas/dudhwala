@@ -39,8 +39,8 @@ namespace Catalog.Api
             });
             app.UseConfiguredEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<Catalog.Application.Services.BrandService>();
-                endpoints.MapGrpcService<Catalog.Application.Services.FileService>();
+                endpoints.MapGrpcService<Application.Services.BrandService>();
+                endpoints.MapGrpcService<Application.Services.FileService>();
             });
         }
     }
