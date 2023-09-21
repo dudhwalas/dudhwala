@@ -27,115 +27,49 @@
 
 ```
 syntax = "proto3";
+import "google/api/annotations.proto";
+import "google/protobuf/field_mask.proto";
 
-service Catalog {
-    rpc GetBrand(GetBrandRequest) returns (BrandDto) {
+option csharp_namespace = "Catalog.Application";
+
+package brand;
+
+service BrandService {
+	rpc ListBrand(ListBrandRequestDto) returns (ListBrandResponseDto) {
+		option (google.api.http) = {
+            get: "/v1/brand"
+        };
+	};
+
+	rpc GetBrand(GetBrandRequestDto) returns (BrandDto) {
 		option (google.api.http) = {
             get: "/v1/brand/{id}"
         };
 	};
 
-    rpc ListBrands(ListBrandsRequest) returns (ListBrandsResponse) {
-        option (google.api.http) = {
-            get: "/v1/brand"
-        };
-    };
-
-    rpc AddBrand(BrandDto) returns (BrandDto) {
+	rpc UpdateBrand(BrandDto) returns (BrandDto) {
 		option (google.api.http) = {
-            post: "/v1/brand"
+            put: "/v1/brand",
+			body: "*"
         };
 	};
 
-    rpc UpdateBrand(UpdateBrandRequest) returns (Brand) {
-        option (google.api.http) = {
-            patch: "v1/{brand.name=brand/*}"
-            body: brand
+	rpc PatchBrand(UpdateBrandRequestDto) returns (BrandDto) {
+		option (google.api.http) = {
+            patch: "/v1/brand"
+			body: "brand"
         };
-    };
-
-    rpc GetProduct(GetProductRequest) returns (Product) {
-        option (google.api.http) = {
-            get: "/v1/{name=brand/*/product/*}"
-        };
-    };
-
-    rpc ListProducts(ListProductsRequest) returns (ListProductsResponse) {
-        option (google.api.http) = {
-            get: "/v1/{parent=brand/*}/product"
-        };
-    };
-
-    rpc CreateProduct(CreateProductRequest) returns (Product) {
-        option (googe.api.http) = {
-            post: "/v1/{parent=brand/*}/product}"
-            body: product
-        };
-    };
-
-    rpc UpdateProduct(UpdateProductRequest) returns (Product) {
-        option (google.api.http) = {
-            patch: "v1/{product.name=brand/*/product/*}"
-            body: product
-        }
-    };
+	};
 }
 
-
-message ListBrandsRequest {
-    int32 page_size = 1;
-    string page_token = 2;
-    string filter = 3;
+message ListBrandRequestDto {
+	int32 page_token = 1;
+	int32 page_size = 2;
+	string sorting = 3;
 }
 
-message ListBrandsResponse {
-    repeated Brand brands = 1;
-    string next_page_token = 2;
-}
-
-message GetBrandRequest {
-    string id = 1;
-    … other value types
-}
-
-message CreateBrandRequest {
-    Brand brand = 1;
-    … other value types
-}
-
-message UpdateBrandRequest {
-    Brand brand = 1;
-    FieldMask update_mask = 2;
-    … other value types
-}
-
-message ListProductsRequest {
-    string parent = 1;
-    int32 page_size = 2;
-    string page_token = 3;
-    string filter = 4;
-}
-
-message ListProductsResponse {
-    repeated Product products = 1;
-    string next_page_token = 2;
-}
-
-message GetProductRequest {
-    string name = 1;
-    … other value types
-}
-
-message CreateProductRequest {
-    string parent = 1;
-    Product product = 2;
-    … other value types
-}
-
-message UpdateProductRequest {
-    Product product = 1;
-    FieldMask update_mask = 2;
-    … other value types
+message GetBrandRequestDto {
+	string id = 1;
 }
 
 message BrandDto {
@@ -143,19 +77,18 @@ message BrandDto {
 	string name = 2;
 	string image = 3;
 	int32 status = 4;
-	string ream_id = 5;
+	string realm_Id = 5;
 }
 
-message Product {
-    string name = 1;
-    string realm_id = 2;
-    string display_name = 3;
-    string image = 4;
-    string price = 5;
-    string quantity = 6;
-    string brand_id = 7;
-    bool status = 8;
-    … other value types
+message ListBrandResponseDto {
+	repeated BrandDto brands = 1;
+	int32 next_page_token = 2;
+	int64 total_size = 3;
+}
+
+message UpdateBrandRequestDto {
+	BrandDto brand = 1;
+	google.protobuf.FieldMask field_to_update = 2;
 }
 
 ```

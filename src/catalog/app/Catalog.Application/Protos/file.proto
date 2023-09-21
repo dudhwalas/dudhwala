@@ -8,6 +8,7 @@ service FileService {
 	rpc Upload(FileUploadRequest) returns (FileUploadResponse) {
 		option (google.api.http) = {
             post: "/v1/file"
+            body: "*"
         };
 	};
 
