@@ -9,5 +9,6 @@
         public const string Brand_InvalidPageTokenPageSize = "Brand:00005";
         public const string Brand_UpdateFailedMissingBrandFields = "Brand:00006";
         public const string Brand_InvalidSortFields = "Brand:00007";
+        public const string File_Not_Found = "File:00001";
     }
 }

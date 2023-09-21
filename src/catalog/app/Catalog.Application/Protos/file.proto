@@ -8,6 +8,10 @@ service FileService {
 	rpc Upload(FileUploadRequest) returns (FileUploadResponse) {
 		
 	};
+
+    rpc Download(FileDownloadRequest) returns (FileDownloadResponse) {
+		
+	};
 }
 
 message MetaData {
@@ -26,4 +30,12 @@ message FileUploadRequest {
 
 message FileUploadResponse {
   string name = 1;
+}
+
+message FileDownloadRequest {
+    MetaData metadata = 1;
+}
+
+message FileDownloadResponse {
+  File file = 1;
 }
