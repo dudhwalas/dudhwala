@@ -1,0 +1,66 @@
+﻿syntax = "proto3";
+import "google/api/annotations.proto";
+import "google/protobuf/field_mask.proto";
+
+option csharp_namespace = "Catalog.Application";
+
+package product;
+
+service ProductService {
+	rpc ListProduct(ListProductRequestDto) returns (ListProductResponseDto) {
+		option (google.api.http) = {
+            get: "/v1/Product"
+        };
+	};
+
+	rpc GetProduct(GetProductRequestDto) returns (ProductDto) {
+		option (google.api.http) = {
+            get: "/v1/Product/{id}"
+        };
+	};
+
+	rpc UpdateProduct(ProductDto) returns (ProductDto) {
+		option (google.api.http) = {
+            put: "/v1/Product",
+			body: "*"
+        };
+	};
+
+	rpc PatchProduct(UpdateProductRequestDto) returns (ProductDto) {
+		option (google.api.http) = {
+            patch: "/v1/Product"
+			body: "Product"
+        };
+	};
+}
+
+message ListProductRequestDto {
+	int32 page_token = 1;
+	int32 page_size = 2;
+	string sorting = 3;
+	string brandId = 4;
+}
+
+message GetProductRequestDto {
+	string id = 1;
+}
+
+message ProductDto {
+	string id = 1;
+	string name = 2;
+	string image = 3;
+	int32 status = 4;
+	string realm_Id = 5;
+	string brand_Id = 6;
+}
+
+message ListProductResponseDto {
+	repeated ProductDto Products = 1;
+	int32 next_page_token = 2;
+	int64 total_size = 3;
+}
+
+message UpdateProductRequestDto {
+	ProductDto Product = 1;
+	google.protobuf.FieldMask field_to_update = 2;
+}

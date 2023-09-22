@@ -7,6 +7,15 @@
     "Brand:00004": "Failed to create brand.",
     "Brand:00005": "Page token or Page size cannot be less or equal to 0.",
     "Brand:00006": "Missing brand fields to update.",
-    "Brand:00007": "Invalid sorting '{0}' applied on brand fields."
+    "Brand:00007": "Invalid sorting '{0}' applied on brand fields.",
+
+    "Product:00001": "Product with name '{0}' already exists.",
+    "Product:00002": "No Product(s) available.",
+    "Product:00003": "Failed to update Product with id {0}.",
+    "Product:00004": "Failed to create Product.",
+    "Product:00005": "Page token or Page size cannot be less or equal to 0.",
+    "Product:00006": "Missing Product fields to update.",
+    "Product:00007": "Invalid sorting '{0}' applied on Product fields.",
+    "Product:00008": "Brand with id '{0}' does not exists."
   }
 }

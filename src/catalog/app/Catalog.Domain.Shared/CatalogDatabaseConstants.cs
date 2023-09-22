@@ -4,5 +4,6 @@
 	{
 		public const string DB_SCHEMA = "catalog";
 		public const string TABLE_BRAND = "brand";
-	}
+        public const string TABLE_PRODUCT = "product";
+    }
 }

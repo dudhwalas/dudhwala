@@ -7,5 +7,6 @@ namespace Catalog.Database
     public interface ICatalogDbContext : IEfCoreDbContext
 	{
 		public DbSet<Brand> BrandDb { get; set; }
-	}
+        public DbSet<Product> ProductDb { get; set; }
+    }
 }

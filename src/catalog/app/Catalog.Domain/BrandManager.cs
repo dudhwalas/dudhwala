@@ -19,16 +19,16 @@ namespace Catalog.Domain
 
         public async Task<Brand> UpdateAsync([NotNull] Guid id,[NotNull] string name, [NotNull] string image, EnumCatalogStatus status,Guid realmId)
         {
+            var brandNameToCheck = await _brandRepository.GetByNameAsync(name);
+            if (brandNameToCheck is not null)
+                throw new BusinessException(CatalogErrorCodes.Brand_NameAlreadyExist);
+
             if (id != Guid.Empty)
             {
                 var existingBrand = await _brandRepository.GetByIdAsync(id);
 
                 if (existingBrand is not null)
                 {
-                    var brandNameToCheck = await _brandRepository.GetByNameAsync(name);
-                    if (brandNameToCheck is not null)
-                        throw new BusinessException(CatalogErrorCodes.Brand_NameAlreadyExist);
-
                     var updatedBrand = await _brandRepository.UpdateAsync(new Brand(id, name, image, status, realmId));
 
                     if (updatedBrand == null)
@@ -37,10 +37,7 @@ namespace Catalog.Domain
                     return updatedBrand;
                 }
             }
-            var brandToCheck = await _brandRepository.GetByNameAsync(name);
-            if (brandToCheck is not null)
-                throw new BusinessException(CatalogErrorCodes.Brand_NameAlreadyExist);
-            
+               
             var createdBrand = await _brandRepository.CreateAsync(new Brand(_guidGenerator.Create(), name, image, status, realmId));
 
             if(createdBrand is null)

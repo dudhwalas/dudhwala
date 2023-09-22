@@ -32,6 +32,7 @@
       <OutputDir></OutputDir>
       <Generator></Generator>
     </Protobuf>
+    <Protobuf Include="Protos\product.proto" GrpcServices="Server" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Services\" />
@@ -39,6 +40,7 @@
     <None Remove="google\api\" />
     <None Remove="google\api\annotations.proto" />
     <None Remove="google\api\http.proto" />
+    <None Remove="Protos\brand %28copy%29.proto" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />

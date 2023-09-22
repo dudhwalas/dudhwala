@@ -37,6 +37,7 @@ services:
             - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
         depends_on:
             - fluent-bit
+            - elasticsearch
         logging:
             driver: fluentd
             options:

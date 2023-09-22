@@ -122,7 +122,7 @@ namespace Catalog.Application.Services
                 request.Brand.Id = Check.NotNullOrEmpty(request.Brand.Id, nameof(request.Brand.Id));
 
                 if (request.FieldToUpdate == null)
-                    throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.Brand_UpdateFailedMissingBrandFields]));
+                    throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.Brand_UpdateFailed_MissingBrandFields]));
 
                 var brandToPatch = new BrandDto();
 
