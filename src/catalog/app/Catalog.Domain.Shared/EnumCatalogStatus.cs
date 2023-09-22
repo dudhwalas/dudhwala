@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Domain.Shared
 {
-    public enum EnumStatus
+    public enum EnumCatalogStatus
 	{
 		ACTIVE,INACTIVE
 	}

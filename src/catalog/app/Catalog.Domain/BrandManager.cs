@@ -17,7 +17,7 @@ namespace Catalog.Domain
             _guidGenerator = guidGenerator;
         }
 
-        public async Task<Brand> UpdateAsync([NotNull] Guid id,[NotNull] string name, [NotNull] string image, EnumStatus status,Guid realmId)
+        public async Task<Brand> UpdateAsync([NotNull] Guid id,[NotNull] string name, [NotNull] string image, EnumCatalogStatus status,Guid realmId)
         {
             if (id != Guid.Empty)
             {
@@ -48,7 +48,7 @@ namespace Catalog.Domain
             return createdBrand;
         }
 
-        public async Task<Brand> PatchAsync(Guid id, string? name, string? image, EnumStatus? status, Guid? realmId)
+        public async Task<Brand> PatchAsync(Guid id, string? name, string? image, EnumCatalogStatus? status, Guid? realmId)
         {
             if (id != Guid.Empty)
             {

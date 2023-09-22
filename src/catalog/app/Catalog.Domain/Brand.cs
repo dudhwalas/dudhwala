@@ -12,7 +12,7 @@ namespace Catalog.Domain
         [NotNull]
         public string? Image { get; private set; }
         [NotNull]
-        public EnumStatus? Status { get; private set; }
+        public EnumCatalogStatus? Status { get; private set; }
         [NotNull]
         public Guid RealmId { get; private set; }
 
@@ -21,7 +21,7 @@ namespace Catalog.Domain
 		{
 		}
 
-		public Brand(Guid uid, [NotNull]string name, [NotNull] string image, [NotNull] EnumStatus status, [NotNull] Guid realmId)
+		public Brand(Guid uid, [NotNull]string name, [NotNull] string image, [NotNull] EnumCatalogStatus status, [NotNull] Guid realmId)
 		{
 			Id = uid;
 			SetName(name);
@@ -48,7 +48,7 @@ namespace Catalog.Domain
             return this;
         }
 
-        public Brand SetStatus([NotNull]EnumStatus status)
+        public Brand SetStatus([NotNull]EnumCatalogStatus status)
         {
             Status = Check.NotNull(status, nameof(Status));
             return this;

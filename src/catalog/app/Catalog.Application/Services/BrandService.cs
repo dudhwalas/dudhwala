@@ -87,7 +87,7 @@ namespace Catalog.Application.Services
                 request.Status = Check.NotNull(request.Status, nameof(request.Status));
                 request.RealmId = Check.NotNullOrEmpty(request.RealmId, nameof(request.RealmId));
 
-                var createdBrand = await _brandManager.UpdateAsync(string.IsNullOrEmpty(request.Id) ? Guid.Empty : Guid.Parse(request.Id), request.Name, request.Image, (EnumStatus)request.Status, string.IsNullOrEmpty(request.RealmId) ? Guid.Empty : Guid.Parse(request.RealmId));
+                var createdBrand = await _brandManager.UpdateAsync(string.IsNullOrEmpty(request.Id) ? Guid.Empty : Guid.Parse(request.Id), request.Name, request.Image, (EnumCatalogStatus)request.Status, string.IsNullOrEmpty(request.RealmId) ? Guid.Empty : Guid.Parse(request.RealmId));
                 return _objMapper.Map<Brand, BrandDto>(createdBrand);
             }
             catch (FormatException ex)
@@ -128,7 +128,7 @@ namespace Catalog.Application.Services
 
                 request.FieldToUpdate.Merge(request.Brand, brandToPatch);
 
-                var patchedBrand = await _brandManager.PatchAsync(Guid.Parse(request.Brand.Id), brandToPatch.Name, brandToPatch.Image, request.FieldToUpdate.Paths.Contains(nameof(brandToPatch.Status)) ? (EnumStatus)brandToPatch.Status : null, string.IsNullOrEmpty(brandToPatch.RealmId) ? null : Guid.Parse(brandToPatch.RealmId));
+                var patchedBrand = await _brandManager.PatchAsync(Guid.Parse(request.Brand.Id), brandToPatch.Name, brandToPatch.Image, request.FieldToUpdate.Paths.Contains(nameof(brandToPatch.Status)) ? (EnumCatalogStatus)brandToPatch.Status : null, string.IsNullOrEmpty(brandToPatch.RealmId) ? null : Guid.Parse(brandToPatch.RealmId));
 
                 return _objMapper.Map<Brand, BrandDto>(patchedBrand);
             }

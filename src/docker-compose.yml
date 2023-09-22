@@ -14,6 +14,7 @@ services:
 
     fluent-bit:
         image: fluent/fluent-bit
+        container_name: fluent-bit
         volumes:
             - ./fluent-bit/conf/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
             - ./fluent-bit/conf/parsers.conf:/fluent-bit/etc/parsers.conf
@@ -99,13 +100,29 @@ services:
         depends_on:
             - postgres
             - fluent-bit
+        logging:
+            driver: fluentd
+            options:
+                tag: application.catalog.api
+
+    file.api:
+        build:
+            context: .
+            dockerfile: ./file/app/File.Api/Dockerfile
+        image: file.api:1.1
+        container_name: file.api
+        ports:
+            - 5008:5008
+            - 5009:5009
+        depends_on:
+            - fluent-bit
         volumes:
             - file_data:/var/lib/files/data
         logging:
             driver: fluentd
             options:
-                tag: application.catalog.api
-    
+                tag: application.file.api
+            
 volumes:
   postgres_data:
       driver: local

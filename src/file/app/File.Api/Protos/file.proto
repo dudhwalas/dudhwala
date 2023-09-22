@@ -1,6 +1,6 @@
 ﻿syntax = "proto3";
 import "google/api/annotations.proto";
-option csharp_namespace = "Catalog.Application";
+option csharp_namespace = "File.Application";
 
 package file;
 
@@ -10,6 +10,7 @@ service FileService {
             post: "/v1/file"
             body: "*"
         };
+
 	};
 
     rpc Download(FileDownloadRequest) returns (FileDownloadResponse) {
