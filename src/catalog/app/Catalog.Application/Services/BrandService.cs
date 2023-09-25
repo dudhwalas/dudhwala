@@ -111,7 +111,7 @@ namespace Catalog.Application.Services
                 if (ex.Code == CatalogErrorCodes.Brand_CreateFailed)
                     throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[ex.Code]));
 
-                throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
+                throw new RpcException(new Status(StatusCode.Unknown, ex.Message));
             }
         }
 
