@@ -57,11 +57,13 @@ namespace Catalog.Application.Services
                 if (request.PageToken <= 0 || request.PageSize <= 0)
                     throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.Brand_InvalidPageTokenPageSize]));
 
-                var brandDto = _objMapper.Map<List<Brand>, List<BrandDto>>(await _brandRepo.GetAsync(request.PageToken - 1, request.PageSize, request.Sorting));
+                var brands = await _brandRepo.GetAsync(request.PageToken - 1, request.PageSize, request.Sorting);
 
-                if (!brandDto.Any())
+                if (!brands.Any())
                     throw new RpcException(new Status(StatusCode.NotFound, _localizer[CatalogErrorCodes.Brand_NotAvailable]));
 
+                var brandDto = _objMapper.Map<List<Brand>, List<BrandDto>>(brands);
+ 
                 var totalCount = await _brandRepo.GetTotalAsync();
 
                 var response = new ListBrandResponseDto
