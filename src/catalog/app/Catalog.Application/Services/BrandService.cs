@@ -16,10 +16,10 @@ namespace Catalog.Application.Services
     {
         private readonly IBrandRepository _brandRepo;
         private readonly IObjectMapper _objMapper;
-        private readonly BrandManager _brandManager;
+        private readonly IBrandManager _brandManager;
         private readonly IStringLocalizer<CatalogResource> _localizer;
 
-        public BrandService(IBrandRepository brandRepo, IObjectMapper objMapper, IStringLocalizer<CatalogResource> localizer, BrandManager brandManager)
+        public BrandService(IBrandRepository brandRepo, IObjectMapper objMapper, IStringLocalizer<CatalogResource> localizer, IBrandManager brandManager)
         {
             _brandRepo = brandRepo;
             _objMapper = objMapper;

@@ -6,7 +6,7 @@ using Volo.Abp.Guids;
 
 namespace Catalog.Domain
 {
-    public class BrandManager : DomainService
+    public class BrandManager : DomainService, IBrandManager
 	{
         private readonly IBrandRepository _brandRepository;
         private readonly IGuidGenerator _guidGenerator;

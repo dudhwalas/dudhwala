@@ -6,6 +6,7 @@ using Moq;
 using Grpc.Core;
 using Catalog.Domain.Shared;
 using System.Linq.Dynamic.Core.Exceptions;
+using Volo.Abp;
 
 namespace Catalog.Application.Test;
 
@@ -19,7 +20,7 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -38,7 +39,7 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -57,7 +58,7 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -77,7 +78,7 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -101,7 +102,7 @@ public class BrandServiceTest
         var mockBrandRepo = Mock.Of<IBrandRepository>(repo => repo.GetByIdAsync(brandId) == Task.FromResult(brand));
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var mockObjectMapper = Mock.Of<IObjectMapper>(objMap => objMap.Map<Brand, BrandDto>(brand) == new BrandDto() {
             Id = brandId.ToString(),
@@ -130,7 +131,7 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -157,7 +158,7 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -184,7 +185,7 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -211,7 +212,7 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -238,7 +239,7 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -265,7 +266,7 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -323,7 +324,7 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -369,7 +370,7 @@ public class BrandServiceTest
         }).ToList());
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -416,7 +417,7 @@ public class BrandServiceTest
             }).ToList());
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -447,7 +448,7 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -478,38 +479,7 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
-        var mockServerCallContxt = Mock.Of<ServerCallContext>();
-        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
-
-        //Act
-        var ex = await Assert.ThrowsAsync<RpcException>(() => brandService.UpdateBrand(new BrandDto()
-        {
-            Name = brandName,
-            Image = brandImage,
-            Status = brandStatus,
-            RealmId = brandRealmId.ToString()
-        }, mockServerCallContxt));
-
-        //Assert
-        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
-    }
-
-    [Fact]
-    public async Task Should_Update_Brand_With_Wrong_Status_Throws_Argument_Exception_Async()
-    {
-        //Arrange
-        var brandId = Guid.NewGuid();
-        var brandName = "xxx";
-        var brandStatus = 3;
-        var brandImage = "xxx.png";
-        var brandRealmId = Guid.NewGuid();
-
-        var mockBrandRepo = Mock.Of<IBrandRepository>();
-        var mockObjectMapper = Mock.Of<IObjectMapper>();
-        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
-        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -540,7 +510,7 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = Mock.Of<IBrandManager>();
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
         var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
 
@@ -572,9 +542,10 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = new Mock<IBrandManager>();
+        mockBrandManager.Setup(bm => bm.UpdateAsync(brandId, brandName, brandImage, brandStatus, brandRealmId)).ThrowsAsync(new BusinessException(CatalogErrorCodes.Brand_NameAlreadyExist));
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
-        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
+        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager.Object);
 
         //Act
         var ex = await Assert.ThrowsAsync<RpcException>(() => brandService.UpdateBrand(new BrandDto()
@@ -605,9 +576,10 @@ public class BrandServiceTest
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = new Mock<IBrandManager>();
+        mockBrandManager.Setup(bm => bm.UpdateAsync(brandId, brandName, brandImage, brandStatus, brandRealmId)).ThrowsAsync(new BusinessException(CatalogErrorCodes.Brand_UpdateFailed));
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
-        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
+        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager.Object);
 
         //Act
         var ex = await Assert.ThrowsAsync<RpcException>(() => brandService.UpdateBrand(new BrandDto()
@@ -634,17 +606,19 @@ public class BrandServiceTest
         var brandRealmId = Guid.NewGuid();
         var brand = new Brand(brandId, brandName, brandImage, brandStatus, brandRealmId);
 
-        var mockBrandRepo = Mock.Of<IBrandRepository>((repo) => repo.CreateAsync(brand) == Task.FromResult(default(Brand)));
+        var mockBrandRepo = Mock.Of<IBrandRepository>((repo) => repo.GetByIdAsync(brandId) == Task.FromResult(brand) && repo.UpdateAsync(brand) == Task.FromResult(default(Brand)));
         var mockObjectMapper = Mock.Of<IObjectMapper>();
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = new Mock<IBrandManager>();
+        mockBrandManager.Setup(bm => bm.UpdateAsync(brandId, brandName, brandImage, brandStatus, brandRealmId)).ThrowsAsync(new BusinessException(CatalogErrorCodes.Brand_CreateFailed));
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
-        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
+        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager.Object);
 
         //Act
         var ex = await Assert.ThrowsAsync<RpcException>(() => brandService.UpdateBrand(new BrandDto()
         {
+            Id = brandId.ToString(),
             Name = brandName,
             Image = brandImage,
             Status = brandStatus.To<int>(),
@@ -677,9 +651,10 @@ public class BrandServiceTest
         });
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = new Mock<IBrandManager>();
+        mockBrandManager.Setup(bm => bm.UpdateAsync(brandId, brandName, brandImage, brandStatus, brandRealmId)).ReturnsAsync(brand);
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
-        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
+        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager.Object);
 
         //Act
         var brandResult = await brandService.UpdateBrand(new BrandDto()
@@ -717,9 +692,10 @@ public class BrandServiceTest
         });
         var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
         var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
-        var mockBrandManager = new BrandManager(mockBrandRepo, mockGuidGenerator);
+        var mockBrandManager = new Mock<IBrandManager>();
+        mockBrandManager.Setup(bm => bm.UpdateAsync(brandId, brandName, brandImage, brandStatus, brandRealmId)).ReturnsAsync(brand);
         var mockServerCallContxt = Mock.Of<ServerCallContext>();
-        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager);
+        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager.Object);
 
         //Act
         var brandResult = await brandService.UpdateBrand(new BrandDto()
