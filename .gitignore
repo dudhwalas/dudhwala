@@ -5,3 +5,5 @@
 .vscode
 **/obj
 **/bin
+**/TestResults
+**/coveragereport
