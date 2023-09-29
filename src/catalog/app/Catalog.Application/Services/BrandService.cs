@@ -63,7 +63,7 @@ namespace Catalog.Application.Services
                     throw new RpcException(new Status(StatusCode.NotFound, _localizer[CatalogErrorCodes.Brand_NotAvailable]));
 
                 var brandDto = _objMapper.Map<List<Brand>, List<BrandDto>>(brands);
- 
+
                 var totalCount = await _brandRepo.GetTotalAsync();
 
                 var response = new ListBrandResponseDto
@@ -76,7 +76,7 @@ namespace Catalog.Application.Services
             }
             catch (ParseException)
             {
-                throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.Brand_InvalidSortFields,request.Sorting]));
+                throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.Brand_InvalidSortFields, request.Sorting]));
             }
         }
 
@@ -121,20 +121,32 @@ namespace Catalog.Application.Services
             {
                 request.Brand = Check.NotNull(request.Brand, nameof(request.Brand));
 
-                request.Brand.Id = Check.NotNullOrEmpty(request.Brand.Id, nameof(request.Brand.Id));
+                request.Brand.Id = Check.NotNullOrWhiteSpace(request.Brand.Id, nameof(request.Brand.Id));
 
-                if (request.FieldToUpdate == null)
+                if (request.FieldToUpdate is null || request.FieldToUpdate.Paths.IsNullOrEmpty())
                     throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.Brand_UpdateFailed_MissingBrandFields]));
 
                 var brandToPatch = new BrandDto();
 
                 request.FieldToUpdate.Merge(request.Brand, brandToPatch);
 
+                if (!request.FieldToUpdate.Paths.Any(path =>
+                    path.Equals(nameof(brandToPatch.Status).ToLower()) ||
+                    path.Equals(nameof(brandToPatch.Name).ToLower()) ||
+                    path.Equals(nameof(brandToPatch.Image).ToLower()) ||
+                    path.Equals(nameof(brandToPatch.RealmId).ToLower())
+                ))
+                    throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.Brand_UpdateFailed_MissingBrandFields]));
+
                 var patchedBrand = await _brandManager.PatchAsync(Guid.Parse(request.Brand.Id), brandToPatch.Name, brandToPatch.Image, request.FieldToUpdate.Paths.Contains(nameof(brandToPatch.Status)) ? (EnumCatalogStatus)brandToPatch.Status : null, string.IsNullOrEmpty(brandToPatch.RealmId) ? null : Guid.Parse(brandToPatch.RealmId));
 
                 return _objMapper.Map<Brand, BrandDto>(patchedBrand);
             }
             catch (FormatException ex)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
+            }
+            catch (ArgumentException ex)
             {
                 throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
             }

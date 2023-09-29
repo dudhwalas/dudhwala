@@ -7,6 +7,7 @@ using Grpc.Core;
 using Catalog.Domain.Shared;
 using System.Linq.Dynamic.Core.Exceptions;
 using Volo.Abp;
+using Google.Protobuf.WellKnownTypes;
 
 namespace Catalog.Application.Test;
 
@@ -344,7 +345,6 @@ public class BrandServiceTest
     public async Task Should_List_Brand_With_PageSize_1_PageToken_1_TotalCount_1_Return_Brands_Async()
     {
         //Arrange
-
         var brandId = Guid.NewGuid();
         var brandName = "xxx";
         var brandImage = "xxx.png";
@@ -391,7 +391,6 @@ public class BrandServiceTest
     public async Task Should_List_Brand_With_PageSize_1_PageToken_1_TotalCount_2_Return_Brands_Async()
     {
         //Arrange
-
         var brandId = Guid.NewGuid();
         var brandName = "xxx";
         var brandImage = "xxx.png";
@@ -709,5 +708,315 @@ public class BrandServiceTest
 
         //Assert
         Assert.Equal(brandId.ToString(), brandResult.Id);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Brand_With_Null_Brand_Throws_RPC_Argument_Exception_Async()
+    {
+        //Arrange
+        var mockBrandRepo = Mock.Of<IBrandRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>();
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockBrandManager = new Mock<IBrandManager>();
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager.Object);
+
+        //Act
+        var ex = await Assert.ThrowsAsync<RpcException>(() => brandService.PatchBrand(new UpdateBrandRequestDto {
+            Brand = null,
+            FieldToUpdate = null
+        }, mockServerCallContxt)); ;
+
+        //Assert
+        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Brand_With_Empty_Brand_Id_Throws_RPC_Argument_Exception_Async()
+    {
+        //Arrange
+        string? brandId = string.Empty;
+        var brandName = "xxx";
+        var brandStatus = EnumCatalogStatus.ACTIVE;
+        var brandImage = "xxx.png";
+        var brandRealmId = Guid.NewGuid();
+
+        var brandDto = new BrandDto()
+        {
+            Id = brandId,
+            Name = brandName,
+            Image = brandImage,
+            Status = brandStatus.To<int>(),
+            RealmId = brandRealmId.ToString()
+        };
+        //var brand = new Brand(brandId, brandName, brandImage, brandStatus, brandRealmId);
+
+        var mockBrandRepo = Mock.Of<IBrandRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>();
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockBrandManager = new Mock<IBrandManager>();
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager.Object);
+
+        //Act
+        var ex = await Assert.ThrowsAsync<RpcException>(() => brandService.PatchBrand(new UpdateBrandRequestDto
+        {
+            Brand = brandDto,
+            FieldToUpdate = null
+        }, mockServerCallContxt)); ;
+
+        //Assert
+        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Brand_With_Space_Brand_Id_Throws_RPC_Argument_Exception_Async()
+    {
+        //Arrange
+        string? brandId = " ";
+        var brandName = "xxx";
+        var brandStatus = EnumCatalogStatus.ACTIVE;
+        var brandImage = "xxx.png";
+        var brandRealmId = Guid.NewGuid();
+
+        var brandDto = new BrandDto()
+        {
+            Id = brandId,
+            Name = brandName,
+            Image = brandImage,
+            Status = brandStatus.To<int>(),
+            RealmId = brandRealmId.ToString()
+        };
+        //var brand = new Brand(brandId, brandName, brandImage, brandStatus, brandRealmId);
+
+        var mockBrandRepo = Mock.Of<IBrandRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>();
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockBrandManager = new Mock<IBrandManager>();
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager.Object);
+
+        //Act
+        var ex = await Assert.ThrowsAsync<RpcException>(() => brandService.PatchBrand(new UpdateBrandRequestDto
+        {
+            Brand = brandDto,
+            FieldToUpdate = null
+        }, mockServerCallContxt)); ;
+
+        //Assert
+        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Brand_With_Malformed_Brand_Id_Throws_RPC_Argument_Exception_Async()
+    {
+        //Arrange
+        string? brandId = "0.0.0.0";
+        var brandName = "xxx";
+        var brandStatus = EnumCatalogStatus.ACTIVE;
+        var brandImage = "xxx.png";
+        var brandRealmId = Guid.NewGuid();
+
+        var brandDto = new BrandDto()
+        {
+            Id = brandId,
+            Name = brandName,
+            Image = brandImage,
+            Status = brandStatus.To<int>(),
+            RealmId = brandRealmId.ToString()
+        };
+
+        var mockBrandRepo = Mock.Of<IBrandRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>();
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockBrandManager = new Mock<IBrandManager>();
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager.Object);
+
+        //Act
+        var ex = await Assert.ThrowsAsync<RpcException>(() => brandService.PatchBrand(new UpdateBrandRequestDto
+        {
+            Brand = brandDto,
+            FieldToUpdate = null
+        }, mockServerCallContxt)); ;
+
+        //Assert
+        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Brand_With_No_Update_Fields_Throws_RPC_Argument_Exception_Async()
+    {
+        //Arrange
+        var brandId = Guid.NewGuid();
+        var brandName = "xxx";
+        var brandStatus = EnumCatalogStatus.ACTIVE;
+        var brandImage = "xxx.png";
+        var brandRealmId = Guid.NewGuid();
+
+        var brandDto = new BrandDto()
+        {
+            Id = brandId.ToString(),
+            Name = brandName,
+            Image = brandImage,
+            Status = brandStatus.To<int>(),
+            RealmId = brandRealmId.ToString()
+        };
+        
+        var mockBrandRepo = Mock.Of<IBrandRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>();
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockBrandManager = new Mock<IBrandManager>();
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager.Object);
+
+        //Act
+        var ex = await Assert.ThrowsAsync<RpcException>(() => brandService.PatchBrand(new UpdateBrandRequestDto
+        {
+            Brand = brandDto,
+            FieldToUpdate = null
+        }, mockServerCallContxt)); ;
+
+        //Assert
+        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Brand_With_Empty_Update_Fields_Throws_RPC_Invalid_Argument_Async()
+    {
+        //Arrange
+        var brandId = Guid.NewGuid();
+        var brandName = "xxx";
+        var brandStatus = EnumCatalogStatus.ACTIVE;
+        var brandImage = "xxx.png";
+        var brandRealmId = Guid.NewGuid();
+
+        var brandDto = new BrandDto()
+        {
+            Id = brandId.ToString(),
+            Name = brandName,
+            Image = brandImage,
+            Status = brandStatus.To<int>(),
+            RealmId = brandRealmId.ToString()
+        };
+        
+        var mockBrandRepo = Mock.Of<IBrandRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>();
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockBrandManager = new Mock<IBrandManager>();
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager.Object);
+
+        //Act
+        var ex = await Assert.ThrowsAsync<RpcException>(() => brandService.PatchBrand(new UpdateBrandRequestDto
+        {
+            Brand = brandDto,
+            FieldToUpdate = FieldMask.FromString("")
+        }, mockServerCallContxt)); ;
+
+        //Assert
+        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Brand_With_Unknown_Update_Fields_Throws_RPC_Invalid_Argument_Async()
+    {
+        //Arrange
+        var brandId = Guid.NewGuid();
+        var brandName = "xxx";
+        var brandStatus = EnumCatalogStatus.ACTIVE;
+        var brandImage = "xxx.png";
+        var brandRealmId = Guid.NewGuid();
+
+        var brandDto = new BrandDto()
+        {
+            Id = brandId.ToString(),
+            Name = brandName,
+            Image = brandImage,
+            Status = brandStatus.To<int>(),
+            RealmId = brandRealmId.ToString()
+        };
+
+        var brand = new Brand(brandId, brandName, brandImage, brandStatus, brandRealmId);
+
+        var mockBrandRepo = Mock.Of<IBrandRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>(objMap => objMap.Map<Brand, BrandDto>(brand) == new BrandDto()
+        {
+            Id = brand.Id.ToString(),
+            Name = brand.Name,
+            Image = brand.Image,
+            Status = brand.Status != null ? brand.Status.To<int>() : 1,
+            RealmId = brand.RealmId.ToString()
+        });
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockBrandManager = new Mock<IBrandManager>();
+        mockBrandManager.Setup(bm => bm.PatchAsync(brandId, string.Empty, string.Empty, null, null)).ReturnsAsync(brand);
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager.Object);
+
+        //Act
+        var ex = await Assert.ThrowsAsync<RpcException>(() => brandService.PatchBrand(new UpdateBrandRequestDto
+        {
+            Brand = brandDto,
+            FieldToUpdate = FieldMask.FromString("unknown_field")
+        }, mockServerCallContxt)); ;
+
+        //Assert
+        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Brand_With_Update_Fields_Returns_Updated_Brand_Async()
+    {
+        //Arrange
+        var brandId = Guid.NewGuid();
+        var brandName = "xxx";
+        var brandStatus = EnumCatalogStatus.ACTIVE;
+        var brandImage = "xxx.png";
+        var brandRealmId = Guid.NewGuid();
+
+        var brandDto = new BrandDto()
+        {
+            Id = brandId.ToString(),
+            Name = brandName,
+            Image = brandImage,
+            Status = brandStatus.To<int>(),
+            RealmId = brandRealmId.ToString()
+        };
+
+        var brand = new Brand(brandId, brandName, brandImage, brandStatus, brandRealmId);
+
+        var mockBrandRepo = Mock.Of<IBrandRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>(objMap => objMap.Map<Brand, BrandDto>(brand) == new BrandDto()
+        {
+            Id = brand.Id.ToString(),
+            Name = brand.Name,
+            Image = brand.Image,
+            Status = brand.Status != null ? brand.Status.To<int>() : 1,
+            RealmId = brand.RealmId.ToString()
+        });
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockBrandManager = new Mock<IBrandManager>();
+        mockBrandManager.Setup(bm => bm.PatchAsync(brandId, brandName, string.Empty, null, null)).ReturnsAsync(brand);
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var brandService = new Services.BrandService(mockBrandRepo, mockObjectMapper, mockLocal, mockBrandManager.Object);
+
+        //Act
+        var patchedBrand = await brandService.PatchBrand(new UpdateBrandRequestDto
+        {
+            Brand = brandDto,
+            FieldToUpdate = FieldMask.FromString("name")
+        }, mockServerCallContxt);
+
+        //Assert
+        Assert.Equal(brandId.ToString(), patchedBrand.Id);
     }
 }

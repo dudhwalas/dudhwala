@@ -7,6 +7,7 @@ using Grpc.Core;
 using Catalog.Domain.Shared;
 using System.Linq.Dynamic.Core.Exceptions;
 using Volo.Abp;
+using Google.Protobuf.WellKnownTypes;
 
 namespace Catalog.Application.Test;
 
@@ -867,5 +868,329 @@ public class ProductServiceTest
 
         //Assert
         Assert.Equal(ProductId.ToString(), ProductResult.Id);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Product_With_Null_Product_Throws_RPC_Argument_Exception_Async()
+    {
+        //Arrange
+        var mockProductRepo = Mock.Of<IProductRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>();
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockProductManager = new Mock<IProductManager>();
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var ProductService = new Services.ProductService(mockProductRepo, mockObjectMapper, mockLocal, mockProductManager.Object);
+
+        //Act
+        var ex = await Assert.ThrowsAsync<RpcException>(() => ProductService.PatchProduct(new UpdateProductRequestDto
+        {
+            Product = null,
+            FieldToUpdate = null
+        }, mockServerCallContxt)); ;
+
+        //Assert
+        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Product_With_Empty_Product_Id_Throws_RPC_Argument_Exception_Async()
+    {
+        //Arrange
+        string? ProductId = string.Empty;
+        var ProductName = "xxx";
+        var ProductStatus = EnumCatalogStatus.ACTIVE;
+        var ProductImage = "xxx.png";
+        var ProductRealmId = Guid.NewGuid();
+        var ProductBrandId = Guid.NewGuid();
+
+        var ProductDto = new ProductDto()
+        {
+            Id = ProductId,
+            Name = ProductName,
+            Image = ProductImage,
+            Status = ProductStatus.To<int>(),
+            RealmId = ProductRealmId.ToString(),
+            BrandId = ProductBrandId.ToString()
+        };
+        
+        var mockProductRepo = Mock.Of<IProductRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>();
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockProductManager = new Mock<IProductManager>();
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var ProductService = new Services.ProductService(mockProductRepo, mockObjectMapper, mockLocal, mockProductManager.Object);
+
+        //Act
+        var ex = await Assert.ThrowsAsync<RpcException>(() => ProductService.PatchProduct(new UpdateProductRequestDto
+        {
+            Product = ProductDto,
+            FieldToUpdate = null
+        }, mockServerCallContxt)); ;
+
+        //Assert
+        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Product_With_Space_Product_Id_Throws_RPC_Argument_Exception_Async()
+    {
+        //Arrange
+        string? ProductId = " ";
+        var ProductName = "xxx";
+        var ProductStatus = EnumCatalogStatus.ACTIVE;
+        var ProductImage = "xxx.png";
+        var ProductRealmId = Guid.NewGuid();
+        var ProductBrandId = Guid.NewGuid();
+
+        var ProductDto = new ProductDto()
+        {
+            Id = ProductId,
+            Name = ProductName,
+            Image = ProductImage,
+            Status = ProductStatus.To<int>(),
+            RealmId = ProductRealmId.ToString(),
+            BrandId = ProductBrandId.ToString()
+        };
+
+        //var Product = new Product(ProductId, ProductName, ProductImage, ProductStatus, ProductRealmId);
+
+        var mockProductRepo = Mock.Of<IProductRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>();
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockProductManager = new Mock<IProductManager>();
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var ProductService = new Services.ProductService(mockProductRepo, mockObjectMapper, mockLocal, mockProductManager.Object);
+
+        //Act
+        var ex = await Assert.ThrowsAsync<RpcException>(() => ProductService.PatchProduct(new UpdateProductRequestDto
+        {
+            Product = ProductDto,
+            FieldToUpdate = null
+        }, mockServerCallContxt)); ;
+
+        //Assert
+        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Product_With_Malformed_Product_Id_Throws_RPC_Argument_Exception_Async()
+    {
+        //Arrange
+        string? ProductId = "0.0.0.0";
+        var ProductName = "xxx";
+        var ProductStatus = EnumCatalogStatus.ACTIVE;
+        var ProductImage = "xxx.png";
+        var ProductRealmId = Guid.NewGuid();
+        var ProductBrandId = Guid.NewGuid();
+
+        var ProductDto = new ProductDto()
+        {
+            Id = ProductId,
+            Name = ProductName,
+            Image = ProductImage,
+            Status = ProductStatus.To<int>(),
+            RealmId = ProductRealmId.ToString(),
+            BrandId = ProductBrandId.ToString()
+        };
+
+        var mockProductRepo = Mock.Of<IProductRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>();
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockProductManager = new Mock<IProductManager>();
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var ProductService = new Services.ProductService(mockProductRepo, mockObjectMapper, mockLocal, mockProductManager.Object);
+
+        //Act
+        var ex = await Assert.ThrowsAsync<RpcException>(() => ProductService.PatchProduct(new UpdateProductRequestDto
+        {
+            Product = ProductDto,
+            FieldToUpdate = null
+        }, mockServerCallContxt)); ;
+
+        //Assert
+        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Product_With_No_Update_Fields_Throws_RPC_Argument_Exception_Async()
+    {
+        //Arrange
+        var ProductId = Guid.NewGuid();
+        var ProductName = "xxx";
+        var ProductStatus = EnumCatalogStatus.ACTIVE;
+        var ProductImage = "xxx.png";
+        var ProductRealmId = Guid.NewGuid();
+        var ProductBrandId = Guid.NewGuid();
+
+        var ProductDto = new ProductDto()
+        {
+            Id = ProductId.ToString(),
+            Name = ProductName,
+            Image = ProductImage,
+            Status = ProductStatus.To<int>(),
+            RealmId = ProductRealmId.ToString(),
+            BrandId = ProductBrandId.ToString()
+        };
+
+        var mockProductRepo = Mock.Of<IProductRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>();
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockProductManager = new Mock<IProductManager>();
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var ProductService = new Services.ProductService(mockProductRepo, mockObjectMapper, mockLocal, mockProductManager.Object);
+
+        //Act
+        var ex = await Assert.ThrowsAsync<RpcException>(() => ProductService.PatchProduct(new UpdateProductRequestDto
+        {
+            Product = ProductDto,
+            FieldToUpdate = null
+        }, mockServerCallContxt)); ;
+
+        //Assert
+        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Product_With_Empty_Update_Fields_Throws_RPC_Invalid_Argument_Async()
+    {
+        //Arrange
+        var ProductId = Guid.NewGuid();
+        var ProductName = "xxx";
+        var ProductStatus = EnumCatalogStatus.ACTIVE;
+        var ProductImage = "xxx.png";
+        var ProductRealmId = Guid.NewGuid();
+        var ProductBrandId = Guid.NewGuid();
+
+        var ProductDto = new ProductDto()
+        {
+            Id = ProductId.ToString(),
+            Name = ProductName,
+            Image = ProductImage,
+            Status = ProductStatus.To<int>(),
+            RealmId = ProductRealmId.ToString(),
+            BrandId = ProductBrandId.ToString()
+        };
+        var mockProductRepo = Mock.Of<IProductRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>();
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockProductManager = new Mock<IProductManager>();
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var ProductService = new Services.ProductService(mockProductRepo, mockObjectMapper, mockLocal, mockProductManager.Object);
+
+        //Act
+        var ex = await Assert.ThrowsAsync<RpcException>(() => ProductService.PatchProduct(new UpdateProductRequestDto
+        {
+            Product = ProductDto,
+            FieldToUpdate = FieldMask.FromString("")
+        }, mockServerCallContxt)); ;
+
+        //Assert
+        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Product_With_Unknown_Update_Fields_Throws_RPC_Invalid_Argument_Async()
+    {
+        //Arrange
+        var ProductId = Guid.NewGuid();
+        var ProductName = "xxx";
+        var ProductStatus = EnumCatalogStatus.ACTIVE;
+        var ProductImage = "xxx.png";
+        var ProductRealmId = Guid.NewGuid();
+        var ProductBrandId = Guid.NewGuid();
+
+        var ProductDto = new ProductDto()
+        {
+            Id = ProductId.ToString(),
+            Name = ProductName,
+            Image = ProductImage,
+            Status = ProductStatus.To<int>(),
+            RealmId = ProductRealmId.ToString(),
+            BrandId = ProductBrandId.ToString()
+        };
+
+        var Product = new Product(ProductId, ProductName, ProductImage, ProductStatus, ProductRealmId, ProductBrandId);
+
+        var mockProductRepo = Mock.Of<IProductRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>(objMap => objMap.Map<Product, ProductDto>(Product) == new ProductDto()
+        {
+            Id = Product.Id.ToString(),
+            Name = Product.Name,
+            Image = Product.Image,
+            Status = Product.Status != null ? Product.Status.To<int>() : 1,
+            RealmId = Product.RealmId.ToString()
+        });
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockProductManager = new Mock<IProductManager>();
+        mockProductManager.Setup(bm => bm.PatchAsync(ProductId, string.Empty, string.Empty, null, null, null)).ReturnsAsync(Product);
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var ProductService = new Services.ProductService(mockProductRepo, mockObjectMapper, mockLocal, mockProductManager.Object);
+
+        //Act
+        var ex = await Assert.ThrowsAsync<RpcException>(() => ProductService.PatchProduct(new UpdateProductRequestDto
+        {
+            Product = ProductDto,
+            FieldToUpdate = FieldMask.FromString("unknown_field")
+        }, mockServerCallContxt)); ;
+
+        //Assert
+        Assert.Equal(StatusCode.InvalidArgument, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Product_With_Update_Fields_Returns_Updated_Product_Async()
+    {
+        //Arrange
+        var ProductId = Guid.NewGuid();
+        var ProductName = "xxx";
+        var ProductStatus = EnumCatalogStatus.ACTIVE;
+        var ProductImage = "xxx.png";
+        var ProductRealmId = Guid.NewGuid();
+        var ProductBrandId = Guid.NewGuid();
+
+        var ProductDto = new ProductDto()
+        {
+            Id = ProductId.ToString(),
+            Name = ProductName,
+            Image = ProductImage,
+            Status = ProductStatus.To<int>(),
+            RealmId = ProductRealmId.ToString(),
+            BrandId = ProductBrandId.ToString()
+        };
+
+        var Product = new Product(ProductId, ProductName, ProductImage, ProductStatus, ProductRealmId,ProductBrandId);
+
+        var mockProductRepo = Mock.Of<IProductRepository>();
+        var mockObjectMapper = Mock.Of<IObjectMapper>(objMap => objMap.Map<Product, ProductDto>(Product) == new ProductDto()
+        {
+            Id = Product.Id.ToString(),
+            Name = Product.Name,
+            Image = Product.Image,
+            Status = Product.Status != null ? Product.Status.To<int>() : 1,
+            RealmId = Product.RealmId.ToString()
+        });
+        var mockLocal = Mock.Of<IStringLocalizer<CatalogResource>>();
+        var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
+        var mockProductManager = new Mock<IProductManager>();
+        mockProductManager.Setup(bm => bm.PatchAsync(ProductId, ProductName, string.Empty, null, null,null)).ReturnsAsync(Product);
+        var mockServerCallContxt = Mock.Of<ServerCallContext>();
+        var ProductService = new Services.ProductService(mockProductRepo, mockObjectMapper, mockLocal, mockProductManager.Object);
+
+        //Act
+        var patchedProduct = await ProductService.PatchProduct(new UpdateProductRequestDto
+        {
+            Product = ProductDto,
+            FieldToUpdate = FieldMask.FromString("name")
+        }, mockServerCallContxt);
+
+        //Assert
+        Assert.Equal(ProductId.ToString(), patchedProduct.Id);
     }
 }

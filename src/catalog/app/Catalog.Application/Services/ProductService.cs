@@ -1,4 +1,5 @@
-﻿using System.Linq.Dynamic.Core.Exceptions;
+﻿using System.IO;
+using System.Linq.Dynamic.Core.Exceptions;
 using Catalog.Domain;
 using Catalog.Domain.Shared;
 using Catalog.Domain.Shared.Localization;
@@ -133,12 +134,21 @@ namespace Catalog.Application.Services
 
                 request.Product.Id = Check.NotNullOrEmpty(request.Product.Id, nameof(request.Product.Id));
 
-                if (request.FieldToUpdate == null)
+                if (request.FieldToUpdate is null || request.FieldToUpdate.Paths.IsNullOrEmpty())
                     throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.Product_UpdateFailed_MissingProductFields]));
 
                 var ProductToPatch = new ProductDto();
 
                 request.FieldToUpdate.Merge(request.Product, ProductToPatch);
+
+                if (!request.FieldToUpdate.Paths.Any(path =>
+                    path.Equals(nameof(ProductToPatch.Status).ToLower()) ||
+                    path.Equals(nameof(ProductToPatch.Name).ToLower()) ||
+                    path.Equals(nameof(ProductToPatch.Image).ToLower()) ||
+                    path.Equals(nameof(ProductToPatch.RealmId).ToLower()) ||
+                    path.Equals(nameof(ProductToPatch.BrandId).ToLower())
+                ))
+                    throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.Product_UpdateFailed_MissingProductFields]));
 
                 var patchedProduct = await _productManager.PatchAsync(Guid.Parse(request.Product.Id),
                     ProductToPatch.Name,
@@ -156,6 +166,10 @@ namespace Catalog.Application.Services
                 return _objMapper.Map<Product, ProductDto>(patchedProduct);
             }
             catch (FormatException ex)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
+            }
+            catch (ArgumentException ex)
             {
                 throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
             }
