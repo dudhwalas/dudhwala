@@ -105,7 +105,7 @@ namespace Catalog.Domain.Test
             var brandId = Guid.Empty;
             var brandStatus = EnumCatalogStatus.ACTIVE;
             var mockBrandRepo = new Mock<IBrandRepository>();
-            mockBrandRepo.Setup(repo => repo.GetByNameAsync(brandName)).ReturnsAsync(default(Brand));
+            mockBrandRepo.Setup(repo => repo.GetByNameAsync(It.IsAny<string>())).ReturnsAsync(default(Brand));
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
             var brandManager = new BrandManager(mockBrandRepo.Object, mockGuidGenerator);
             //Act

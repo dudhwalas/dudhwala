@@ -14,16 +14,16 @@ namespace Catalog.Application.Services
 {
     public class ProductService : ProductServiceBase, IApplicationService
     {
-        private readonly IProductRepository _ProductRepo;
+        private readonly IProductRepository _productRepo;
         private readonly IObjectMapper _objMapper;
-        private readonly ProductManager _ProductManager;
+        private readonly IProductManager _productManager;
         private readonly IStringLocalizer<CatalogResource> _localizer;
 
-        public ProductService(IProductRepository ProductRepo, IObjectMapper objMapper, IStringLocalizer<CatalogResource> localizer, ProductManager ProductManager)
+        public ProductService(IProductRepository ProductRepo, IObjectMapper objMapper, IStringLocalizer<CatalogResource> localizer, IProductManager ProductManager)
         {
-            _ProductRepo = ProductRepo;
+            _productRepo = ProductRepo;
             _objMapper = objMapper;
-            _ProductManager = ProductManager;
+            _productManager = ProductManager;
             _localizer = localizer;
         }
 
@@ -32,7 +32,7 @@ namespace Catalog.Application.Services
             try
             {
                 request.Id = Check.NotNullOrEmpty(request.Id, nameof(request.Id));
-                var Product = await _ProductRepo.GetByIdAsync(Guid.Parse(request.Id));
+                var Product = await _productRepo.GetByIdAsync(Guid.Parse(request.Id));
 
                 if (Product is null)
                     throw new RpcException(new Status(StatusCode.NotFound, _localizer[CatalogErrorCodes.Product_NotAvailable]));
@@ -56,12 +56,12 @@ namespace Catalog.Application.Services
                 if (request.PageToken <= 0 || request.PageSize <= 0)
                     throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.Product_InvalidPageTokenPageSize]));
 
-                var ProductDto = _objMapper.Map<List<Product>, List<ProductDto>>(await _ProductRepo.GetAsync(string.IsNullOrWhiteSpace(request.BrandId) ? Guid.Empty : Guid.Parse(request.BrandId), request.PageToken - 1, request.PageSize, request.Sorting));
+                var ProductDto = _objMapper.Map<List<Product>, List<ProductDto>>(await _productRepo.GetAsync(string.IsNullOrWhiteSpace(request.BrandId) ? Guid.Empty : Guid.Parse(request.BrandId), request.PageToken - 1, request.PageSize, request.Sorting));
 
-                if (!ProductDto.Any())
+                if (ProductDto.IsNullOrEmpty())
                     throw new RpcException(new Status(StatusCode.NotFound, _localizer[CatalogErrorCodes.Product_NotAvailable]));
 
-                var totalCount = await _ProductRepo.GetTotalAsync();
+                var totalCount = await _productRepo.GetTotalAsync();
 
                 var response = new ListProductResponseDto
                 {
@@ -89,8 +89,9 @@ namespace Catalog.Application.Services
                 request.Image = Check.NotNullOrEmpty(request.Image, nameof(request.Image));
                 request.Status = Check.NotNull(request.Status, nameof(request.Status));
                 request.RealmId = Check.NotNullOrEmpty(request.RealmId, nameof(request.RealmId));
+                request.BrandId = Check.NotNullOrEmpty(request.BrandId, nameof(request.BrandId));
 
-                var createdProduct = await _ProductManager.UpdateAsync(string.IsNullOrEmpty(request.Id) ?
+                var createdProduct = await _productManager.UpdateAsync(string.IsNullOrEmpty(request.Id) ?
                     Guid.Empty : Guid.Parse(request.Id),
                     request.Name, request.Image,
                     (EnumCatalogStatus)request.Status,
@@ -139,7 +140,7 @@ namespace Catalog.Application.Services
 
                 request.FieldToUpdate.Merge(request.Product, ProductToPatch);
 
-                var patchedProduct = await _ProductManager.PatchAsync(Guid.Parse(request.Product.Id),
+                var patchedProduct = await _productManager.PatchAsync(Guid.Parse(request.Product.Id),
                     ProductToPatch.Name,
                     ProductToPatch.Image,
 

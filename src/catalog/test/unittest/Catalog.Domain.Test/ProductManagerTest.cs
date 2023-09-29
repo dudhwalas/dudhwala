@@ -6,7 +6,7 @@ namespace Catalog.Domain.Test
 {
     public class ProductManagerTest
 	{
-        Brand? brand = null;
+        private readonly Brand brand;
 
         public ProductManagerTest()
 		{
@@ -31,7 +31,7 @@ namespace Catalog.Domain.Test
             var ProductToCreate = new Product(ProductId, ProductName, ProductImage, ProductStatus, realmId, brandId);
 			var mockProductRepo = new Mock<IProductRepository>();
             mockProductRepo.Setup(repo => repo.GetByNameAsync(ProductName))
-                .ReturnsAsync(default(Product));
+                .Returns(Task.FromResult(default(Product)));
             mockProductRepo.Setup(repo => repo.CreateAsync(It.IsAny<Product>())).ReturnsAsync(ProductToCreate);
 
             var mockGuidGenerator = Mock.Of<Volo.Abp.Guids.IGuidGenerator>(guidGen => guidGen.Create() == Guid.NewGuid());
@@ -135,7 +135,7 @@ namespace Catalog.Domain.Test
             var ProductId = Guid.Empty;
             var ProductStatus = EnumCatalogStatus.ACTIVE;
             var mockProductRepo = new Mock<IProductRepository>();
-            mockProductRepo.Setup(repo => repo.GetByNameAsync(ProductName)).ReturnsAsync(default(Product));
+            mockProductRepo.Setup(repo => repo.GetByNameAsync(It.IsAny<string>())).ReturnsAsync(default(Product));
 
             var brandId = Guid.NewGuid();
             var mockBrandRepo = new Mock<IBrandRepository>();
@@ -532,7 +532,7 @@ namespace Catalog.Domain.Test
             var brandId = Guid.NewGuid();
             var mockBrandRepo = new Mock<IBrandRepository>();
             mockBrandRepo.Setup(repo => repo.GetByIdAsync(brandId))
-                .ReturnsAsync(brand);
+                .Returns(Task.FromResult(brand));
             var mockProductRepo = new Mock<IProductRepository>();
             var ProductToUpdate = new Product(ProductId, ProductName, ProductImage, ProductStatus, realmId,brandId);
             mockProductRepo.Setup(repo => repo.GetByIdAsync(ProductId)).ReturnsAsync(ProductToUpdate);

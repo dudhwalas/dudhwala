@@ -5,11 +5,11 @@ namespace Catalog.Domain
 {
     public interface IProductRepository: IRepository<Product, Guid>
     {
-        public Task<Product> GetByNameAsync([NotNull] string brandName);
+        public Task<Product?> GetByNameAsync([NotNull] string productName);
 
-        public Task<Product> GetByIdAsync([NotNull] Guid id);
+        public Task<Product?> GetByIdAsync([NotNull] Guid id);
 
-        public Task<Product> CreateAsync([NotNull] Product _entity);
+        public Task<Product?> CreateAsync([NotNull] Product _entity);
 
         public Task<Product?> UpdateAsync([NotNull] Product _entity);
 

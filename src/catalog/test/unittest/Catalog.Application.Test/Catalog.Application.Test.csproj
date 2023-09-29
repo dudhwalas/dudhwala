@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
@@ -9,30 +9,30 @@
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
 		<CustomCommands>
-			<CustomCommands>
-				<Command>
-					<type>AfterBuild</type>
-					<command>dotnet test --collect:"XPlat Code Coverage"</command>
-				</Command>
-				<Command>
-					<type>AfterBuild</type>
-					<command>/Users/mac/.dotnet/tools/reportgenerator -reports:"TestResults/*/coverage.cobertura.xml" -targetdir:coveragereport -reporttypes:Html</command>
-				</Command>
-			</CustomCommands>
+		  <CustomCommands>
+		    <Command>
+		      <type>AfterBuild</type>
+		      <command>dotnet test --collect:"XPlat Code Coverage"</command>
+		    </Command>
+		    <Command>
+		      <type>AfterBuild</type>
+		      <command>/Users/mac/.dotnet/tools/reportgenerator -reports:"TestResults/*/coverage.cobertura.xml" -targetdir:CoverageReport -reporttypes:Html</command>
+		    </Command>
+		  </CustomCommands>
 		</CustomCommands>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<CustomCommands>
-			<CustomCommands>
-				<Command>
-					<type>AfterBuild</type>
-					<command>dotnet test --collect:"XPlat Code Coverage"</command>
-				</Command>
-				<Command>
-					<type>AfterBuild</type>
-					<command>/Users/mac/.dotnet/tools/reportgenerator -reports:"TestResults/*/coverage.cobertura.xml" -targetdir:coveragereport -reporttypes:Html</command>
-				</Command>
-			</CustomCommands>
+		  <CustomCommands>
+		    <Command>
+		      <type>AfterBuild</type>
+		      <command>dotnet test --collect:"XPlat Code Coverage"</command>
+		    </Command>
+		    <Command>
+		      <type>AfterBuild</type>
+		      <command>/Users/mac/.dotnet/tools/reportgenerator -reports:"TestResults/*/coverage.cobertura.xml" -targetdir:coveragereport -reporttypes:Html</command>
+		    </Command>
+		  </CustomCommands>
 		</CustomCommands>
 	</PropertyGroup>
 	<ItemGroup>
