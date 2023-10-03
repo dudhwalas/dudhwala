@@ -211,5 +211,25 @@ namespace Catalog.Domain.Test
             Product.SetBrandId(brandIdToSet);
             Assert.Equal(brandIdToSet, Product.BrandId);
         }
+
+        [Fact]
+        public void Should_Set_Product_Id()
+        {
+            Guid productId = Guid.NewGuid();
+            Guid productIdToSet = Guid.NewGuid();
+            var brand = new Product(productId, "Brand 1", "filepath", EnumCatalogStatus.ACTIVE, Guid.NewGuid(),Guid.NewGuid());
+            brand.SetId(productIdToSet);
+            Assert.Equal(productIdToSet, brand.Id);
+        }
+
+        [Fact]
+        public void Should_Set_Empty_Product_Id_Throws_Argument_Exception_Async()
+        {
+            Guid productId = Guid.NewGuid();
+            Guid productIdToSet = Guid.Empty;
+            var brand = new Product(productId, "Brand 1", "filepath", EnumCatalogStatus.ACTIVE, Guid.NewGuid(),Guid.NewGuid());
+            var ex = Assert.Throws<ArgumentException>(() => brand.SetId(productIdToSet));
+            Assert.Equal(nameof(Brand.Id), ex.ParamName);
+        }
     }
 }

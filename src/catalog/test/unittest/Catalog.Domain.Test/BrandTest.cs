@@ -185,5 +185,25 @@ namespace Catalog.Domain.Test
             brand.SetRealmId(realmIdToSet);
             Assert.Equal(realmIdToSet, brand.RealmId);
         }
+
+        [Fact]
+        public void Should_Set_Brand_Id()
+        {
+            Guid brandId = Guid.NewGuid();
+            Guid brandIdToSet = Guid.NewGuid();
+            var brand = new Brand(brandId, "Brand 1", "filepath", EnumCatalogStatus.ACTIVE, Guid.NewGuid());
+            brand.SetId(brandIdToSet);
+            Assert.Equal(brandIdToSet, brand.Id);
+        }
+
+        [Fact]
+        public void Should_Set_Empty_Brand_Id_Throws_Argument_Exception_Async()
+        {
+            Guid brandId = Guid.NewGuid();
+            Guid brandIdToSet = Guid.Empty;
+            var brand = new Brand(brandId, "Brand 1", "filepath", EnumCatalogStatus.ACTIVE, Guid.NewGuid());
+            var ex = Assert.Throws<ArgumentException>(()=> brand.SetId(brandIdToSet));
+            Assert.Equal(nameof(Brand.Id), ex.ParamName);
+        }
     }
 }

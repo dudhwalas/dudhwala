@@ -131,14 +131,14 @@ namespace Catalog.Application.Services
                 request.FieldToUpdate.Merge(request.Brand, brandToPatch);
 
                 if (!request.FieldToUpdate.Paths.Any(path =>
-                    path.Equals(nameof(brandToPatch.Status).ToLower()) ||
-                    path.Equals(nameof(brandToPatch.Name).ToLower()) ||
-                    path.Equals(nameof(brandToPatch.Image).ToLower()) ||
-                    path.Equals(nameof(brandToPatch.RealmId).ToLower())
+                    path.Equals(nameof(brandToPatch.Status),StringComparison.CurrentCultureIgnoreCase) ||
+                    path.Equals(nameof(brandToPatch.Name), StringComparison.CurrentCultureIgnoreCase) ||
+                    path.Equals(nameof(brandToPatch.Image), StringComparison.CurrentCultureIgnoreCase) ||
+                    path.Equals(nameof(brandToPatch.RealmId), StringComparison.CurrentCultureIgnoreCase)
                 ))
                     throw new RpcException(new Status(StatusCode.InvalidArgument, _localizer[CatalogErrorCodes.Brand_UpdateFailed_MissingBrandFields]));
 
-                var patchedBrand = await _brandManager.PatchAsync(Guid.Parse(request.Brand.Id), brandToPatch.Name, brandToPatch.Image, request.FieldToUpdate.Paths.Contains(nameof(brandToPatch.Status)) ? (EnumCatalogStatus)brandToPatch.Status : null, string.IsNullOrEmpty(brandToPatch.RealmId) ? null : Guid.Parse(brandToPatch.RealmId));
+                var patchedBrand = await _brandManager.PatchAsync(Guid.Parse(request.Brand.Id), brandToPatch.Name, brandToPatch.Image, request.FieldToUpdate.Paths.Contains(nameof(brandToPatch.Status).ToLower()) ? (EnumCatalogStatus)brandToPatch.Status : null, string.IsNullOrEmpty(brandToPatch.RealmId) ? null : Guid.Parse(brandToPatch.RealmId));
 
                 return _objMapper.Map<Brand, BrandDto>(patchedBrand);
             }

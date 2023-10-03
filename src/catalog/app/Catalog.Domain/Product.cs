@@ -41,6 +41,8 @@ namespace Catalog.Domain
         public Product SetId([NotNull] Guid id)
         {
             Id = Check.NotNull(id, nameof(Id));
+            if (Id == Guid.Empty)
+                throw new ArgumentException("Guid cannot be empty", nameof(Id));
             return this;
         }
 

@@ -38,6 +38,8 @@ namespace Catalog.Domain
         public Brand SetId([NotNull] Guid id)
         {
             Id = Check.NotNull(id, nameof(Id));
+            if (Id == Guid.Empty)
+                throw new ArgumentException("Guid cannot be empty", nameof(Id));
             return this;
         }
 

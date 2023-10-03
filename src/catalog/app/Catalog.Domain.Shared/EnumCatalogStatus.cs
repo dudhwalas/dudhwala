@@ -2,6 +2,6 @@
 {
     public enum EnumCatalogStatus
 	{
-		ACTIVE,INACTIVE
-	}
+        INACTIVE,ACTIVE
+    }
 }
