@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.Metrics;
 using Catalog.Application;
 using Catalog.Domain;
+using Volo.Abp.Data;
 using Xunit.Abstractions;
 
 namespace Catalog.Api.Test;
@@ -10,7 +11,6 @@ public class BrandApiTest : IntegrationTestBase
 
     public BrandApiTest(GrpcTestFixture fixture, ITestOutputHelper outputHelper) : base(fixture, outputHelper)
     {
-        
     }
 
     [Fact]
