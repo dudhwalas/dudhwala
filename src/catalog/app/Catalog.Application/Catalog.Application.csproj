@@ -17,7 +17,7 @@
     <ProjectReference Include="..\Catalog.Application.Contract\Catalog.Application.Contract.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Protobuf Include="Protos\brand.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\brand.proto" GrpcServices="Both" />
     <Protobuf Include="google\api\annotations.proto" GrpcServices="">
       <Access></Access>
       <ProtoCompile></ProtoCompile>
@@ -32,7 +32,7 @@
       <OutputDir></OutputDir>
       <Generator></Generator>
     </Protobuf>
-    <Protobuf Include="Protos\product.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\product.proto" GrpcServices="Both" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Services\" />
