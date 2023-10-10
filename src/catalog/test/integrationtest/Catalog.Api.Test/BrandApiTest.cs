@@ -43,7 +43,7 @@ public class BrandApiTest : IntegrationTestBase
     }
 
     [Fact]
-    public async Task Should_List_Brand_By_Sort_Name_Desc_Return_True()
+    public async Task Should_List_Brand_Sort_By_Name_Desc_Return_True()
     {
         var client = new BrandService.BrandServiceClient(Channel);
 
