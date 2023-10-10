@@ -19,13 +19,46 @@ public class BrandApiTest : IntegrationTestBase
     {
         var client = new BrandService.BrandServiceClient(Channel);
 
-        var brandResp = await client.ListBrandAsync(new ListBrandRequestDto()
+        var listBrandResp = await client.ListBrandAsync(new ListBrandRequestDto()
         {
             PageSize = 3,
-            PageToken = 1
+            PageToken = 1,
         }).ResponseAsync;
 
-        Assert.Equal(3, brandResp.Brands.Count);
+        Assert.Equal(3, listBrandResp.Brands.Count);
+    }
+
+    [Fact]
+    public async Task Should_List_Brand_Throw_RPC_NotFound_Exception_Async()
+    {
+        var client = new BrandService.BrandServiceClient(Channel);
+
+        var ex = await Assert.ThrowsAsync<RpcException>(() => client.ListBrandAsync(new ListBrandRequestDto()
+        {
+            PageSize = 3,
+            PageToken = 2
+        }).ResponseAsync);
+
+        Assert.Equal(StatusCode.NotFound, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_List_Brand_By_Sort_Name_Desc_Return_True()
+    {
+        var client = new BrandService.BrandServiceClient(Channel);
+
+        var listBrandResp = await client.ListBrandAsync(new ListBrandRequestDto()
+        {
+            PageSize = 3,
+            PageToken = 1,
+            Sorting = "name desc"
+        }).ResponseAsync;
+
+        var start = 3;
+
+        var isOrderedDesc = listBrandResp.Brands.Select((brand, i) => brand.Name == "xxx" + (start - i)).All(res => res);
+
+        Assert.True(isOrderedDesc);
     }
 
     [Fact]
@@ -59,7 +92,6 @@ public class BrandApiTest : IntegrationTestBase
         {
             Id = brandId
         }).ResponseAsync;
-
 
         Assert.Equal(brandId, getBrandResp.Id);
     }
