@@ -19,17 +19,17 @@ public class BrandApiTest : IntegrationTestBase
     {
         var client = new BrandService.BrandServiceClient(Channel);
 
-        var brands = await client.ListBrandAsync(new ListBrandRequestDto()
+        var brandResp = await client.ListBrandAsync(new ListBrandRequestDto()
         {
             PageSize = 3,
             PageToken = 1
         }).ResponseAsync;
 
-        Assert.Equal(3, brands.Brands.Count);
+        Assert.Equal(3, brandResp.Brands.Count);
     }
 
     [Fact]
-    public async Task Should_Get_Brand_By_Id_Return_Brand_Async()
+    public async Task Should_Get_Brand_By_Id_Throw_RPC_NotFound_Exception_Async()
     {
         var brandId = "3a0d4ec4-4715-b913-b68b-b475b7da9d27";
         var client = new BrandService.BrandServiceClient(Channel);
@@ -40,5 +40,27 @@ public class BrandApiTest : IntegrationTestBase
         }).ResponseAsync);
 
         Assert.Equal(StatusCode.NotFound, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Should_Get_Brand_By_Id_Return_Brand_Async()
+    {
+        var client = new BrandService.BrandServiceClient(Channel);
+
+        var listBrandResp = await client.ListBrandAsync(new ListBrandRequestDto()
+        {
+            PageSize = 3,
+            PageToken = 1
+        }).ResponseAsync;
+
+        var brandId = listBrandResp.Brands[0].Id;
+
+        var getBrandResp = await client.GetBrandAsync(new GetBrandRequestDto()
+        {
+            Id = brandId
+        }).ResponseAsync;
+
+
+        Assert.Equal(brandId, getBrandResp.Id);
     }
 }
