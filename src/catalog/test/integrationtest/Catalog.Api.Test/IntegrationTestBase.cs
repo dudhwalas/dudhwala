@@ -18,6 +18,7 @@
 
 using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
+using Volo.Abp.Data;
 using Xunit.Abstractions;
 
 namespace Catalog.Api.Test

@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Volo.Abp.Data;
 using Xunit.Abstractions;
 
 namespace Catalog.Api.Test
@@ -59,6 +60,7 @@ namespace Catalog.Api.Test
                 builder.Host.UseAutofac();
                 builder.WebHost.UseTestServer();
                 builder.Services.AddSingleton<ILoggerFactory>(LoggerFactory);
+                builder.Services.AddSingleton<IDataSeedContributor, BrandDataSeedContributor>();
                 _configureWebHost?.Invoke(builder.WebHost);
                 await builder.AddApplicationAsync<CatalogApiModule>();
                 var app = builder.Build();
@@ -66,6 +68,8 @@ namespace Catalog.Api.Test
                 await app.StartAsync();
                 _server = app.GetTestServer();
                 _handler = _server.CreateHandler();
+                var dataSeeder = app.Services.GetRequiredService<IDataSeedContributor>();
+                await dataSeeder.SeedAsync(new DataSeedContext());
             }
         }
 

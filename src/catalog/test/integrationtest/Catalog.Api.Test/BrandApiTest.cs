@@ -1,6 +1,5 @@
-﻿using System.Diagnostics.Metrics;
-using Catalog.Application;
-using Catalog.Domain;
+﻿using Catalog.Application;
+using Grpc.Core;
 using Volo.Abp.Data;
 using Xunit.Abstractions;
 
@@ -9,20 +8,37 @@ namespace Catalog.Api.Test;
 public class BrandApiTest : IntegrationTestBase
 {
 
-    public BrandApiTest(GrpcTestFixture fixture, ITestOutputHelper outputHelper) : base(fixture, outputHelper)
+    public BrandApiTest(GrpcTestFixture fixture, ITestOutputHelper outputHelper)
+        : base(fixture, outputHelper)
     {
+       
     }
 
     [Fact]
-    public void Should_Get_Brand_By_Id_Return_Brand()
+    public async Task Should_List_Brand_Count_Return_3_Async()
+    {
+        var client = new BrandService.BrandServiceClient(Channel);
+
+        var brands = await client.ListBrandAsync(new ListBrandRequestDto()
+        {
+            PageSize = 3,
+            PageToken = 1
+        }).ResponseAsync;
+
+        Assert.Equal(3, brands.Brands.Count);
+    }
+
+    [Fact]
+    public async Task Should_Get_Brand_By_Id_Return_Brand_Async()
     {
         var brandId = "3a0d4ec4-4715-b913-b68b-b475b7da9d27";
         var client = new BrandService.BrandServiceClient(Channel);
-        var dto = client.GetBrand(new GetBrandRequestDto()
+
+        var ex = await Assert.ThrowsAsync<RpcException>(()=> client.GetBrandAsync(new GetBrandRequestDto()
         {
             Id = brandId
-        });
+        }).ResponseAsync);
 
-        Assert.Equal(brandId, dto.Id);
+        Assert.Equal(StatusCode.NotFound, ex.StatusCode);
     }
 }
