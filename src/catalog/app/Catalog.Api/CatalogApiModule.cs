@@ -2,6 +2,7 @@
 using Catalog.Database;
 using Microsoft.OpenApi.Models;
 using Volo.Abp;
+using Volo.Abp.AspNetCore.ExceptionHandling;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
@@ -19,12 +20,19 @@ namespace Catalog.Api
         {
             context.Services.AddGrpc((opt) => {
                 opt.EnableDetailedErrors = true;
+                opt.Interceptors.Add<GrpcGlobalExceptionHandlerInterceptor>();
             }).AddJsonTranscoding();
             context.Services.AddGrpcSwagger();
             context.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1",
                     new OpenApiInfo { Title = "Catalog API", Version = "V1" });
+            });
+
+            Configure<AbpExceptionHandlingOptions>(options =>
+            {
+                options.SendExceptionsDetailsToClients = false;
+                options.SendStackTraceToClients = false;
             });
         }
 

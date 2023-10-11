@@ -1,6 +1,8 @@
 ﻿using Catalog.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Npgsql;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.PostgreSql;
@@ -36,16 +38,24 @@ public class CatalogDatabaseModule : AbpModule
     public override async Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
     {
         await base.OnApplicationInitializationAsync(context);
-        var dbContext = context.ServiceProvider.GetRequiredService<CatalogDbContext>();
 
-        var pendingMigrations = await dbContext
-            .Database
-            .GetPendingMigrationsAsync();
-
-        if (pendingMigrations.Any())
+        try
         {
-            await dbContext.Database.MigrateAsync();
+            var dbContext = context.ServiceProvider.GetRequiredService<CatalogDbContext>();
+
+            var pendingMigrations = await dbContext
+                .Database
+                .GetPendingMigrationsAsync();
+
+            if (pendingMigrations.Any())
+            {
+                await dbContext.Database.MigrateAsync();
+            }
+        }
+        catch (NpgsqlException ex)
+        {
+           var logger = context.ServiceProvider.GetService<ILogger<CatalogDatabaseModule>>();
+           logger?.LogException(ex);
         }
     }
-
 }
