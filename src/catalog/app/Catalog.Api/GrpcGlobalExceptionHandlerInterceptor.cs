@@ -22,9 +22,12 @@ namespace Catalog.Api
             {
                 return await base.UnaryServerHandler(request, context, continuation);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new RpcException(new Status(StatusCode.Internal, "Internal Error. Contact Admin."));
+                if (ex is RpcException)
+                    throw;
+                else
+                    throw new RpcException(new Status(StatusCode.Internal, "Internal Error. Contact Admin."));
             }
         }
     }

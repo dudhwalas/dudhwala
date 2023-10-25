@@ -1,14 +1,10 @@
-﻿using System;
-using Catalog.Database;
+﻿using Catalog.Database;
 using Catalog.Domain;
 using Catalog.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Volo.Abp.Data;
-using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Guids;
-using Volo.Abp.MultiTenancy;
 
 namespace Catalog.Api.Test
 {
@@ -48,11 +44,10 @@ namespace Catalog.Api.Test
             var realmId = _guidGenerator.Create();
 
             await _brandRepository.InsertManyAsync(new List<Brand> {
-                new Brand(_guidGenerator.Create(), "xxx1", "/var/lib/files/data/indian.jpg", EnumCatalogStatus.ACTIVE, realmId),
-                new Brand(_guidGenerator.Create(), "xxx2", "/var/lib/files/data/indian.jpg", EnumCatalogStatus.ACTIVE, realmId),
-                new Brand(_guidGenerator.Create(), "xxx3", "/var/lib/files/data/indian.jpg", EnumCatalogStatus.ACTIVE, realmId),
+                new Brand(_guidGenerator.Create(), "xxx1", "/var/lib/files/data/xxx1.jpg", EnumCatalogStatus.ACTIVE, realmId),
+                new Brand(_guidGenerator.Create(), "xxx2", "/var/lib/files/data/xxx2.jpg", EnumCatalogStatus.ACTIVE, realmId),
+                new Brand(_guidGenerator.Create(), "xxx3", "/var/lib/files/data/xxx3.jpg", EnumCatalogStatus.ACTIVE, realmId),
             }, true);
         }
     }
 }
-

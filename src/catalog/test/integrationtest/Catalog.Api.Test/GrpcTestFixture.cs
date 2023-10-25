@@ -16,7 +16,6 @@
 
 #endregion
 
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -24,6 +23,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Volo.Abp.Data;
+using Volo.Abp.Guids;
 using Xunit.Abstractions;
 
 namespace Catalog.Api.Test
@@ -35,7 +35,7 @@ namespace Catalog.Api.Test
         private TestServer? _server;
         private HttpMessageHandler? _handler;
         private Action<IWebHostBuilder>? _configureWebHost;
-
+        public IGuidGenerator? GuidGenerator { get; private set; }
         public event LogMessage? LoggedMessage;
 
         public GrpcTestFixture()
@@ -68,6 +68,7 @@ namespace Catalog.Api.Test
                 await app.StartAsync();
                 _server = app.GetTestServer();
                 _handler = _server.CreateHandler();
+                GuidGenerator = app.Services.GetRequiredService<IGuidGenerator>();
                 var dataSeeder = app.Services.GetRequiredService<IDataSeedContributor>();
                 await dataSeeder.SeedAsync(new DataSeedContext());
             }

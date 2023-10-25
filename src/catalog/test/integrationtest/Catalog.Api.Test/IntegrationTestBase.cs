@@ -18,7 +18,6 @@
 
 using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
-using Volo.Abp.Data;
 using Xunit.Abstractions;
 
 namespace Catalog.Api.Test
@@ -27,7 +26,6 @@ namespace Catalog.Api.Test
     {
         private GrpcChannel? _channel;
         private IDisposable? _testContext;
-
         protected GrpcTestFixture Fixture { get; set; }
 
         protected ILoggerFactory LoggerFactory => Fixture.LoggerFactory;

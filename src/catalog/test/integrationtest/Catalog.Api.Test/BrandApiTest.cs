@@ -1,6 +1,8 @@
 ﻿using Catalog.Application;
+using Catalog.Domain.Shared;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Volo.Abp.Data;
+using Volo.Abp.Guids;
 using Xunit.Abstractions;
 
 namespace Catalog.Api.Test;
@@ -11,7 +13,6 @@ public class BrandApiTest : IntegrationTestBase
     public BrandApiTest(GrpcTestFixture fixture, ITestOutputHelper outputHelper)
         : base(fixture, outputHelper)
     {
-       
     }
 
     [Fact]
@@ -94,5 +95,73 @@ public class BrandApiTest : IntegrationTestBase
         }).ResponseAsync;
 
         Assert.Equal(brandId, getBrandResp.Id);
+    }
+
+    [Fact]
+    public async Task Should_Create_Brand_Return_Created_Brand_Async()
+    {
+        var client = new BrandService.BrandServiceClient(Channel);
+
+        var brandName = "xxx4";
+
+        var createdBrand = await client.UpdateBrandAsync(new BrandDto
+        {
+
+            Name = brandName,
+            Image = "/var/lib/files/data/xxx4.jpg",
+            RealmId = Fixture.GuidGenerator?.Create().ToString(),
+            Status = EnumCatalogStatus.ACTIVE.To<int>(),
+        }).ResponseAsync;
+
+        Assert.Equal(brandName, createdBrand.Name);
+    }
+
+    [Fact]
+    public async Task Should_Update_Brand_Return_Updated_Brand_Async()
+    {
+        var client = new BrandService.BrandServiceClient(Channel);
+
+        var brandNameToUpdate = "xxx6";
+
+        var createdBrand = await client.UpdateBrandAsync(new BrandDto
+        {
+
+            Name = "xxx5",
+            Image = "/var/lib/files/data/xxx5.jpg",
+            RealmId = Fixture.GuidGenerator?.Create().ToString(),
+            Status = EnumCatalogStatus.ACTIVE.To<int>(),
+        }).ResponseAsync;
+
+        createdBrand.Name = brandNameToUpdate;
+
+        var updatedBrand = await client.UpdateBrandAsync(createdBrand).ResponseAsync;
+
+        Assert.Equal(brandNameToUpdate, updatedBrand.Name);
+    }
+
+    [Fact]
+    public async Task Should_Patch_Brand_Return_Updated_Brand_Async()
+    {
+        var client = new BrandService.BrandServiceClient(Channel);
+
+        var brandNameToUpdate = "xxx8";
+
+        var createdBrand = await client.UpdateBrandAsync(new BrandDto
+        {
+
+            Name = "xxx7",
+            Image = "/var/lib/files/data/xxx7.jpg",
+            RealmId = Fixture.GuidGenerator?.Create().ToString(),
+            Status = EnumCatalogStatus.ACTIVE.To<int>(),
+        }).ResponseAsync;
+
+        createdBrand.Name = brandNameToUpdate;
+
+        var patchedBrand = await client.PatchBrandAsync(new UpdateBrandRequestDto {
+            FieldToUpdate = FieldMask.FromString("name"),
+            Brand = createdBrand
+        }).ResponseAsync;
+        
+        Assert.Equal(brandNameToUpdate, patchedBrand.Name);
     }
 }
