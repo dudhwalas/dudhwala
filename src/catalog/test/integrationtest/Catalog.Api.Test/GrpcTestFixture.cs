@@ -60,7 +60,7 @@ namespace Catalog.Api.Test
                 builder.Host.UseAutofac();
                 builder.WebHost.UseTestServer();
                 builder.Services.AddSingleton<ILoggerFactory>(LoggerFactory);
-                builder.Services.AddSingleton<IDataSeedContributor, BrandDataSeedContributor>();
+                builder.Services.AddSingleton<IDataSeedContributor, CatalogDataSeedContributor>();
                 _configureWebHost?.Invoke(builder.WebHost);
                 await builder.AddApplicationAsync<CatalogApiModule>();
                 var app = builder.Build();

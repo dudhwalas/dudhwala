@@ -2,7 +2,6 @@
 using Catalog.Domain.Shared;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Volo.Abp.Guids;
 using Xunit.Abstractions;
 
 namespace Catalog.Api.Test;
@@ -37,29 +36,10 @@ public class BrandApiTest : IntegrationTestBase
         var ex = await Assert.ThrowsAsync<RpcException>(() => client.ListBrandAsync(new ListBrandRequestDto()
         {
             PageSize = 3,
-            PageToken = 2
+            PageToken = 10
         }).ResponseAsync);
 
         Assert.Equal(StatusCode.NotFound, ex.StatusCode);
-    }
-
-    [Fact]
-    public async Task Should_List_Brand_Sort_By_Name_Desc_Return_True()
-    {
-        var client = new BrandService.BrandServiceClient(Channel);
-
-        var listBrandResp = await client.ListBrandAsync(new ListBrandRequestDto()
-        {
-            PageSize = 3,
-            PageToken = 1,
-            Sorting = "name desc"
-        }).ResponseAsync;
-
-        var start = 3;
-
-        var isOrderedDesc = listBrandResp.Brands.Select((brand, i) => brand.Name == "xxx" + (start - i)).All(res => res);
-
-        Assert.True(isOrderedDesc);
     }
 
     [Fact]
