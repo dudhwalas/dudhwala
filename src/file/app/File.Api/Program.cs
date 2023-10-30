@@ -1,5 +1,5 @@
-﻿using File.Api.Services;
-using Google.Api;
+﻿using System.Xml.XPath;
+using File.Api.Services;
 using Microsoft.OpenApi.Models;
 
 namespace File.Api;
@@ -14,7 +14,8 @@ public class Program
         // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
 
         // Add services to the container.
-        builder.Services.AddGrpc((opt) => {
+        builder.Services.AddGrpc((opt) =>
+        {
             opt.EnableDetailedErrors = true;
         }).AddJsonTranscoding();
 
@@ -26,10 +27,22 @@ public class Program
         });
 
         var app = builder.Build();
-        app.UseSwagger();
+        app.UseSwagger(c =>
+        {
+            //c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+            //{
+            //    OpenApiPaths paths = new OpenApiPaths();
+            //    foreach (var path in swaggerDoc.Paths)
+            //    {
+            //        Console.WriteLine($"Path {path.Key}:{path.Value} Base path : {httpReq.Path}" );
+            //        paths.Add(string.IsNullOrWhiteSpace(httpReq.PathBase) ? path.Key : $"/{httpReq.PathBase}{path.Key}", path.Value);
+            //    }
+            //    swaggerDoc.Paths = paths;
+            //});
+        });
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "File API V1");
+            c.SwaggerEndpoint("v1/swagger.json", "File API V1");
         });
         // Configure the HTTP request pipeline.
         app.MapGrpcService<FileService>();

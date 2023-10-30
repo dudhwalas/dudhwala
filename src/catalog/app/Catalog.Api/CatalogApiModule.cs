@@ -14,11 +14,12 @@ namespace Catalog.Api
         typeof(AbpAutofacModule),
         typeof(CatalogDatabaseModule),
         typeof(CatalogApplicationModule))]
-	public class CatalogApiModule : AbpModule
-	{
+    public class CatalogApiModule : AbpModule
+    {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddGrpc((opt) => {
+            context.Services.AddGrpc((opt) =>
+            {
                 opt.EnableDetailedErrors = true;
                 opt.Interceptors.Add<GrpcGlobalExceptionHandlerInterceptor>();
             }).AddJsonTranscoding();
@@ -40,10 +41,21 @@ namespace Catalog.Api
         {
             var app = context.GetApplicationBuilder();
             app.UseRouting();
-            app.UseSwagger();
+            app.UseSwagger(c =>
+            {
+                //c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+                //{
+                //    OpenApiPaths paths = new OpenApiPaths();
+                //    foreach (var path in swaggerDoc.Paths)
+                //    {
+                //        paths.Add(path.Key, path.Value);
+                //    }
+                //    swaggerDoc.Paths = paths;
+                //});
+            });
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalog API V1");
+                c.SwaggerEndpoint("v1/swagger.json", "Catalog API V1");
             });
             app.UseConfiguredEndpoints(endpoints =>
             {
