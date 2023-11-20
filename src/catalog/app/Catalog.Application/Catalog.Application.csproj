@@ -1,16 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Application" Version="7.4.0" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.58.0" />
-    <PackageReference Include="Volo.Abp.AutoMapper" Version="7.4.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="7.0.13" />
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="7.4.2" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.59.0" />
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="7.4.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Catalog.Domain\Catalog.Domain.csproj" />
