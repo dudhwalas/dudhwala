@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1704.2
@@ -31,13 +31,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "file", "file", "{961D8C37-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{623786DC-0339-49A4-B150-8B63C7FBB71A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F96A294F-CA90-42FC-87C0-4DB65BDC3EEA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "File.Api", "file\app\File.Api\File.Api.csproj", "{56AEFC47-F2BB-4FFA-9EBB-8B1655DD7084}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Application.Test", "catalog\test\unittest\Catalog.Application.Test\Catalog.Application.Test.csproj", "{F63ADE7D-FA5D-405D-8BBF-30C8948F3D48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Api.Test", "catalog\test\integrationtest\Catalog.Api.Test\Catalog.Api.Test.csproj", "{AF0FF00C-6B3A-43C8-AE05-4D82E9557AC7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proxy", "proxy", "{BF9ADCB4-4BF1-44DD-BB94-DA846AB853F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{E32C3D86-FFE0-463F-A65B-1C0AF90C8381}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "yarp.proxy", "proxy\app\yarp.proxy\yarp.proxy.csproj", "{3D169B7A-EE96-43D3-98C9-A824FE8096A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,12 +89,13 @@ Global
 		{AF0FF00C-6B3A-43C8-AE05-4D82E9557AC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF0FF00C-6B3A-43C8-AE05-4D82E9557AC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF0FF00C-6B3A-43C8-AE05-4D82E9557AC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D169B7A-EE96-43D3-98C9-A824FE8096A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D169B7A-EE96-43D3-98C9-A824FE8096A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D169B7A-EE96-43D3-98C9-A824FE8096A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D169B7A-EE96-43D3-98C9-A824FE8096A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7E669695-C354-41F4-B9D8-DDA32E55750F}
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B09C3D8B-6F5C-4485-948F-5F52D0042A1A} = {4673C84A-D949-43FB-9AE2-FD6F49AE6444}
@@ -105,9 +110,13 @@ Global
 		{D8B6C609-0EFC-4BA7-B6A9-FF56DE4CC9D6} = {9711FD66-C0C7-4F46-9A7D-C3C930E11DB8}
 		{0D6494B4-CEB0-496A-B9FB-393646330479} = {8CF224D6-94FA-431C-A29E-7E95500320C6}
 		{623786DC-0339-49A4-B150-8B63C7FBB71A} = {961D8C37-79BC-4B43-8BB9-157E5D5E7DCD}
-		{F96A294F-CA90-42FC-87C0-4DB65BDC3EEA} = {961D8C37-79BC-4B43-8BB9-157E5D5E7DCD}
 		{56AEFC47-F2BB-4FFA-9EBB-8B1655DD7084} = {623786DC-0339-49A4-B150-8B63C7FBB71A}
 		{F63ADE7D-FA5D-405D-8BBF-30C8948F3D48} = {9711FD66-C0C7-4F46-9A7D-C3C930E11DB8}
 		{AF0FF00C-6B3A-43C8-AE05-4D82E9557AC7} = {0D6494B4-CEB0-496A-B9FB-393646330479}
+		{E32C3D86-FFE0-463F-A65B-1C0AF90C8381} = {BF9ADCB4-4BF1-44DD-BB94-DA846AB853F8}
+		{3D169B7A-EE96-43D3-98C9-A824FE8096A7} = {E32C3D86-FFE0-463F-A65B-1C0AF90C8381}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E669695-C354-41F4-B9D8-DDA32E55750F}
 	EndGlobalSection
 EndGlobal

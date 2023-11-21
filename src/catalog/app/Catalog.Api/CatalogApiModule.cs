@@ -18,6 +18,7 @@ namespace Catalog.Api
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
+            context.Services.AddCors();
             context.Services.AddGrpc((opt) =>
             {
                 opt.EnableDetailedErrors = true;
@@ -26,8 +27,7 @@ namespace Catalog.Api
             context.Services.AddGrpcSwagger();
             context.Services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1",
-                    new OpenApiInfo { Title = "Catalog API", Version = "V1" });
+                c.SwaggerDoc("v1",new OpenApiInfo { Title = "Catalog API", Version = "V1" });
             });
 
             Configure<AbpExceptionHandlingOptions>(options =>
@@ -40,19 +40,9 @@ namespace Catalog.Api
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseRouting();
-            app.UseSwagger(c =>
-            {
-                //c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
-                //{
-                //    OpenApiPaths paths = new OpenApiPaths();
-                //    foreach (var path in swaggerDoc.Paths)
-                //    {
-                //        paths.Add(path.Key, path.Value);
-                //    }
-                //    swaggerDoc.Paths = paths;
-                //});
-            });
+            app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("v1/swagger.json", "Catalog API V1");

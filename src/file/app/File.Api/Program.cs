@@ -9,7 +9,7 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
+        builder.Services.AddCors();
         // Additional configuration is required to successfully run gRPC on macOS.
         // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
 
@@ -22,24 +22,12 @@ public class Program
         builder.Services.AddGrpcSwagger();
         builder.Services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1",
-                new OpenApiInfo { Title = "File API", Version = "V1" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "File API", Version = "V1" });
         });
 
         var app = builder.Build();
-        app.UseSwagger(c =>
-        {
-            //c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
-            //{
-            //    OpenApiPaths paths = new OpenApiPaths();
-            //    foreach (var path in swaggerDoc.Paths)
-            //    {
-            //        Console.WriteLine($"Path {path.Key}:{path.Value} Base path : {httpReq.Path}" );
-            //        paths.Add(string.IsNullOrWhiteSpace(httpReq.PathBase) ? path.Key : $"/{httpReq.PathBase}{path.Key}", path.Value);
-            //    }
-            //    swaggerDoc.Paths = paths;
-            //});
-        });
+        app.UseCors(opt=>opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+        app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
             c.SwaggerEndpoint("v1/swagger.json", "File API V1");
