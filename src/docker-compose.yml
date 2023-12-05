@@ -123,6 +123,25 @@ services:
             driver: fluentd
             options:
                 tag: application.file
+
+    proxy:
+        build:
+            context: .
+            dockerfile: ./proxy/app/yarp.proxy/Dockerfile
+        image: proxy:1.1
+        container_name: proxy
+        ports:
+            - 80:8080
+        depends_on:
+            - fluent-bit
+            - catalog.api
+            - file.api
+        volumes:
+            - file_data:/var/lib/files/data
+        logging:
+            driver: fluentd
+            options:
+                tag: application.proxy            
                             
 volumes:
   postgres_data:
