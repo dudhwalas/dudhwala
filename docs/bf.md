@@ -109,7 +109,7 @@ Provides user federation, strong authentication, user management, fine-grained a
 |<sub>Role</sub>╲<sup>Feature</sup>|Tenant (Realm)|Role|Scope|Policy & Permission|User|Product|Customer|Delivery Squad|Subscription|Delivery|Invoice|Payment|
 |:--|:--|:-|:-|:-|:-|:-|:-|:-|:-|:-|:-|:-|
 |**Super Admin**|read-write|read-write|read-write|read-write|read-write|read-write|read-write|read-write|read-write|read-write|read-write|read-write|
+|**Admin**|-|-|-|-|-|read-write|read-write|read-write|read-write|read-write|read-write|read-write|
 |**Owner**|-|-|-|-|-|read-write|read-write|read-write|read-write|read-write|read-write|read-write|
-|**Customer**|-|-|-|-|-|-|-|-|-|-|-|-|
 |**Delivery Squad**|-|-|-|-|-|-|read|read|read|read-write|read|read-write|
-|**Administrator**|-|-|-|-|-|read-write|read-write|read-write|read-write|read-write|read-write|read-write|
+|**Customer**|-|-|-|-|-|-|-|-|-|-|-|-|
