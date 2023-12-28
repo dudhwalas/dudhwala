@@ -9,27 +9,27 @@ package product;
 service ProductService {
 	rpc ListProduct(ListProductRequestDto) returns (ListProductResponseDto) {
 		option (google.api.http) = {
-            get: "/v1/Product"
+            get: "/v1/product"
         };
 	};
 
 	rpc GetProduct(GetProductRequestDto) returns (ProductDto) {
 		option (google.api.http) = {
-            get: "/v1/Product/{id}"
+            get: "/v1/product/{id}"
         };
 	};
 
 	rpc UpdateProduct(ProductDto) returns (ProductDto) {
 		option (google.api.http) = {
-            put: "/v1/Product",
+            put: "/v1/product",
 			body: "*"
         };
 	};
 
 	rpc PatchProduct(UpdateProductRequestDto) returns (ProductDto) {
 		option (google.api.http) = {
-            patch: "/v1/Product"
-			body: "Product"
+            patch: "/v1/product"
+			body: "product"
         };
 	};
 }
@@ -55,12 +55,12 @@ message ProductDto {
 }
 
 message ListProductResponseDto {
-	repeated ProductDto Products = 1;
+	repeated ProductDto products = 1;
 	int32 next_page_token = 2;
 	int64 total_size = 3;
 }
 
 message UpdateProductRequestDto {
-	ProductDto Product = 1;
+	ProductDto product = 1;
 	google.protobuf.FieldMask field_to_update = 2;
 }
