@@ -80,6 +80,7 @@ services:
             - KC_DB_PASSWORD=appadmin!@#$%
             - KC_HEALTH_ENABLED=true
             - KC_METRICS_ENABLED=true
+            - KC_PROXY=edge
         command: start-dev --log=console  
         depends_on:
             - postgres
@@ -136,6 +137,7 @@ services:
             - fluent-bit
             - catalog.api
             - file.api
+            - keycloak
         volumes:
             - file_data:/var/lib/files/data
         logging:
