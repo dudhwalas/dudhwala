@@ -81,6 +81,7 @@ services:
             - KC_HEALTH_ENABLED=true
             - KC_METRICS_ENABLED=true
             - KC_PROXY=edge
+            - KC_HTTP_RELATIVE_PATH=/idp
         command: start-dev --log=console  
         depends_on:
             - postgres
