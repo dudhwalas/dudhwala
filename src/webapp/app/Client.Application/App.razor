@@ -1,5 +1,6 @@
 ﻿<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
+        @* http://localhost/idp/realms/xxx/protocol/openid-connect/auth?response_type=code&client_id=xxx-client-app&scope=openid&redirect_uri=http://localhost:80/ *@
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
