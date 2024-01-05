@@ -126,6 +126,21 @@ services:
             options:
                 tag: application.file
 
+    client.app:
+        build:
+            context: .
+            dockerfile: ./webapp/app/Client.Application/Dockerfile
+        image: client.app:1.1
+        container_name: client.app
+        ports:
+            - 5010:5126
+        depends_on:
+            - fluent-bit
+        logging:
+            driver: fluentd
+            options:
+                tag: application.client
+
     proxy:
         build:
             context: .
@@ -139,6 +154,7 @@ services:
             - catalog.api
             - file.api
             - keycloak
+            - client.app
         volumes:
             - file_data:/var/lib/files/data
         logging:
