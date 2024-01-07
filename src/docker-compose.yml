@@ -133,7 +133,7 @@ services:
         image: client.app:1.1
         container_name: client.app
         ports:
-            - 5010:5126
+            - 80:5126
         depends_on:
             - fluent-bit
         logging:
@@ -148,7 +148,7 @@ services:
         image: proxy:1.1
         container_name: proxy
         ports:
-            - 80:8080
+            - 8080:8080
         depends_on:
             - fluent-bit
             - catalog.api
