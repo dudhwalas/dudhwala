@@ -6,13 +6,13 @@
                 <div class="logo" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope">
                     <FluentAnchor Appearance="Appearance.Hypertext"
                         Href="https://dudhwalas.github.io/dudhwala" Target="_blank" Rel="noreferrer noopener"
-                        title="xxx" aria-label="xxx">
+                        title="@Constants.APP_NAME" aria-label="@Constants.APP_NAME">
                     <FluentIcon Value="@(Icon.FromImageUrl("/icon-transparent.png"))" Width="30px"  />
                     </FluentAnchor>
                 </div>
             </a>
             <FluentSpacer Width="10"></FluentSpacer>
-            <FluentLabel Typo="Typography.Header" >x x x</FluentLabel>
+            <FluentLabel Typo="Typography.Header" >@Constants.APP_NAME</FluentLabel>
             <FluentSpacer></FluentSpacer>
             <div class="profile">
                 <FluentButton BackgroundColor="var(--neutral-layer-4)" Title="Profile">
@@ -39,12 +39,12 @@
                 <small>
                     Version: 1.0.0
                     &nbsp;-&nbsp;
-                    <a href="https://dudhwalas.github.io/dudhwala">Powered by xxx</a>
+                    <a href="https://dudhwalas.github.io/dudhwala">Powered by @Constants.APP_NAME</a>
                 </small>
             </div>
             <FluentSpacer />
             <div class="copy">
-                <small>xxx © 2023. All rights reserved.</small>
+                <small>@Constants.APP_NAME © 2024. All rights reserved.</small>
             </div>
         </FluentFooter>
 
