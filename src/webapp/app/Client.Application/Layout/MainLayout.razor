@@ -1,18 +1,24 @@
 ﻿@inherits LayoutComponentBase
 <div>
     <FluentLayout>
-        <FluentHeader Class="siteheader">
+        <FluentHeader Class="siteheader" Appearance="Appearance.Accent">
             <a href="/">
                 <div class="logo" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope">
                     <FluentAnchor Appearance="Appearance.Hypertext"
                         Href="https://dudhwalas.github.io/dudhwala" Target="_blank" Rel="noreferrer noopener"
                         title="xxx" aria-label="xxx">
-                    <FluentEmoji Value="@(new Emojis.FoodDrink.Flat.Default.GlassOfMilk())" Width="30px"  />
+                    <FluentIcon Value="@(Icon.FromImageUrl("/icon-transparent.png"))" Width="30px"  />
                     </FluentAnchor>
                 </div>
             </a>
             <FluentSpacer Width="10"></FluentSpacer>
-            <FluentLabel Typo="Typography.Header" >xxx</FluentLabel>
+            <FluentLabel Typo="Typography.Header" >x x x</FluentLabel>
+            <FluentSpacer></FluentSpacer>
+            <div class="profile">
+                <FluentButton BackgroundColor="var(--neutral-layer-4)" Title="Profile">
+                    <FluentIcon Value="@(new Icons.Filled.Size20.PersonAccounts())" Title="Profile" />
+                </FluentButton>
+            </div>
         </FluentHeader>
 
         <FluentStack Class="body-stack" Orientation="Orientation.Horizontal" Width="100%" HorizontalGap="0">

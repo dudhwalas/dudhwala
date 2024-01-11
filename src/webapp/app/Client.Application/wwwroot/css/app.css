@@ -23,11 +23,6 @@ body {
         align-items: center;
     }
 
-    .siteheader .notifications {
-        display: flex;
-        align-items: center;
-    }
-
     .siteheader .settings {
         padding-right: 6px;
         display: flex;
@@ -36,6 +31,10 @@ body {
 
 [dir="rtl"] .siteheader .settings {
     padding: 0 0 0 6px;
+}
+
+[dir="rtl"] .siteheader .profile {
+    padding: 0 0 0 20px;
 }
 
 [dir="rtl"] .siteheader .links {
@@ -112,7 +111,6 @@ nav fluent-anchor {
 
 .content {
     display: flex;
-    background-color: var(--neutral-layer-1);
 }
 
 article {
@@ -248,6 +246,10 @@ code {
     }
 
 @media (max-width: 767px) {
+
+    .siteheader .profile {
+        padding-right: 20px;
+    }
 
     .siteheader {
         grid-area: header;
