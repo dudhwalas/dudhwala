@@ -6,7 +6,7 @@ body {
 }
 
 .siteheader {
-    background-color: var(--neutral-layer-3) !important;
+    background-color: var(--neutral-layer-4) !important;
     border-bottom: calc(var(--stroke-width) * 2px) solid var(--accent-fill-rest);
     margin-bottom: 0 !important;
 }
@@ -392,7 +392,7 @@ code {
         align-items: center;
         justify-content: flex-start;
         padding: 12px 0;
-        background-color: var(--neutral-layer-3);
+        background-color: var(--neutral-layer-4);
     }
 
         .siteheader a {
