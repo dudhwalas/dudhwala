@@ -1,16 +1,29 @@
 ﻿<FluentDesignTheme Mode="DesignThemeModes.System" OfficeColor="OfficeColor.PowerPoint" StorageName="theme"/>
-<FluentDesignSystemProvider NeutralBaseColor="#747474" >
-<Router AppAssembly="@typeof(App).Assembly">
-    <Found Context="routeData">
-        @* http://localhost/idp/realms/xxx/protocol/openid-connect/auth?response_type=code&client_id=xxx-client-app&scope=openid&redirect_uri=http://localhost:80/ *@
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+<FluentDesignSystemProvider NeutralBaseColor="#747474">
+    <CascadingAuthenticationState>
+        <Router AppAssembly="@typeof(App).Assembly">
+            <Found Context="routeData">
+                @* http://localhost:8080/idp/realms/xxx/protocol/openid-connect/auth?response_type=code&client_id=xxx-client-app&scope=openid&redirect_uri=http://localhost:80/ *@
+                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                    <NotAuthorized>
+                    @if (context.User.Identity?.IsAuthenticated != true)
+                    {
+                        <RedirectToLogin />
+                    }
+                    else
+                    {
+                        <p role="alert">You are not authorized to access this resource.</p>
+                    }
+                    </NotAuthorized>
+                </AuthorizeRouteView>
+                <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+            </Found>
+            <NotFound>
+                <PageTitle>Not found</PageTitle>
+                <LayoutView Layout="@typeof(MainLayout)">
+                    <p role="alert">Sorry, there's nothing at this address.</p>
+                </LayoutView>
+            </NotFound>
+        </Router>
+    </CascadingAuthenticationState>
 </FluentDesignSystemProvider>
