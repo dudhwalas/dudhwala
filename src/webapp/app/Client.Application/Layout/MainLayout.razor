@@ -1,24 +1,36 @@
-﻿@inherits LayoutComponentBase
+﻿@inject NavigationManager Navigation
+
+@inherits LayoutComponentBase
 <div>
     <FluentLayout>
-        <LoginDisplay />
         <FluentHeader Class="siteheader" Appearance="Appearance.Accent">
             <a href="/">
                 <div class="logo" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope">
-                    <FluentAnchor Appearance="Appearance.Hypertext"
-                        Href="https://dudhwalas.github.io/dudhwala" Target="_blank" Rel="noreferrer noopener"
-                        title="@Constants.APP_NAME" aria-label="@Constants.APP_NAME">
-                    <FluentIcon Value="@(Icon.FromImageUrl("/icon-transparent.png"))" Width="30px"  />
+                    <FluentAnchor Appearance="Appearance.Hypertext" Href="https://dudhwalas.github.io/dudhwala"
+                        Target="_blank" Rel="noreferrer noopener" title="@Constants.APP_NAME"
+                        aria-label="@Constants.APP_NAME">
+                        <FluentIcon Value="@(Icon.FromImageUrl("/icon-transparent.png"))" Width="30px" />
                     </FluentAnchor>
                 </div>
             </a>
             <FluentSpacer Width="10"></FluentSpacer>
-            <FluentLabel Typo="Typography.Header" >@Constants.APP_NAME</FluentLabel>
+            <FluentLabel Typo="Typography.Header">@Constants.APP_NAME</FluentLabel>
             <FluentSpacer></FluentSpacer>
             <div class="profile">
-                <FluentButton BackgroundColor="var(--neutral-layer-4)" Title="Profile">
-                    <FluentIcon Value="@(new Icons.Filled.Size20.PersonAccounts())" Title="Profile" />
-                </FluentButton>
+                <AuthorizeView>
+                    <Authorized>
+                        <FluentButton BackgroundColor="var(--neutral-layer-4)"  @onclick="BeginLogOut" Title="Profile">
+                            @* <FluentIcon Value="@(new Icons.Filled.Size20.PersonAccounts())" Title="Profile" /> *@
+                            <FluentEmoji Value="@(new Emojis.PeopleBody.Flat.Default.Person())" />
+                            
+                        </FluentButton>
+                    </Authorized>
+                    <NotAuthorized>
+                        <FluentButton BackgroundColor="var(--neutral-layer-4)" Title="Login" @onclick="BeginLogIn" >
+                            <FluentEmoji Value="@(new Emojis.Objects.Color.Default.Locked())" />
+                        </FluentButton>
+                    </NotAuthorized>
+                </AuthorizeView>
             </div>
         </FluentHeader>
 
@@ -49,3 +61,13 @@
 
     </FluentLayout>
 </div>
+@code{
+    private void BeginLogOut()
+    {
+        Navigation.NavigateToLogout("authentication/logout");
+    }
+    private void BeginLogIn()
+    {
+        Navigation.NavigateToLogout("authentication/login");
+    }
+}
