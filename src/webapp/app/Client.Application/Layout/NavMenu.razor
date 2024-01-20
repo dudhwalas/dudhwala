@@ -3,8 +3,8 @@
     <label for="navmenu-toggle" class="navmenu-icon"><FluentIcon Value="@(new Icons.Regular.Size20.Navigation())" Color="Color.Neutral" /></label>
     <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click()">
         <FluentNavMenu Id="main-menu" Title="Main menu">
-            <FluentNavLink Icon="@(new Icons.Regular.Size20.Home())" Href="/" Match="NavLinkMatch.All">
-                <h3>Home</h3>
+            <FluentNavLink Href="/" Match="NavLinkMatch.All">
+                <FluentEmoji Value="@(new Emojis.PeopleBody.Flat.Light.ManOfficeWorker())"></FluentEmoji><div>Customer</div>
             </FluentNavLink>
         </FluentNavMenu>
     </nav>
