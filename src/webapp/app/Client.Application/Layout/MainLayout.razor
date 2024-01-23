@@ -19,9 +19,22 @@
             <div class="profile">
                 <AuthorizeView>
                     <Authorized>
-                        <FluentButton BackgroundColor="var(--neutral-layer-4)"  @onclick="BeginLogOut" Title="Profile">
-                            <FluentEmoji Value="@(new Emojis.AnimalsNature.Flat.Default.Lion())" Width="35px" />
+                        <FluentButton id="btnOpenProfile" BackgroundColor="var(--neutral-layer-4)"  @onclick="() => _visibleL = !_visibleL" Title="Profile">
+                            <FluentPersona Name="@(context?.User?.Identity?.Name ?? "")"
+                                ImageSize="40px">
+                            </FluentPersona>
                         </FluentButton>
+                        
+                        <FluentMenu Anchor="btnOpenProfile" @bind-Open="_visibleL">
+                            <FluentMenuItem OnClick="@((e) => BeginLogOut())" >
+                                <span slot="start">
+                                    <FluentEmoji Value="@(new Emojis.Objects.Flat.Default.Locked())" Slot="start"/>
+                                </span>
+                                <FluentSpacer Width="5"></FluentSpacer>
+                                Logout
+                            </FluentMenuItem>
+                        </FluentMenu>
+
                     </Authorized>
                     <NotAuthorized>
                         <FluentButton BackgroundColor="var(--neutral-layer-4)" Title="Login" @onclick="BeginLogIn" >
@@ -33,7 +46,11 @@
         </FluentHeader>
 
         <FluentStack Class="body-stack" Orientation="Orientation.Horizontal" Width="100%" HorizontalGap="0">
-            <NavMenu />
+            <AuthorizeView>
+                <Authorized>
+                    <NavMenu />
+                </Authorized>
+            </AuthorizeView>
             <FluentBodyContent id="body-content" Style="height: calc(100dvh - 90px);">
                 <div class="content">
                     @Body
@@ -60,6 +77,8 @@
     </FluentLayout>
 </div>
 @code{
+    bool _visibleL;
+   
     private void BeginLogOut()
     {
         Navigation.NavigateToLogout("authentication/logout");

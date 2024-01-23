@@ -4,7 +4,16 @@
     <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click()">
         <FluentNavMenu Id="main-menu" Title="Main menu">
             <FluentNavLink Href="/" Match="NavLinkMatch.All">
-                <FluentEmoji Value="@(new Emojis.PeopleBody.Flat.Light.ManOfficeWorker())"></FluentEmoji><div>Customer</div>
+                <FluentStack VerticalAlignment="VerticalAlignment.Center">
+                    <FluentEmoji Value="@(new Emojis.Objects.Color.Default.ShoppingBags())"/>
+                        Catalog
+                </FluentStack>
+            </FluentNavLink>
+            <FluentNavLink Href="/" Match="NavLinkMatch.All">
+                <FluentStack VerticalAlignment="VerticalAlignment.Center">
+                    <FluentEmoji Value="@(new Emojis.PeopleBody.Flat.Light.ManOfficeWorker())"/>
+                        Delivery Squad
+                </FluentStack>
             </FluentNavLink>
         </FluentNavMenu>
     </nav>
