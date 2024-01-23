@@ -20,7 +20,8 @@
                 <AuthorizeView>
                     <Authorized>
                         <FluentButton id="btnOpenProfile" BackgroundColor="var(--neutral-layer-4)"  @onclick="() => _visibleL = !_visibleL" Title="Profile">
-                            <FluentPersona Name="@(context?.User?.Identity?.Name ?? "")"
+                            <FluentPersona 
+                                Name="@(context?.User?.Identity?.Name ?? "")"
                                 ImageSize="40px">
                             </FluentPersona>
                         </FluentButton>
