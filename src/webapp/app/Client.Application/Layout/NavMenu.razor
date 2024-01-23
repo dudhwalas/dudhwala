@@ -3,16 +3,16 @@
     <label for="navmenu-toggle" class="navmenu-icon"><FluentIcon Value="@(new Icons.Regular.Size20.Navigation())" Color="Color.Neutral" /></label>
     <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click()">
         <FluentNavMenu Id="main-menu" Title="Main menu">
-            <FluentNavLink Href="/" Match="NavLinkMatch.All">
+            <FluentNavLink Href="/catalog" Match="NavLinkMatch.All">
                 <FluentStack VerticalAlignment="VerticalAlignment.Center">
-                    <FluentEmoji Value="@(new Emojis.Objects.Color.Default.ShoppingBags())"/>
-                        Catalog
+                    <FluentEmoji Value="@Constants.EMOJI_CATALOG"/>
+                        @Constants.MODULE_CATALOG
                 </FluentStack>
             </FluentNavLink>
-            <FluentNavLink Href="/" Match="NavLinkMatch.All">
+            <FluentNavLink Href="/deliverysquad" Match="NavLinkMatch.All">
                 <FluentStack VerticalAlignment="VerticalAlignment.Center">
-                    <FluentEmoji Value="@(new Emojis.PeopleBody.Flat.Light.ManOfficeWorker())"/>
-                        Delivery Squad
+                    <FluentEmoji Value="@Constants.EMOJI_DELIVERY_SQUAD"/>
+                        @Constants.MODULE_DELIVERY_SQUAD
                 </FluentStack>
             </FluentNavLink>
         </FluentNavMenu>
