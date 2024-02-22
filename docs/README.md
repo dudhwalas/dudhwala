@@ -6,3 +6,5 @@ Install docsify
 `cd docs`
 
 `sh startup.sh`
+
+[![pages-build-deployment](https://github.com/dudhwalas/dudhwala/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/dudhwalas/dudhwala/actions/workflows/pages/pages-build-deployment)
